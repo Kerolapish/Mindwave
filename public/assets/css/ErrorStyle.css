@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+*{
+    background: #fcfbfb;
+    font-family: sans-serif, 'lato';
+}
+
+.topText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    text-align: center;
+}
+
+.topText h1 {
+    font-size: 10em;
+    margin: 0;
+}
+
+.topText p {
+    font-size: 2em;
+    margin: 0;
+}
+
+.digit {
+    letter-spacing: -0.2em;
+    color: #eb621c;
+}
+
+.topText .message{
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.topText a {
+    color: #ea3c27;
+    text-decoration: none;
+}
+
+

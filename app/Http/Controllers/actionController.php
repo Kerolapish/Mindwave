@@ -16,8 +16,15 @@ class actionController extends Controller{
         return view('/admin/registerPage');
     }
 
+    //function to direct user to unauthorize page
+    public function unathorizeError(){
+        return view('/error/unauthorize');
+    }
+
     // function to direct user to admin dashboard
     public function dashboard(){
         return view('/admin/dashboard');
     }
+
+    
 }

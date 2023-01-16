@@ -31,5 +31,11 @@ Route::post('registration', [authController::class, 'registration'])->name('regi
 //Authentication route - Login
 Route::post('login', [authController::class, 'login'])->name('login.auth'); 
 
-//Route to direct user to admin dashboard
-Route::get('admin/dashboard' , [actionController::class , 'dashboard']) -> name('dashboard');
+//Unauthorize 401 Page
+Route::get('/unauthorize' , [actionController::class, 'unathorizeError']) -> name('unauthorize');
+
+//protect route - only authorize user able to access 
+Route::middleware(['admin'])->group(function () {
+    //Route to direct user to admin dashboard
+    Route::get('admin/dashboard' , [actionController::class , 'dashboard']) -> name('dashboard');
+});
