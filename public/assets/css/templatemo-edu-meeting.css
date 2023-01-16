@@ -196,7 +196,7 @@ body {
   font-size: 22px;
   font-weight: 700;
   text-transform: uppercase;
-  color: #000;
+  color: #fff;
 }
 
 
@@ -300,6 +300,7 @@ header
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  width: 45%;
 }
 
 .background-header .main-nav .logo {

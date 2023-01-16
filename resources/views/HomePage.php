@@ -8,29 +8,20 @@
     <meta name="description" content="">
     <meta name="author" content="TemplateMo">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-
+    <link rel="icon" href="assets/images/mindwave-ico.png">
     <title>Mindwave Consultancy</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-edu-meeting.css">
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/lightbox.css">
-<!--
-
-TemplateMo 569 Edu Meeting
-
-https://templatemo.com/tm-569-edu-meeting
-
--->
   </head>
 
 <body> 
-  <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
       <div class="container">
           <div class="row">
@@ -38,14 +29,14 @@ https://templatemo.com/tm-569-edu-meeting
                   <nav class="main-nav">
                       <!-- ***** Logo Start ***** -->
                       <a href="index.html" class="logo">
-                          MINDWAVE CONSULTANCY
+                          <img src="assets/images/mindwave-logo.png" alt="mindwave logo" class="logo">
                       </a>
                       <!-- ***** Logo End ***** -->
                       <!-- ***** Menu Start ***** -->
                       <ul class="nav">
                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                           <li><a href="meetings.html">SERVICES</a></li>
-                          <li class="scroll-to-section"><a href="#apply">PORTFOLIO</a></li>
+                          <li class="scroll-to-section"><a href="#portfolio">PORTFOLIO</a></li>
                           <li class="scroll-to-section"><a href="#courses">TEAM</a></li> 
                           <li class="scroll-to-section"><a href="#contact">CONTACT</a></li> 
                           <li class="scroll-to-section"><a href="#contact">SUPPORT</a></li> 
@@ -154,10 +145,10 @@ https://templatemo.com/tm-569-edu-meeting
     </div>
   </section>
 
-  <section class="upcoming-meetings" id="meetings">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
+  <section class="upcoming-meetings" >
+    <div class="container" id="portfolio">
+      <div class="row" >
+        <div class="col-lg-12" >
           <div class="section-heading">
             <h2>PORTFOLIO</h2>
           </div>
