@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('HomePage');
-});
+Route::get('/', [actionController::class, 'index']) -> name('index');
 
 //Route to direct user to application login page
 Route::get('/login' , [actionController::class, 'loginPage']) -> name('loginPage');
@@ -31,6 +29,9 @@ Route::post('registration', [authController::class, 'registration'])->name('regi
 //Authentication route - Login
 Route::post('login', [authController::class, 'login'])->name('login.auth'); 
 
+//Authentication route - Logout
+Route::post('logout', [authController::class, 'logout'])-> name('logout');
+
 //Unauthorize 401 Page
 Route::get('/unauthorize' , [actionController::class, 'unathorizeError']) -> name('unauthorize');
 
@@ -38,4 +39,6 @@ Route::get('/unauthorize' , [actionController::class, 'unathorizeError']) -> nam
 Route::middleware(['admin'])->group(function () {
     //Route to direct user to admin dashboard
     Route::get('admin/dashboard' , [actionController::class , 'dashboard']) -> name('dashboard');
+    Route::get('admin/branding' , [actionController::class , 'branding']) -> name('branding');
+    Route::post('admin/brading/update/siteName' , [actionController::class , 'updateSiteName']) -> name('updateSiteName');
 });

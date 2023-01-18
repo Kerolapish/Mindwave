@@ -59,4 +59,10 @@ class authController extends Controller{
       
       return redirect("login")->withErrors('Login details are not valid');
     }
+
+    //function to handle user authentication (logout)
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
+    }
 }
