@@ -52,10 +52,14 @@
                 <div id="message-float">
                     {{ session('success') }}
                 </div>
-            @elseif ($errors->has('siteName'))
-                <div id="message-float-error">
-                    {{ $errors->first('siteName') }}
-                </div>
+            @else
+                @foreach (['phone', 'address', 'email', 'url'] as $errorKey)
+                    @if ($errors->has($errorKey))
+                        <div id="message-float-error">
+                            {{ $errors->first($errorKey) }}
+                        </div>
+                    @endif
+                @endforeach
             @endif
 
             <!-- Content Header (Page header) -->
@@ -63,12 +67,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Branding</h1>
+                            <h1 class="m-0">Company information</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href=" {{ route('dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active">Branding</li>
+                                <li class="breadcrumb-item active">Company information</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -84,32 +88,23 @@
                         <div class="col-md-6">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
-                                    <h3 class="card-title">Browser tab icon (favicon)</h3>
+                                    <h3 class="card-title">Phone Number</h3>
                                 </div>
                                 <div class="card-body">
-                                    <p>Change favicon, size must be 32x32 in size and in .png or .ico format</p>
-                                    <p>Current favicon</p>
-                                    <img src="/assets/images/mindwave-ico.png" alt="favicon"
-                                        style="width: 32px; margin-bottom: 10px;">
-                                    <div class="form-group">
-                                        <br>
-                                        <label for="exampleInputFile">File input</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                                <label class="custom-file-label" for="exampleInputFile">Choose
-                                                    file</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Upload</span>
-                                            </div>
+                                    <p>Change company's phone number</p>
+                                    <form action=" {{ route('updatePhoneNumber') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="siteName">Current phone number</label>
+                                            <input type="text" class="form-control" name="phone"
+                                                value="{{ $infoData->phoneNum }}">
                                         </div>
-                                    </div>
                                 </div>
-                                <form>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                    </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
                                 </form>
                             </div>
                         </div>
@@ -117,17 +112,66 @@
                         <div class="col-md-6">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
-                                    <h3 class="card-title">Site Name</h3>
+                                    <h3 class="card-title">Email Address</h3>
                                 </div>
                                 <div class="card-body">
-                                    <p>Change site name appears as page title</p>
-                                    <form action=" {{ route('updateSiteName') }}" method="POST"
+                                    <p>Change company's email address</p>
+                                    <form action=" {{ route('updateEmail') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="siteName">Current site name</label>
-                                            <input type="text" class="form-control" name="siteName"
-                                                value="{{ $brandData->siteName }}">
+                                            <label for="siteName">Current email address</label>
+                                            <input type="email" class="form-control" name="email"
+                                                value="{{ $infoData->email }}">
+                                        </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">Website URL</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p>Change company's website URL</p>
+                                    <form action=" {{ route('updateWebsite') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="siteName">Current website URL</label>
+                                            <input type="text" class="form-control" name="url"
+                                                value="{{ $infoData->website }}">
+                                        </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-md-6">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">Street Address</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p>Change company's street address</p>
+                                    <form action=" {{ route('updateAddress') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="siteName">Current street address</label>
+                                            <textarea rows="3" type="text" class="form-control" name="address">{{ $infoData->address }}</textarea>
                                         </div>
                                 </div>
 
@@ -139,11 +183,6 @@
                         </div>
                     </div>
                     <!-- /.row -->
-                    <!-- Main row -->
-                    <div class="row">
-
-                    </div>
-                    <!-- /.row (main row) -->
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
@@ -200,7 +239,7 @@
             divError.addEventListener("click", function() {
                 divSuccess.style.display = "none";
             });
-            
+
             setTimeout(() => {
                 divError.classList.add('hide');
             }, 2000);

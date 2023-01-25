@@ -31,6 +31,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     <!--icon-->
     <link rel="icon" href="/assets/images/mindwave-ico.png">
+    <!--floating message-->
+    <link rel="stylesheet" href=" {{ asset('assets/css/floatMessage.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -43,24 +45,37 @@
         <!-- Main Sidebar Container -->
         @include('admin/layout/sidebar')
         <!-- /.Main Sidebar Container -->
-    
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            @if (session('success'))
+                <div id="message-float">
+                    {{ session('success') }}
+                </div>
+            @else
+                @foreach (['text', 'title'] as $errorKey)
+                    @if ($errors->has($errorKey))
+                        <div id="message-float-error">
+                            {{ $errors->first($errorKey) }}
+                        </div>
+                    @endif
+                @endforeach
+            @endif
+
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Quick Access</h1>
+                            <h1 class="m-0">Content</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Home</a></li>
-                                <li class="breadcrumb-item active">Quick Access</li>
+                                <li class="breadcrumb-item"><a href=" {{ route('dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item active">Content</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
-                    
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
@@ -70,76 +85,57 @@
                 <div class="container-fluid">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
-                        <div class="col-lg-4 col-6">
-                            <div class="card card-success card-outline">
-                                <div class="card-body">
-                                    <h3 class="profile-username text-center">Branding</h3>
-                                    <p class="text-muted text-center">Change logo, site name</p>
-                                  
-                                    <a href="{{ route('branding')}}" class="btn btn-success btn-block"><b>Update Brand</b></a>
+                        <div class="col-md-6">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">Top Title</h3>
                                 </div>
+                                <div class="card-body">
+                                    <p>Change page top title</p>
+                                    <form action=" {{ route('updateTopTitle') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="siteName">Current top title</label>
+                                            <input type="text" class="form-control" name="title"
+                                                value="{{ $contentData->topTitle }}">
+                                        </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                                </form>
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-4 col-6">
-                            <div class="card card-success card-outline">
-                                <div class="card-body">
-                                    <h3 class="profile-username text-center">Color Pallete zero</h3>
-                                    <p class="text-muted text-center">Change color pallete, theme</p>
-                                  
-                                    <a href="#" class="btn btn-success btn-block"><b>Update Color</b></a>
+                        <div class="col-md-6">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">Top Paragraph</h3>
                                 </div>
+                                <div class="card-body">
+                                    <p>Change top paragraph</p>
+                                    <form action=" {{ route('updateParagraph') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="siteName">Current top paragraph</label>
+                                            <textarea rows="3" type="text" class="form-control" name="text">{{ $contentData->paragraph }}</textarea>
+                                        </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                                </form>
                             </div>
                         </div>
-                        <!-- ./col -->
-                        <div class="col-lg-4 col-6">
-                            <div class="card card-success card-outline">
-                                <div class="card-body">
-                                    <h3 class="profile-username text-center">Information</h3>
-                                    <p class="text-muted text-center">Change company info</p>
-                                  
-                                    <a href="{{ route('information')}}" class="btn btn-success btn-block"><b>Update Info</b></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ./col -->
                     </div>
                     <!-- /.row -->
                     <!-- Main row -->
                     <div class="row">
-                        <div class="col-lg-4 col-6">
-                            <div class="card card-success card-outline">
-                                <div class="card-body">
-                                    <h3 class="profile-username text-center">Top Content</h3>
-                                    <p class="text-muted text-center">Change page top content, title</p>
-                                  
-                                    <a href="{{ route('content')}}" class="btn btn-success btn-block"><b>Update Content</b></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-4 col-6">
-                            <div class="card card-success card-outline">
-                                <div class="card-body">
-                                    <h3 class="profile-username text-center">Service</h3>
-                                    <p class="text-muted text-center">Change content on service section</p>
-                                  
-                                    <a href="{{ route('service')}}" class="btn btn-success btn-block"><b>Update Service Content</b></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-4 col-6">
-                            <div class="card card-success card-outline">
-                                <div class="card-body">
-                                    <h3 class="profile-username text-center">Information zero</h3>
-                                    <p class="text-muted text-center">Change company info</p>
-                                  
-                                    <a href="" class="btn btn-success btn-block"><b>Update Info</b></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ./col -->
+
                     </div>
                     <!-- /.row (main row) -->
                 </div><!-- /.container-fluid -->
@@ -190,6 +186,30 @@
     <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+    <script>
+        let divError = document.getElementById("message-float-error");
+        let divSuccess = document.getElementById("message-float");
+
+        if (divError) {
+            divError.addEventListener("click", function() {
+                divSuccess.style.display = "none";
+            });
+
+            setTimeout(() => {
+                divError.classList.add('hide');
+            }, 2000);
+        }
+
+        if (divSuccess) {
+            divSuccess.addEventListener("click", function() {
+                divSuccess.style.display = "none";
+            });
+
+            setTimeout(() => {
+                divSuccess.classList.add('hide');
+            }, 2000);
+        }
+    </script>
 </body>
 
 </html>

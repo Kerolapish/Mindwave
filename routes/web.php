@@ -41,4 +41,15 @@ Route::middleware(['admin'])->group(function () {
     Route::get('admin/dashboard' , [actionController::class , 'dashboard']) -> name('dashboard');
     Route::get('admin/branding' , [actionController::class , 'branding']) -> name('branding');
     Route::post('admin/brading/update/siteName' , [actionController::class , 'updateSiteName']) -> name('updateSiteName');
+    Route::get('admin/content' , [actionController::class , 'content']) -> name('content');
+    Route::post('admin/content/update/topTitle' , [actionController::class , 'updateTopTitle']) -> name('updateTopTitle');
+    Route::post('admin/content/update/paragraph' , [actionController::class , 'updateParagraph']) -> name('updateParagraph');
+    Route::get('admin/information' , [actionController::class , 'information']) -> name('information');
+    Route::post('admin/information/update/phoneNum' , [actionController::class , 'updatePhoneNumber']) -> name('updatePhoneNumber');
+    Route::post('admin/information/update/address' , [actionController::class , 'updateAddress']) -> name('updateAddress');
+    Route::post('admin/infomation/update/updateEmail' , [actionController::class , 'updateEmail']) -> name('updateEmail');
+    Route::post('admin/information/update/website' , [actionController::class , 'updateWebsite']) -> name('updateWebsite');
+    Route::get('admin/service' , [actionController::class , 'service']) -> name('service');
+    Route::post('admin/service/update/cardDetails/{id}' , [actionController::class , 'updateCardService']) -> name('updateCardService');
+    Route::get('admin/service/add/service' , [actionController::class , 'addNewCardService']) -> name('addNewCardService');
 });

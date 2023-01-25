@@ -33,6 +33,8 @@
     <link rel="icon" href="/assets/images/mindwave-ico.png">
     <!--floating message-->
     <link rel="stylesheet" href=" {{ asset('assets/css/floatMessage.css') }}">
+    <!--blur card -->
+    <link rel="stylesheet" href=" {{ asset('assets/css/blurCard.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -47,28 +49,33 @@
         <!-- /.Main Sidebar Container -->
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            @if (session('success'))
+        @if (session('success'))
                 <div id="message-float">
                     {{ session('success') }}
                 </div>
-            @elseif ($errors->has('siteName'))
-                <div id="message-float-error">
-                    {{ $errors->first('siteName') }}
-                </div>
+            @else
+                @foreach (['text', 'title'] as $errorKey)
+                    @if ($errors->has($errorKey))
+                        <div id="message-float-error">
+                            {{ $errors->first($errorKey) }}
+                        </div>
+                    @endif
+                @endforeach
             @endif
+        <div class="content-wrapper">
+            
 
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Branding</h1>
+                            <h1 class="m-0">Service</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href=" {{ route('dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active">Branding</li>
+                                <li class="breadcrumb-item active">Service</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -79,87 +86,60 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    <!-- Small boxes (Stat box) -->
-                    <div class="row">
-                        <div class="col-md-6">
+                    <!--for each data counted, new card will be generate-->
+                    @for ($i = 0; $i < count($serviceData); $i++)
+                        <!--new row will be created-->
+                        @if ($i % 3 === 0)
+                            <div class="row">
+                        @endif
+                        <div class="col-md-4">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
-                                    <h3 class="card-title">Browser tab icon (favicon)</h3>
+                                    <h3 class="card-title">Card #{{ $i + 1 }}</h3>
                                 </div>
                                 <div class="card-body">
-                                    <p>Change favicon, size must be 32x32 in size and in .png or .ico format</p>
-                                    <p>Current favicon</p>
-                                    <img src="/assets/images/mindwave-ico.png" alt="favicon"
-                                        style="width: 32px; margin-bottom: 10px;">
-                                    <div class="form-group">
-                                        <br>
-                                        <label for="exampleInputFile">File input</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                                <label class="custom-file-label" for="exampleInputFile">Choose
-                                                    file</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Upload</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <form>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-md-6">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Site Name</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Change site name appears as page title</p>
-                                    <form action=" {{ route('updateSiteName') }}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form action="{{ route('updateCardService', $serviceData[$i]->id) }}"
+                                        method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="siteName">Current site name</label>
-                                            <input type="text" class="form-control" name="siteName"
-                                                value="{{ $brandData->siteName }}">
+                                            <label for="siteName">Card Title</label>
+                                            <input type="text" class="form-control" name="title"
+                                                value="{{ $serviceData[$i]->title }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="siteName">Card Paragraph</label>
+                                            <textarea rows="3" type="text" class="form-control" name="paragraph">{{ $serviceData[$i]->desc }}</textarea>
                                         </div>
                                 </div>
-
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>
+                                    </form>
                                 </div>
-                                </form>
                             </div>
                         </div>
-                    </div>
-                    <!-- /.row -->
-                    <!-- Main row -->
-                    <div class="row">
-
-                    </div>
-                    <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
+                        @if (($i + 1) % 3 === 0 || $i === count($serviceData) - 1)
+                            </div>
+                        @endif
+                @endfor
         </div>
-        <!-- /.content-wrapper -->
+        </section>
 
-        <!--footer-->
-        @include('admin/layout/footer')
-        <!--/.footer-->
+    </div><!-- /.container-fluid -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    <!-- /.content -->
     </div>
+    <!-- /.content-wrapper -->
+
+    <!--footer-->
+    @include('admin/layout/footer')
+    <!--/.footer-->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
     <!-- ./wrapper -->
 
     <!-- jQuery -->
@@ -200,7 +180,7 @@
             divError.addEventListener("click", function() {
                 divSuccess.style.display = "none";
             });
-            
+
             setTimeout(() => {
                 divError.classList.add('hide');
             }, 2000);

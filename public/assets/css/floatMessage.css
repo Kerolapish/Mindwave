@@ -1,0 +1,36 @@
+#message-float {
+    background: #dcf3d6;
+    color: #61785b;
+    padding: 10px;
+    text-align: center;
+    position: absolute;
+    bottom: 85%;
+    width: 95%;
+    left: 5%;
+    z-index: 1;
+    animation: fadein 0.5s;
+    transition: opacity 2s;
+}
+
+#message-float-error {
+    background: #f3d6d6;
+    color: #785b5b;
+    padding: 10px;
+    text-align: center;
+    position: absolute;
+    bottom: 85%;
+    width: 95%;
+    left: 5%;
+    z-index: 1;
+    animation: fadein 0.5s;
+    transition: opacity 2s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.hide {
+    opacity: 0;
+}
