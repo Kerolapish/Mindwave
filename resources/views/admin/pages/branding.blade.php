@@ -84,32 +84,30 @@
                         <div class="col-md-6">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
-                                    <h3 class="card-title">Browser tab icon (favicon)</h3>
+                                    <h3 class="card-title">Update Picture</h3>
                                 </div>
                                 <div class="card-body">
-                                    <p>Change favicon, size must be 32x32 in size and in .png or .ico format</p>
-                                    <p>Current favicon</p>
-                                    <img src="/assets/images/mindwave-ico.png" alt="favicon"
-                                        style="width: 32px; margin-bottom: 10px;">
-                                    <div class="form-group">
-                                        <br>
-                                        <label for="exampleInputFile">File input</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile">
+                                    <p>Update Picture, size must be 32x32 and in .png or .ico format</p>
+                                    <form action="{{ route('updateImage') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="exampleInputFile">File Input</label>
+                                            <div class="input-group">
+                                                <input type="file" name="image" id="exampleInputFile"
+                                                    class="custom-file-input @error('image') is-invalid @enderror">
                                                 <label class="custom-file-label" for="exampleInputFile">Choose
-                                                    file</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Upload</span>
+                                                    Image</label>
+                                                    
                                             </div>
                                         </div>
-                                    </div>
+                                        @error('image')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
                                 </div>
-                                <form>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                    </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
                                 </form>
                             </div>
                         </div>
@@ -121,16 +119,22 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Change site name appears as page title</p>
+                                    @if ($message = Session::get('success'))
+                                        <div class="alert alert-success alert-block">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @endif
                                     <form action=" {{ route('updateSiteName') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
                                             <label for="siteName">Current site name</label>
-                                            <input type="text" class="form-control" name="siteName"
-                                                value="{{ $brandData->siteName }}">
+                                            <input type="text" class="form-control" name="name"
+                                                placeholder="{{ $brandData->siteName }}">
                                         </div>
                                 </div>
-
+                               
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>

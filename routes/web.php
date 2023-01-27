@@ -52,4 +52,6 @@ Route::middleware(['admin'])->group(function () {
     Route::get('admin/service' , [actionController::class , 'service']) -> name('service');
     Route::post('admin/service/update/cardDetails/{id}' , [actionController::class , 'updateCardService']) -> name('updateCardService');
     Route::get('admin/service/add/service' , [actionController::class , 'addNewCardService']) -> name('addNewCardService');
+    Route::post('admin/brading/update/image', [ actionController::class, 'updateImage' ])->name('updateImage');
+
 });

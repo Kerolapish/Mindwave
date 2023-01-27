@@ -7,6 +7,7 @@ use App\Models\content;
 use App\Models\information;
 use App\Models\service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class actionController extends Controller{
 
@@ -64,6 +65,31 @@ class actionController extends Controller{
             'success'=>  'Site name has successfully changed.',
             'brandData'
         ]);
+    }
+
+        //Function to update picture in branding page
+        public function updateImage(Request $request){
+
+        $validatedData = $request->validate([
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+            
+        // Retrieve the existing photo from the database
+        $image = brand::find(1);
+
+        // Delete the current photo from storage
+        Storage::delete($image->path);
+
+        // Get the new photo file and store it
+        $file = $request->file('image');
+        $path = Storage::disk('public')->putFile('assets/images', $file);
+
+        // Update the photo record in the database
+        $image->path = $path;
+        $image->save();
+
+        // Redirect or return a success message
+        return redirect()->back()->with('status', 'Image has been updated successfully.');
     }
 
     public function updateFavicon(Request $request){
