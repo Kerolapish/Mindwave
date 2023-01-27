@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard</title>
-
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -43,106 +42,179 @@
         <!-- Main Sidebar Container -->
         @include('admin/layout/sidebar')
         <!-- /.Main Sidebar Container -->
-    
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
+                <!-- container-fluid -->
                 <div class="container-fluid">
+                    <!-- row -->
                     <div class="row mb-2">
+                        <!-- col -->
                         <div class="col-sm-6">
-                            <h1 class="m-0">Quick Access</h1>
-                        </div><!-- /.col -->
+                            <h1 class="m-0">Appearance</h1>
+                        </div>
+                        <!-- /.col -->
+                        <!-- col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                                 <li class="breadcrumb-item active">Quick Access</li>
                             </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                    
-                </div><!-- /.container-fluid -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
 
             <!-- Main content -->
             <section class="content">
+                <!-- container-fluid -->
                 <div class="container-fluid">
-                    <!-- Small boxes (Stat box) -->
+                    <!-- row -->
                     <div class="row">
+                        <!-- col -->
                         <div class="col-lg-4 col-6">
+                            <!--card-->
                             <div class="card card-success card-outline">
+                                <!--card body-->
                                 <div class="card-body">
                                     <h3 class="profile-username text-center">Branding</h3>
                                     <p class="text-muted text-center">Change logo, site name</p>
-                                  
-                                    <a href="{{ route('branding')}}" class="btn btn-success btn-block"><b>Update Brand</b></a>
+                                    <a href="{{ route('branding') }}" class="btn btn-success btn-block"><b>Update
+                                            Brand</b></a>
                                 </div>
+                                <!--./card body-->
+                            </div>
+                            <!--./card-->
+                        </div>
+                        <!-- ./col -->
+                        <!-- col -->
+                        <div class="col-lg-4 col-6">
+                            <!--card-->
+                            <div class="card card-success card-outline">
+                                <!--card body-->
+                                <div class="card-body">
+                                    <h3 class="profile-username text-center">Background</h3>
+                                    <p class="text-muted text-center">Change Page Background</p>
+                                    <a href="{{ route('content') }}" class="btn btn-success btn-block"><b>Update Background</b></a>
+                                </div>
+                                <!--./card body-->
                             </div>
                         </div>
                         <!-- ./col -->
+                        <!--col -->
                         <div class="col-lg-4 col-6">
+                            <!--card-->
                             <div class="card card-success card-outline">
+                                <!--card body-->
                                 <div class="card-body">
-                                    <h3 class="profile-username text-center">Color Pallete zero</h3>
-                                    <p class="text-muted text-center">Change color pallete, theme</p>
-                                  
-                                    <a href="#" class="btn btn-success btn-block"><b>Update Color</b></a>
+                                    <h3 class="profile-username text-center">Top Title</h3>
+                                    <p class="text-muted text-center">Change page top title and description</p>
+                                    <a href="{{ route('content') }}" class="btn btn-success btn-block"><b>Update Top Title</b></a>
                                 </div>
+                                <!--./card body-->
                             </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-4 col-6">
-                            <div class="card card-success card-outline">
-                                <div class="card-body">
-                                    <h3 class="profile-username text-center">Information</h3>
-                                    <p class="text-muted text-center">Change company info</p>
-                                  
-                                    <a href="{{ route('information')}}" class="btn btn-success btn-block"><b>Update Info</b></a>
-                                </div>
-                            </div>
+                             <!--card body-->
                         </div>
                         <!-- ./col -->
                     </div>
                     <!-- /.row -->
-                    <!-- Main row -->
-                    <div class="row">
-                        <div class="col-lg-4 col-6">
-                            <div class="card card-success card-outline">
-                                <div class="card-body">
-                                    <h3 class="profile-username text-center">Top Content</h3>
-                                    <p class="text-muted text-center">Change page top content, title</p>
-                                  
-                                    <a href="{{ route('content')}}" class="btn btn-success btn-block"><b>Update Content</b></a>
+                   
+                    <!-- Content Header (Second Header) -->
+                    <div class="content-header">
+                        <!-- container-fluid -->
+                        <div class="container-fluid">
+                            <!-- row -->
+                            <div class="row mb-2">
+                                <!-- col -->
+                                <div class="col-sm-6">
+                                    <h1 class="m-0">Page Content</h1>
                                 </div>
+                                <!-- col -->
                             </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.container-fluid -->
+                    </div>
+                    <!-- /.content-header -->
+
+                    <!-- row -->
+                    <div class="row">
+                        <!-- col -->
+                        <div class="col-lg-4 col-6">
+                            <!--card-->
+                            <div class="card card-success card-outline">
+                                <!--card body-->
+                                <div class="card-body">
+                                    <h3 class="profile-username text-center">Information</h3>
+                                    <p class="text-muted text-center">Change company info</p>
+                                    <a href="{{ route('information') }}" class="btn btn-success btn-block"><b>Update
+                                            Info</b></a>
+                                </div>
+                                <!--card body-->
+                            </div>
+                            <!--./card-->
                         </div>
                         <!-- ./col -->
+                        <!-- col -->
                         <div class="col-lg-4 col-6">
+                            <!--card-->
                             <div class="card card-success card-outline">
+                                <!--card body-->
                                 <div class="card-body">
                                     <h3 class="profile-username text-center">Service</h3>
                                     <p class="text-muted text-center">Change content on service section</p>
-                                  
-                                    <a href="{{ route('service')}}" class="btn btn-success btn-block"><b>Update Service Content</b></a>
+                                    <a href="{{ route('service') }}" class="btn btn-success btn-block"><b>Update
+                                            Service Content</b></a>
                                 </div>
+                                <!--./card body-->
                             </div>
+                            <!--./card-->
                         </div>
                         <!-- ./col -->
+                        <!-- col -->
                         <div class="col-lg-4 col-6">
+                            <!--card-->
                             <div class="card card-success card-outline">
+                                <!--card body-->
                                 <div class="card-body">
                                     <h3 class="profile-username text-center">Information zero</h3>
                                     <p class="text-muted text-center">Change company info</p>
-                                  
                                     <a href="" class="btn btn-success btn-block"><b>Update Info</b></a>
                                 </div>
+                                <!--card body-->
                             </div>
+                            <!--card-->
                         </div>
                         <!-- ./col -->
                     </div>
-                    <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
+                    <!-- row -->
+
+                    <!--Row-->
+                    <div class="row">
+                        <div class="col-lg-4 col-6">
+                            <!--card-->
+                            <div class="card card-success card-outline">
+                                <!--card body-->
+                                <div class="card-body">
+                                    <h3 class="profile-username text-center">Teams</h3>
+                                    <p class="text-muted text-center">Change team member information</p>
+                                    <a href="{{ route('team') }}" class="btn btn-success btn-block"><b>Update
+                                            Team</b></a>
+                                </div>
+                                <!--card body-->
+                            </div>
+                            <!--./card-->
+                        </div>
+                    </div>
+                    <!--./Row-->
+                </div>
+                <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>

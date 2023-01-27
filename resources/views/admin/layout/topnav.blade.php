@@ -16,7 +16,8 @@
             <form action="{{ route('logout') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <button class="btn btn-block btn-outline-info btn-xs">
-                    &nbsp; Log Out
+                     Log Out
+                </button>
             </form>
         </li>
     </ul>

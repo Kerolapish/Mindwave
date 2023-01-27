@@ -15,15 +15,24 @@
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-edu-meeting.css">
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/lightbox.css">
+
+    <!--check if site name present on DB-->
+    @if ($brandData->siteName === null)
+        <title>Mindwave</title>
+    @else
+        <title>{{ $brandData->siteName }}</title>
+    @endif
 </head>
 
+<!--body-->
+
 <body>
+    <!-- ***** Header Area Start ***** -->
     <header class="header-area header-sticky">
         <div class="container">
             <div class="row">
@@ -38,11 +47,8 @@
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                             <li><a href="meetings.html">SERVICES</a></li>
-                            <li class="scroll-to-section"><a href="#"
-                                    onclick="scrollToSection('portfolio')">PORTFOLIO</a></li>
                             <li class="scroll-to-section"><a href="#courses">TEAM</a></li>
                             <li class="scroll-to-section"><a href="#contact">CONTACT</a></li>
-                            <li class="scroll-to-section"><a href="#contact">SUPPORT</a></li>
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>
@@ -66,8 +72,20 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="caption">
-                            <h2>{{ $contentData->topTitle }}</h2>
-                            <p>{{ $contentData->paragraph }}</p>
+                            <!--Check if top title present on DB-->
+                            @if ($contentData->topTitle === null)
+                                <h2>WELCOME TO MINDWAVE CONSULTANCY</h2>
+                            @else
+                                <h2>{{ $contentData->topTitle }}</h2>
+                            @endif
+
+                            <!--Check if paragraph title present on DB-->
+                            @if ($contentData->paragraph === null)
+                                <p>We develop outstanding digital products and business areas that are tailored to the
+                                    goals of your company and your customers.</p>
+                            @else
+                                <p>{{ $contentData->paragraph }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -76,102 +94,162 @@
     </section>
     <!-- ***** Main Banner Area End ***** -->
 
-    <section class="services">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="owl-service-item owl-carousel">
-                        @for ($i = 0; $i < count($serviceData); $i++)
-                            <div class="item">
-                                <div class="down-content">
-                                    <h4>{{ $serviceData[$i]->title }}</h4>
-                                    <p>{{ $serviceData[$i]->desc}}</p>
+    <!--Check if service data exist in database-->
+    @if ($serviceData != null)
+        <!-- ***** Service Area Start ***** -->
+        <section class="services">
+            <!--Container-->
+            <div class="container">
+                <!--Row-->
+                <div class="row">
+                    <!--Column-->
+                    <div class="col-lg-12">
+                        <!--Coursell-->
+                        <div class="owl-service-item owl-carousel">
+                            @for ($i = 0; $i < count($serviceData); $i++)
+                                <!--item-->
+                                <div class="item">
+                                    <!--down content-->
+                                    <div class="down-content">
+                                        <h4>{{ $serviceData[$i]->title }}</h4>
+                                        <p>{{ $serviceData[$i]->desc }}</p>
+                                    </div>
+                                    <!--./down content-->
                                 </div>
-                            </div>
-                        @endfor
+                                <!--./item-->
+                            @endfor
+                        </div>
+                        <!--./Coursell-->
                     </div>
+                    <!--./Column-->
                 </div>
+                <!--./Row-->
             </div>
-        </div>
-    </section>
+            <!--./Container-->
+        </section>
+        <!-- ***** Service Area End ***** -->
+    @endif
+    <!--./Check if service data exist in database-->
 
+    <!-- ***** Team Area Start ***** -->
     <section class="upcoming-meetings" id="meetings">
+        <!--Container-->
         <div class="container">
+            <!--Row-->
             <div class="row">
+                <!--Column-->
                 <div class="col-lg-12">
+                    <!--Section Heading-->
                     <div class="section-heading">
-                        <h2>SERVICES</h2>
+                        <h2>Team</h2>
                     </div>
+                    <!--./Section Heading-->
                 </div>
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="meeting-item">
-                                <div class="thumb">
-                                    <a href="#"><img src="assets/images/1.jpg" alt="New Lecturer Meeting"></a>
-                                </div>
-                                <div class="down-content">
-                                    <a href="#">
-                                        <h4>Consultation Services</h4>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="meeting-item">
-                                <div class="thumb">
-                                    <a href="#"><img src="assets/images/2.jpg" alt="Online Teaching"></a>
-                                </div>
-                                <div class="down-content">
-                                    <a href="#">
-                                        <h4>Product & App Development</h4>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="meeting-item">
-                                <div class="thumb">
-                                    <a href="#"><img src="assets/images/3.jpg" alt="Higher Education"></a>
-                                </div>
-                                <div class="down-content">
-                                    <a href="#">
-                                        <h4>Enterprise System Integration</h4>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--./Column-->
             </div>
+            <!--./Row-->
+            <!--Row-->
+            <div class="row text-center">
+                <!-- Column Team -->
+                <div class="col-lg-4 col-sm-6 mb-5">
+                    <!--Card-->
+                    <div class="bg-white rounded shadow-sm py-5 px-4"><img
+                            src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg" alt=""
+                            width="100" class="img-fluid rounded-circle mb-5 img-thumbnail shadow-sm">
+                        <h5 class="mb-0">Manuella Nevoresky</h5><span class="small text-uppercase text-muted">CEO -
+                            Founder</span>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item"><a href="#" class="social-link"><i
+                                        class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                    <!--./Card-->
+                </div>
+                <!-- ./Column Team -->
+                <!-- Column Team -->
+                <div class="col-lg-4 col-sm-6 mb-5">
+                    <!--Card-->
+                    <div class="bg-white rounded shadow-sm py-5 px-4"><img
+                            src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg" alt=""
+                            width="30" class="img-fluid rounded-circle mb-5 img-thumbnail shadow-sm">
+                        <h5 class="mb-0">Manuella Nevoresky</h5><span class="small text-uppercase text-muted">CEO -
+                            Founder</span>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item"><a href="#" class="social-link"><i
+                                        class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                    <!--./Card-->
+                </div>
+                <!-- ./Column Team -->
+                <!-- Column Team -->
+                <div class="col-lg-4 col-sm-6 mb-5">
+                    <!--Card-->
+                    <div class="bg-white rounded shadow-sm py-5 px-4"><img
+                            src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg" alt=""
+                            width="100" class="img-fluid rounded-circle mb-5 img-thumbnail shadow-sm">
+                        <h5 class="mb-0">Manuella Nevoresky</h5><span class="small text-uppercase text-muted">CEO -
+                            Founder</span>
+                        <ul class="social mb-0 list-inline mt-3">
+                            <li class="list-inline-item"><a href="#" class="social-link"><i
+                                        class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                    <!--./Card-->
+                </div>
+                <!-- ./Column Team -->
+            </div>
+            <!--./Row-->
         </div>
+        <!--./Container-->
     </section>
+    <!-- ***** Team Area End ***** -->
 
+    <!-- ***** Tech Area Start ***** -->
     <section class="our-courses" id="courses">
+        <!--Container-->
         <div class="container">
+            <!--row-->
             <div class="row">
+                <!--Column-->
                 <div class="col-lg-12">
+                    <!--Coursell-->
                     <div class="owl-courses-item owl-carousel">
+                        <!--item-->
                         <div class="item">
                             <img class="img-logo" src="assets/images/sql-Logo.png" alt="Course One">
                         </div>
+                        <!--./item-->
+                        <!--item-->
                         <div class="item">
                             <img class="img-logo" src="assets/images/net-logo.png" alt="Course Two">
                         </div>
+                        <!--./item-->
+                        <!--item-->
                         <div class="item">
                             <img class="img-logo" src="assets/images/Oracle-logo.png" alt="">
                         </div>
+                        <!--./item-->
+                        <!--item-->
                         <div class="item">
                             <img class="img-logo" src="assets/images/telerix-logo.png" alt="">
                         </div>
+                        <!--./item-->
+                        <!--item-->
                         <div class="item">
                             <img class="img-logo" src="assets/images/nginx-logo.png" alt="">
                         </div>
+                        <!--./item-->
                     </div>
+                    <!--./Coursell-->
                 </div>
+                <!--./Column-->
             </div>
+            <!--./row-->
         </div>
+        <!--./Container-->
     </section>
+    <!-- ***** Tech Area End ***** -->
 
     <section class="contact-us" id="contact">
         <div class="container">
@@ -224,19 +302,39 @@
                         <ul>
                             <li>
                                 <h6>Phone Number</h6>
-                                <span>{{ $infoData->phoneNum }}</span>
+                                <!--Check if phone number present in DB-->
+                                @if ($infoData->phoneNum === null)
+                                    <span>Not Available</span>
+                                @else
+                                    <span>{{ $infoData->phoneNum }}</span>
+                                @endif
                             </li>
                             <li>
                                 <h6>Email Address</h6>
-                                <span>{{ $infoData->email }}</span>
+                                <!--Check if email present in DB-->
+                                @if ($infoData->email === null)
+                                    <span>Not Available</span>
+                                @else
+                                    <span>{{ $infoData->email }}</span>
+                                @endif
                             </li>
                             <li>
                                 <h6>Street Address</h6>
-                                <span>{{ $infoData->address }}</span>
+                                <!--Check if address present in DB-->
+                                @if ($infoData->address === null)
+                                    <span>Not Available</span>
+                                @else
+                                    <span>{{ $infoData->address }}</span>
+                                @endif
                             </li>
                             <li>
                                 <h6>Website URL</h6>
-                                <span>{{ $infoData->website }}</span>
+                                <!--Check if website present in DB-->
+                                @if ($infoData->website === null)
+                                    <span>Not Available</span>
+                                @else
+                                    <span>{{ $infoData->website }}</span>
+                                @endif
                             </li>
                         </ul>
                     </div>
@@ -255,7 +353,6 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <script src="assets/js/isotope.min.js"></script>
     <script src="assets/js/owl-carousel.js"></script>
     <script src="assets/js/lightbox.js"></script>
@@ -318,7 +415,6 @@
         });
     </script>
 </body>
-
-</body>
+<!--./body-->
 
 </html>

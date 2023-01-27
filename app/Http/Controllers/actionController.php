@@ -256,4 +256,8 @@ class actionController extends Controller{
             'serviceData' => $serviceData
         ]);
     }
+
+    public function team (){
+        return view('admin/pages/team');
+    }
 }
