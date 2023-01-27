@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="TemplateMo">
   <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="{{ asset('/storage/images/6cOCXPTsEl6SNuLikmJeWiC4uWNQOgWXFftaTnBg.jpg')}}">
+  <link rel="icon" type="image/x-icon" href="{{asset('storage/' . $brandData->path) }}">
   {{-- <link rel="icon" href=""> --}}
 
   <title>{{ $brandData -> siteName }}</title>
@@ -78,7 +78,6 @@
                             @else
                                 <h2>{{ $contentData->topTitle }}</h2>
                             @endif
-
                             <!--Check if paragraph title present on DB-->
                             @if ($contentData->paragraph === null)
                                 <p>We develop outstanding digital products and business areas that are tailored to the

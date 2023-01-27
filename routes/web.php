@@ -53,5 +53,4 @@ Route::middleware(['admin'])->group(function () {
     Route::post('admin/service/update/cardDetails/{id}' , [actionController::class , 'updateCardService']) -> name('updateCardService');
     Route::post('admin/team' , [actionController::class] , 'team') -> name('team');
     Route::post('admin/brading/update/image', [ actionController::class, 'updateImage' ])->name('updateImage');
-
 });

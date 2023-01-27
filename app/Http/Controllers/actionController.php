@@ -17,7 +17,7 @@ class actionController extends Controller{
         $contentData = content::find(1);
         $infoData = information::find(1);
         $serviceData = service::all();
-    
+        
         return view('HomePage' , compact('brandData' , 'contentData' , 'infoData' , 'serviceData'));
     }
     
@@ -67,8 +67,8 @@ class actionController extends Controller{
         ]);
     }
 
-        //Function to update picture in branding page
-        public function updateImage(Request $request){
+    //Function to update picture in branding page
+    public function updateImage(Request $request){
 
         $validatedData = $request->validate([
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
@@ -77,26 +77,28 @@ class actionController extends Controller{
         // Retrieve the existing photo from the database
         $image = brand::find(1);
 
-        // Delete the current photo from storage
-        Storage::delete($image->path);
+         // Delete the current image from the storage disk
+        Storage::disk('public')->delete($image -> path);
 
-        // Get the new photo file and store it
-        $file = $request->file('image');
-        $path = Storage::disk('public')->putFile('assets/images', $file);
 
-        // Update the photo record in the database
-        $image->path = $path;
+        // Get the new image file uploaded by the user
+        $newImage = $request->file('image');
+
+        // Get the original file name
+        $originalFileName = $newImage->getClientOriginalName();
+
+        // Store the new image on the storage disk with the original file name
+        $newImagePath = $newImage->storeAs('images', $originalFileName, 'public');
+
+        // Update the image path in the database
+        $image->path = $newImagePath;
         $image->save();
 
+        
         // Redirect or return a success message
         return redirect()->back()->with('status', 'Image has been updated successfully.');
     }
 
-    public function updateFavicon(Request $request){
-        
-    }
-    
-    
     //function to direct user to content page
     public function content(){
         $contentData = content::find(1);
@@ -255,9 +257,5 @@ class actionController extends Controller{
             'success' =>  'Service card has successfully changed.',
             'serviceData' => $serviceData
         ]);
-    }
-
-    public function team (){
-        return view('admin/pages/team');
     }
 }
