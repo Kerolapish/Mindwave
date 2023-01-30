@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\background;
 use App\Models\brand;
 use App\Models\content;
 use App\Models\information;
 use App\Models\service;
+use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,8 +19,9 @@ class actionController extends Controller{
         $contentData = content::find(1);
         $infoData = information::find(1);
         $serviceData = service::all();
-        
-        return view('HomePage' , compact('brandData' , 'contentData' , 'infoData' , 'serviceData'));
+        $teamData = team::all();
+
+        return view('HomePage' , compact('brandData' , 'contentData' , 'infoData' , 'serviceData', 'teamData'));
     }
     
     // function to direct user to login page
@@ -67,17 +70,17 @@ class actionController extends Controller{
         ]);
     }
 
-    //Function to update picture in branding page
+    //Function to update favicon (Branding)
     public function updateImage(Request $request){
 
         $validatedData = $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
             
         // Retrieve the existing photo from the database
         $image = brand::find(1);
 
-         // Delete the current image from the storage disk
+        // Delete the current image from the storage disk
         Storage::disk('public')->delete($image -> path);
 
 
@@ -96,7 +99,7 @@ class actionController extends Controller{
 
         
         // Redirect or return a success message
-        return redirect()->back()->with('status', 'Image has been updated successfully.');
+        return redirect()->back()->with('success', 'Image has been updated successfully.');
     }
 
     //function to direct user to content page
@@ -257,5 +260,62 @@ class actionController extends Controller{
             'success' =>  'Service card has successfully changed.',
             'serviceData' => $serviceData
         ]);
+    }
+
+    //functiom to direct user to team page
+    public function team(){
+        $teamData = team::all();
+        return view ('admin/pages/team' , compact('teamData'));
+    }
+
+    //fuction to update team card by ID (Team)
+    public function updateTeam(Request $request , $id){
+
+        //validate data
+        $validatedData = $request -> validate([
+            'name' => 'required' ,
+            'position' => 'required',
+            'url' => 'required | url',
+            'image' => 'sometimes|required|image|mimes:jpg,png,jpeg|max:2048'
+        ]);
+
+        //select row and save the data requested
+        $row = team::find($id);
+        $row -> name = $validatedData['name'];
+        $row -> position = $validatedData['position'];
+        $row -> url = $validatedData['url'];
+
+        if($request->hasFile('image')){
+
+            // Delete the current image from the storage disk
+            Storage::disk('public')->delete($row -> path);
+
+            // Get the new image file uploaded by the user
+            $newImage = $request->file('image');
+ 
+            // Get the original file name
+            $originalFileName = $newImage->getClientOriginalName();
+ 
+            // Store the new image on the storage disk with the original file name
+            $newImagePath = $newImage->storeAs('images', $originalFileName, 'public');
+ 
+            // Update the image path in the database
+            $row->path = $newImagePath;
+        }
+        
+
+        $row -> save();
+
+        $teamData = team::all();
+        return redirect() -> back()  -> with([
+            'success' =>  'Team card has successfully changed.',
+            'serviceData' => $teamData
+        ]);
+    }
+
+    //function to direct user to background page
+    public function background(){
+        $bgData = background::find(1);
+        return view ('admin/pages/background');
     }
 }

@@ -37,10 +37,10 @@ Route::get('/unauthorize' , [actionController::class, 'unathorizeError']) -> nam
 
 //protect route - only authorize user able to access 
 Route::middleware(['admin'])->group(function () {
-    //Route to direct user to admin dashboard
     Route::get('admin/dashboard' , [actionController::class , 'dashboard']) -> name('dashboard');
     Route::get('admin/branding' , [actionController::class , 'branding']) -> name('branding');
     Route::post('admin/brading/update/siteName' , [actionController::class , 'updateSiteName']) -> name('updateSiteName');
+    Route::post('admin/brading/update/image', [ actionController::class, 'updateImage' ])->name('updateImage');
     Route::get('admin/content' , [actionController::class , 'content']) -> name('content');
     Route::post('admin/content/update/topTitle' , [actionController::class , 'updateTopTitle']) -> name('updateTopTitle');
     Route::post('admin/content/update/paragraph' , [actionController::class , 'updateParagraph']) -> name('updateParagraph');
@@ -51,6 +51,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('admin/information/update/website' , [actionController::class , 'updateWebsite']) -> name('updateWebsite');
     Route::get('admin/service' , [actionController::class , 'service']) -> name('service');
     Route::post('admin/service/update/cardDetails/{id}' , [actionController::class , 'updateCardService']) -> name('updateCardService');
-    Route::post('admin/team' , [actionController::class] , 'team') -> name('team');
-    Route::post('admin/brading/update/image', [ actionController::class, 'updateImage' ])->name('updateImage');
+    Route::get('admin/team' , [actionController::class , 'team']) -> name('team');
+    Route::post('admin/team/update/teamDetails/{id}', [actionController::class , 'updateTeam']) -> name('updateTeam');
+    Route::get('admin/background' , [actionController::class , 'background']) -> name('background');
 });

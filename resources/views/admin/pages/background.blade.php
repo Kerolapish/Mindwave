@@ -73,7 +73,7 @@
                     <div class="row mb-2">
                         <!--col-->
                         <div class="col-sm-6">
-                            <h1 class="m-0">Team</h1>
+                            <h1 class="m-0">Background</h1>
                         </div>
                         <!-- /.col -->
                         <!--col-->
@@ -95,66 +95,34 @@
             <section class="content">
                 <!--Container fliud-->
                 <div class="container-fluid">
-                    <!--for each data counted, new card will be generate-->
-                    @for ($i = 0; $i < count($teamData); $i++)
-                        <!--new row will be created-->
-                        @if ($i % 3 === 0)
-                            <!--Row-->
-                            <div class="row">
-                        @endif
+
+                    <!--Row-->
+                    <div class="row">
                         <!--Column-->
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <!--Card-->
                             <div class="card card-primary card-outline">
                                 <!--Card Header-->
                                 <div class="card-header">
-                                    <h3 class="card-title">Team Member #{{ $i + 1 }}</h3>
+                                    <h3 class="card-title">Video Background</h3>
                                 </div>
                                 <!--./Card Header-->
                                 <!--Card body-->
                                 <div class="card-body">
-                                    <form action="{{ route('updateTeam', $teamData[$i]->id) }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <!--img row-->
-                                        <div class="text-center">
-                                            <img src="{{ asset('storage/' . $teamData[$i]->path) }}" alt=""
-                                                width="100" class="img-fluid rounded-circle mb-3  shadow-sm">
+                                    <div class="text-center mb-5">
+                                        <video width="60%" autoplay muted loop id="bg-video">
+                                            <source src="{{ asset('assets/images/black-bg.mp4') }}" type="video/mp4" />
+                                        </video>
+                                    </div>
+                                    <form action="">
+                                        <label for="exampleInputFile">Video Background</label>
+                                        <div class="input-group">
+                                            <input type="file" name="image" id="inputFile0"
+                                                class="custom-file-input @error('image') is-invalid @enderror">
+                                            <label class="custom-file-label" for="inputFile0"
+                                                id="inputFile1Label0">Choose
+                                                Video</label>
                                         </div>
-                                        <!--./img row-->
-                                        <!--form-group-->
-                                        <div class="form-group">
-                                            <label for="name">Team's Name</label>
-                                            <input type="text" class="form-control" name="name"
-                                                value="{{ $teamData[$i]->name }}">
-                                        </div>
-                                        <!--./form-group-->
-                                        <!--form-group-->
-                                        <div class="form-group">
-                                            <label for="position">Team's Position</label>
-                                            <input type="text" class="form-control" name="position"
-                                                value="{{ $teamData[$i]->position }}">
-                                        </div>
-                                        <!--./form-group-->
-                                        <!--form-group-->
-                                        <div class="form-group">
-                                            <label for="position">Team's LinkedIn URL</label>
-                                            <input type="text" class="form-control" name="url"
-                                                value="{{ $teamData[$i]->url }}">
-                                        </div>
-                                        <!--./form-group-->
-                                        <!--form-group-->
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">Team's Image</label>
-                                            <div class="input-group">
-                                                <input type="file" name="image" id="inputFile{{ $i }}"
-                                                    class="custom-file-input @error('image') is-invalid @enderror">
-                                                <label class="custom-file-label" for="inputFile{{ $i }}"
-                                                    id="inputFile{{ $i }}Label">Choose
-                                                    Image</label>
-                                            </div>
-                                        </div>
-                                        <!--./form-group-->
                                 </div>
                                 <!--./Card body-->
                                 <!--Card footer-->
@@ -167,19 +135,93 @@
                             <!--Card-->
                         </div>
                         <!--./Column-->
-                        @if (($i + 1) % 3 === 0 || $i === count($teamData) - 1)
+                        <!--Column-->
+                        <div class="col-md-6">
+                            <!--Card-->
+                            <div class="card card-primary card-outline">
+                                <!--Card Header-->
+                                <div class="card-header">
+                                    <h3 class="card-title">Primary Background</h3>
+                                </div>
+                                <!--./Card Header-->
+                                <!--Card body-->
+                                <div class="card-body">
+                                    <div class="text-center mb-5">
+                                        <img width="400" height="200"
+                                            src="{{ asset('assets/images/meetings-bg.jpg') }}" alt="">
+                                    </div>
+                                    <form action="">
+                                        <label for="exampleInputFile">Primary Background</label>
+                                        <div class="input-group">
+                                            <input type="file" name="image" id="inputFile1"
+                                                class="custom-file-input @error('image') is-invalid @enderror">
+                                            <label class="custom-file-label" for="inputFile1"
+                                                id="inputFile1Label">Choose
+                                                Image</label>
+                                        </div>
+                                </div>
+                                <!--./Card body-->
+                                <!--Card footer-->
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    </form>
+                                </div>
+                                <!--./Card footer-->
+                            </div>
+                            <!--Card-->
+                        </div>
+                        <!--./Column-->
+                    </div>
+                    <!--./row-->
+
+                    <!--Row-->
+                    <div class="row">
+                        <!--Col-->
+                        <div class="col-md-6">
+                            <!--Card-->
+                            <div class="card card-primary card-outline">
+                                <!--Card Header-->
+                                <div class="card-header">
+                                    <h3 class="card-title">Secondary Background</h3>
+                                </div>
+                                <!--Card Header-->
+                                <!--Card Body-->
+                                <div class="card-body">
+                                    <div class="text-center mb-5">
+                                        <img width="400" height="200"
+                                            src="{{ asset('assets/images/background-1.jpg') }}" alt="">
+                                    </div>
+                                    <form action="">
+                                        <label for="exampleInputFile">Primary Background</label>
+                                        <div class="input-group">
+                                            <input type="file" name="image" id="inputFile2"
+                                                class="custom-file-input @error('image') is-invalid @enderror">
+                                            <label class="custom-file-label" for="inputFile2"
+                                                id="inputFile2Label">Choose
+                                                Image</label>
+                                        </div>
+                                </div>
+                                <!--Card Body-->
+                                <!--Card footer-->
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    </form>
+                                </div>
+                                <!--Card footer-->
+                            </div>
+                            <!--Card-->
+                        </div>
+                        <!--Col-->
+                    </div>
+                    <!--./Row-->
                 </div>
-                <!--./row-->
-                @endif
-                @endfor
-        </div>
-        <!--./Container fluid-->
-        </section>
-        <!--Content End-->
+                <!--./Container fluid-->
+            </section>
+            <!--Content End-->
 
-    </div><!-- /.container-fluid -->
+        </div><!-- /.container-fluid -->
 
-    <!-- /.content -->
+        <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 

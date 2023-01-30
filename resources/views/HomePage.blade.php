@@ -3,15 +3,14 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="TemplateMo">
-  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="{{asset('storage/' . $brandData->path) }}">
-  {{-- <link rel="icon" href=""> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description">
+    <meta name="author" content="TemplateMo">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $brandData->path) }}">
 
-  <title>{{ $brandData -> siteName }}</title>
+    <title>{{ $brandData->siteName }}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -149,54 +148,25 @@
             <!--./Row-->
             <!--Row-->
             <div class="row text-center">
-                <!-- Column Team -->
-                <div class="col-lg-4 col-sm-6 mb-5">
-                    <!--Card-->
-                    <div class="bg-white rounded shadow-sm py-5 px-4"><img
-                            src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg" alt=""
-                            width="100" class="img-fluid rounded-circle mb-5 img-thumbnail shadow-sm">
-                        <h5 class="mb-0">Manuella Nevoresky</h5><span class="small text-uppercase text-muted">CEO -
-                            Founder</span>
-                        <ul class="social mb-0 list-inline mt-3">
-                            <li class="list-inline-item"><a href="#" class="social-link"><i
-                                        class="fa fa-linkedin"></i></a></li>
-                        </ul>
+
+                @for ($i = 0; $i < count($teamData); $i++)
+                    <!-- Column Team -->
+                    <div class="col-lg-4 col-sm-6 mb-5">
+
+                        <!--Card-->
+                        <div class="bg-white rounded shadow-sm py-5 px-4"><img
+                                src="{{ asset('storage/' . $teamData[$i]->path) }}" alt="" width="100"
+                                class="img-fluid rounded-circle mb-5 img-thumbnail shadow-sm">
+                            <h5 class="mb-0">{{$teamData[$i] -> name}}</h5><span class="small text-uppercase text-muted">{{$teamData[$i] -> position}}</span>
+                            <ul class="social mb-0 list-inline mt-3">
+                                <li class="list-inline-item"><a href="{{$teamData[$i] -> url}}" class="social-link"><i
+                                            class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                        <!--./Card-->
                     </div>
-                    <!--./Card-->
-                </div>
-                <!-- ./Column Team -->
-                <!-- Column Team -->
-                <div class="col-lg-4 col-sm-6 mb-5">
-                    <!--Card-->
-                    <div class="bg-white rounded shadow-sm py-5 px-4"><img
-                            src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg" alt=""
-                            width="30" class="img-fluid rounded-circle mb-5 img-thumbnail shadow-sm">
-                        <h5 class="mb-0">Manuella Nevoresky</h5><span class="small text-uppercase text-muted">CEO -
-                            Founder</span>
-                        <ul class="social mb-0 list-inline mt-3">
-                            <li class="list-inline-item"><a href="#" class="social-link"><i
-                                        class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div>
-                    <!--./Card-->
-                </div>
-                <!-- ./Column Team -->
-                <!-- Column Team -->
-                <div class="col-lg-4 col-sm-6 mb-5">
-                    <!--Card-->
-                    <div class="bg-white rounded shadow-sm py-5 px-4"><img
-                            src="https://bootstrapious.com/i/snippets/sn-team/teacher-4.jpg" alt=""
-                            width="100" class="img-fluid rounded-circle mb-5 img-thumbnail shadow-sm">
-                        <h5 class="mb-0">Manuella Nevoresky</h5><span class="small text-uppercase text-muted">CEO -
-                            Founder</span>
-                        <ul class="social mb-0 list-inline mt-3">
-                            <li class="list-inline-item"><a href="#" class="social-link"><i
-                                        class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div>
-                    <!--./Card-->
-                </div>
-                <!-- ./Column Team -->
+                    <!-- ./Column Team -->
+                @endfor
             </div>
             <!--./Row-->
         </div>

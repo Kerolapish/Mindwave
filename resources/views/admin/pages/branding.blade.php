@@ -96,14 +96,14 @@
                                             <div class="input-group">
                                                 <input type="file" name="image" id="exampleInputFile"
                                                     class="custom-file-input @error('image') is-invalid @enderror">
-                                                <label class="custom-file-label" for="exampleInputFile">Choose
+                                                <label class="custom-file-label" for="exampleInputFile" id="fileName">Choose
                                                     Image</label>
-                                                    
+
                                             </div>
                                         </div>
                                         @error('image')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>
@@ -119,22 +119,15 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Change site name appears as page title</p>
-                                    @if ($message = Session::get('success'))
-                                        <div class="alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>
-                                            <strong>{{ $message }}</strong>
-                                        </div>
-                                    @endif
                                     <form action=" {{ route('updateSiteName') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
                                             <label for="siteName">Current site name</label>
-                                            <input type="text" class="form-control" name="name"
+                                            <input type="text" class="form-control" name="siteName"
                                                 placeholder="{{ $brandData->siteName }}">
                                         </div>
                                 </div>
-                               
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
@@ -204,7 +197,7 @@
             divError.addEventListener("click", function() {
                 divSuccess.style.display = "none";
             });
-            
+
             setTimeout(() => {
                 divError.classList.add('hide');
             }, 2000);
@@ -219,7 +212,24 @@
                 divSuccess.classList.add('hide');
             }, 2000);
         }
+
+        // Get the file input element
+        let fileInput = document.getElementById("exampleInputFile");
+
+        // Get the file name label element
+        let fileName = document.getElementById("fileName");
+
+        // Listen for change event on the file input element
+        fileInput.addEventListener("change", function() {
+
+            // Get the file name from the file input element
+            let name = fileInput.files[0].name;
+
+            // Set the value of the file name label element to the file name
+            fileName.innerHTML = name;
+        });
     </script>
+
 </body>
 
 </html>
