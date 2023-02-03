@@ -87,6 +87,26 @@
                                 <div class="card-header">
                                     <h3 class="card-title">Update Favicon</h3>
                                 </div>
+                                @if($siteData -> setupBrand == false)
+                                <div class="card-body">
+                                    <p>Upload picture, size must be 32x32 and in .png or .ico format</p>
+                                    <form action="{{ route('updateImage') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="exampleInputFile">File Input</label>
+                                            <div class="input-group">
+                                                <input type="file" name="image" id="InputFile0"
+                                                    class="custom-file-input @error('image') is-invalid @enderror">
+                                                <label class="custom-file-label" for="InputFile0"
+                                                    id="InputFile0Label">Choose Image</label>
+                                            </div>
+                                        </div>
+                                        @error('image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                </div>
+                                @else
                                 <div class="card-body">
                                     <p>Update Picture, size must be 32x32 and in .png or .ico format</p>
                                     <form action="{{ route('updateImage') }}" method="POST"
@@ -105,6 +125,8 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                 </div>
+                                @endif
+                                
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>

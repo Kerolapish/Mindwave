@@ -101,7 +101,7 @@
                                     <div class="card-body">
                                         <h3 class="profile-username text-center">Branding</h3>
                                         <p class="text-muted text-center">Setup logo, favicon, page title</p>
-                                        <a href="{{ route('branding') }}" class="btn btn-warning btn-block"><b>Setup
+                                        <a href="{{ route('createBranding') }}" class="btn btn-warning btn-block"><b>Setup
                                             Branding</b></a>
                                     </div>
                                     <!--./card body-->

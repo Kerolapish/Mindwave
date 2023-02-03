@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\actionController;
 use App\Http\Controllers\authController;
+use App\Http\Controllers\setupController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,4 +64,6 @@ Route::middleware(['admin'])->group(function () {
     Route::get('admin/siteStatus' , [actionController::class , 'siteStatus']) -> name('siteStatus');
     Route::post('admin/siteStatus/disableSite' , [actionController::class, 'disableSite']) -> name('disableSite');
     Route::get('admin/siteStatus/enable' , [actionController::class, 'enableSite']) -> name('enableSite');
+    //Create for setup
+    Route::get('admin/Branding/create' , [setupController::class , 'createBranding']) -> name('createBranding');
 });
