@@ -22,6 +22,12 @@ class actionController extends Controller{
         $teamData = team::all();
 
         return view('HomePage' , compact('brandData' , 'contentData' , 'infoData' , 'serviceData', 'teamData'));
+        
+        $image = brand::find(1);
+        // $image = Storage::url($image->path);
+        $image = Storage::url($image->path);
+        $image = str_replace('/storage', '', $image);
+        return view('HomePage' , compact('brandData' , 'contentData' , 'infoData' , 'serviceData','image'));
     }
     
     // function to direct user to login page
@@ -100,6 +106,38 @@ class actionController extends Controller{
         
         // Redirect or return a success message
         return redirect()->back()->with('success', 'Image has been updated successfully.');
+    }
+
+    //Function to update Logo in branding page
+    public function updateLogo(Request $request){
+
+        $validatedData = $request->validate([
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+            
+        // Retrieve the existing photo from the database
+        $logo = brand::find(1);
+
+         // Delete the current logo from the storage disk
+        Storage::disk('public')->delete($logo -> logoPath);
+
+
+        // Get the new image file uploaded by the user
+        $newLogo = $request->file('image');
+
+        // Get the original file name
+        $originalFileName = $newLogo->getClientOriginalName();
+
+        // Store the new image on the storage disk with the original file name
+        $newLogoPath = $newLogo->storeAs('image', $originalFileName, 'public');
+
+        // Update the image path in the database
+        $logo->logoPath = $newLogoPath;
+        $logo->save();
+
+        
+        // Redirect or return a success message
+        return redirect()->back()->with('status', 'Logo has been updated successfully.');
     }
 
     //function to direct user to content page
@@ -234,8 +272,8 @@ class actionController extends Controller{
         ]);
     }
 
-    //function to direct user to service page
-    public function service(){
+        //function to direct user to service page
+        public function service(){
         $serviceData = service::all();
         return view ('admin/pages/service' , compact('serviceData'));
     }

@@ -38,9 +38,9 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
-                            <img src="assets/images/mindwave-logo.png" alt="mindwave logo" class="logo">
-                        </a>
+                          <a href="index.html" class="logo">
+                              <img src="{{ asset('storage/' . $brandData->logoPath) }}" alt="mindwave logo" class="logo">
+                          </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">

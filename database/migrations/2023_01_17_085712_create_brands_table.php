@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('siteName');
             $table->string('path');
+            $table->string('logoPath');
             $table->timestamps();
         });
     }

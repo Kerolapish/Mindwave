@@ -41,6 +41,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('admin/branding' , [actionController::class , 'branding']) -> name('branding');
     Route::post('admin/brading/update/siteName' , [actionController::class , 'updateSiteName']) -> name('updateSiteName');
     Route::post('admin/brading/update/image', [ actionController::class, 'updateImage' ])->name('updateImage');
+    Route::post('admin/brading/update/logo', [ actionController::class, 'updateLogo' ])->name('updateLogo');
     Route::get('admin/content' , [actionController::class , 'content']) -> name('content');
     Route::post('admin/content/update/topTitle' , [actionController::class , 'updateTopTitle']) -> name('updateTopTitle');
     Route::post('admin/content/update/paragraph' , [actionController::class , 'updateParagraph']) -> name('updateParagraph');

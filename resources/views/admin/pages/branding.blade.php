@@ -81,10 +81,11 @@
                 <div class="container-fluid">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
+                        {{-- Update Favicon --}}
                         <div class="col-md-6">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
-                                    <h3 class="card-title">Update Picture</h3>
+                                    <h3 class="card-title">Update Favicon</h3>
                                 </div>
                                 <div class="card-body">
                                     <p>Update Picture, size must be 32x32 and in .png or .ico format</p>
@@ -94,14 +95,15 @@
                                         <div class="form-group">
                                             <label for="exampleInputFile">File Input</label>
                                             <div class="input-group">
-                                                <input type="file" name="image" id="exampleInputFile"
+                                                <input type="file" name="image" id="InputFile0"
                                                     class="custom-file-input @error('image') is-invalid @enderror">
-                                                <label class="custom-file-label" for="exampleInputFile" id="fileName">Choose
-                                                    Image</label>
-
+                                                <label class="custom-file-label" for="InputFile0"
+                                                    id="InputFile0Label">Choose Image</label>
                                             </div>
                                         </div>
                                         @error('image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                 </div>
@@ -112,6 +114,8 @@
                             </div>
                         </div>
                         <!-- ./col -->
+
+                        {{-- Update SiteName --}}
                         <div class="col-md-6">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
@@ -128,12 +132,46 @@
                                                 placeholder="{{ $brandData->siteName }}">
                                         </div>
                                 </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        {{-- //Update Logo --}}
+                        <div class="col-md-6">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">Update Logo</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p>Update Logo, size must be 32x32 and in .png or .jpg format</p>
+                                    <form action="{{ route('updateLogo') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="exampleInputFile">File Input</label>
+                                            <div class="input-group">
+                                                <input type="file" name="image" id="InputFile1"
+                                                    class="custom-file-input @error('logo') is-invalid @enderror">
+                                                <label class="custom-file-label" for="InputFile1"
+                                                    id="InputFile1Label">Choose Logo</label>
+                                            </div>
+                                        </div>
+                                        @error('logo')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                                 </form>
                             </div>
                         </div>
+                        <!-- ./col -->
                     </div>
                     <!-- /.row -->
                     <!-- Main row -->
@@ -150,6 +188,17 @@
         <!--footer-->
         @include('admin/layout/footer')
         <!--/.footer-->
+        <div
+            style="background: #dcf3d6; 
+        color: #61785b;
+        padding: 10px;
+        text-align: center;
+        position: absolute;
+        bottom: 1%;
+        width: 50%;
+        left: 50%;
+        z-index: 1;">
+            dsa</div>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -213,20 +262,24 @@
             }, 2000);
         }
 
-        // Get the file input element
-        let fileInput = document.getElementById("exampleInputFile");
+        // Get all the file input elements
+        let fileInputs = document.querySelectorAll("input[type='file']");
 
-        // Get the file name label element
-        let fileName = document.getElementById("fileName");
+        // Loop through each file input element
+        fileInputs.forEach(function(input) {
 
-        // Listen for change event on the file input element
-        fileInput.addEventListener("change", function() {
+            // Get the corresponding file name label element
+            let fileName = document.getElementById(input.id + "Label");
 
-            // Get the file name from the file input element
-            let name = fileInput.files[0].name;
+            // Listen for change event on the file input element
+            input.addEventListener("change", function() {
 
-            // Set the value of the file name label element to the file name
-            fileName.innerHTML = name;
+                // Get the file name from the file input element
+                let name = input.files[0].name;
+
+                // Set the value of the file name label element to the file name
+                fileName.innerHTML = name;
+            });
         });
     </script>
 
