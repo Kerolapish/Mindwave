@@ -58,4 +58,9 @@ Route::middleware(['admin'])->group(function () {
     Route::post('admin/background/update/video', [actionController::class, 'updateVidBg'])->name('updateVidBg');
     Route::post('admin/brading/update/bg1', [ actionController::class, 'updateBg1' ])->name('updateBg1');
     Route::post('admin/brading/update/bg2', [ actionController::class, 'updateBg2' ])->name('updateBg2');
+    Route::get('admin/footer',[actionController::class , 'footer']) -> name('footer');
+    Route::post('admin/footer/update/description', [actionController::class , 'updateFooter'])-> name('updateFooter');
+    Route::get('admin/siteStatus' , [actionController::class , 'siteStatus']) -> name('siteStatus');
+    Route::post('admin/siteStatus/disableSite' , [actionController::class, 'disableSite']) -> name('disableSite');
+    Route::get('admin/siteStatus/enable' , [actionController::class, 'enableSite']) -> name('enableSite');
 });

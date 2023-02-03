@@ -8,9 +8,16 @@
     <meta name="description">
     <meta name="author" content="TemplateMo">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $brandData->path) }}">
+    <!--check if brand data exist in database-->
+    @if ($brandData == null || $siteData->setupBrand == false)
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/mindwave-ico.png') }}">
+        <title>Mindwave</title>
+    @else
+        <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $brandData->path) }}">
+        <title>{{ $brandData->siteName }}</title>
+    @endif
 
-    <title>{{ $brandData->siteName }}</title>
+
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -19,27 +26,62 @@
     <link rel="stylesheet" href="assets/css/templatemo-edu-meeting.css">
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/lightbox.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
 
-    <style>
-        section.upcoming-meetings {
-            background-image: url({{ asset('storage/' . $bgData->bg1Path) }});
-        }
+    @if ($siteData->downStatus == true)
+        <link rel="stylesheet" href="assets/css/onConstruction.css">
+    @endif
 
-        section.our-courses {
-            background-image: url({{ asset('storage/' . $bgData->bg2Path) }});
-        }
-    </style>
+    @if ($bgData == null || $siteData->setupBackground == false)
+        <style>
+            section.upcoming-meetings {
+                background-image: url({{ asset('assets/images/meetings-bg.jpg') }});
+            }
+
+            section.our-courses {
+                background-image: url({{ asset('assets/images/background-1.jpg') }});
+            }
+        </style>
+    @else
+        <style>
+            section.upcoming-meetings {
+                background-image: url({{ asset('storage/' . $bgData->bg1Path) }});
+            }
+
+            section.our-courses {
+                background-image: url({{ asset('storage/' . $bgData->bg2Path) }});
+            }
+        </style>
+    @endif
+
 
     <!--check if site name present on DB-->
-    @if ($brandData->siteName === null)
+    @if ($brandData == null || $siteData->setupBrand == false)
         <title>Mindwave</title>
     @else
         <title>{{ $brandData->siteName }}</title>
     @endif
+
+    <!--This style will be invoke if the site disabled (downStatus == true) -->
 </head>
 <!--body-->
 
 <body>
+    @if ($siteData->downStatus == true)
+        <div class="blur"></div>
+        <div id="text">
+
+            <img src="assets/images/mindwave-logo.png" alt="mindwave logo">
+            <h1>Site Under Construction</h1>
+            <h2>Sorry for the inconvience, we will be ready soon</h2>
+            <ul>
+                <li><a target="_blank" href="https://www.facebook.com/wearemindwave/"><i class="fab fa-facebook"
+                            aria-hidden="true"></i></a></li>
+                <li><a target="_blank" href="https://www.linkedin.com/company/mindwave-consultancy-sdn-bhd-/about/"><i
+                            class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+    @endif
     <!-- ***** Header Area Start ***** -->
     <header class="header-area header-sticky">
         <div class="container">
@@ -48,8 +90,14 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="index.html" class="logo">
-                            <img src="{{ asset('storage/' . $brandData->logoPath) }}" alt="mindwave logo"
-                                class="logo">
+                            @if ($brandData == null || $siteData->setupBrand == false)
+                                <img src="{{ asset('assets/images/mindwave-logo.png') }}" alt="mindwave logo"
+                                    class="logo">
+                            @else
+                                <img src="{{ asset('storage/' . $brandData->logoPath) }}" alt="mindwave logo"
+                                    class="logo">
+                            @endif
+
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
@@ -73,7 +121,12 @@
     <!-- ***** Main Banner Area Start ***** -->
     <section class="section main-banner" id="top" data-section="section1">
         <video autoplay muted loop id="bg-video">
-            <source src="{{ asset('storage/' . $bgData->vidPath) }}" type="video/mp4" />
+            @if ($bgData == null || $siteData->setupBrand == false)
+                <source src="{{ asset('assets/images/black-bg.mp4') }}" type="video/mp4" />
+            @else
+                <source src="{{ asset('storage/' . $bgData->vidPath) }}" type="video/mp4" />
+            @endif
+
         </video>
 
         <div class="video-overlay header-text">
@@ -82,13 +135,13 @@
                     <div class="col-lg-12">
                         <div class="caption">
                             <!--Check if top title present on DB-->
-                            @if ($contentData->topTitle === null)
+                            @if ($contentData == null || $siteData->setupTitle == false)
                                 <h2>WELCOME TO MINDWAVE CONSULTANCY</h2>
                             @else
                                 <h2>{{ $contentData->topTitle }}</h2>
                             @endif
                             <!--Check if paragraph title present on DB-->
-                            @if ($contentData->paragraph === null)
+                            @if ($contentData == null || $siteData->setupTitle == false)
                                 <p>We develop outstanding digital products and business areas that are tailored to the
                                     goals of your company and your customers.</p>
                             @else
@@ -103,7 +156,7 @@
     <!-- ***** Main Banner Area End ***** -->
 
     <!--Check if service data exist in database-->
-    @if ($serviceData != null)
+    @if ($serviceData == null || $siteData->setupService == false)
         <!-- ***** Service Area Start ***** -->
         <section class="services">
             <!--Container-->
@@ -121,6 +174,40 @@
                                     <div class="down-content">
                                         <h4>{{ $serviceData[$i]->title }}</h4>
                                         <p>{{ $serviceData[$i]->desc }}</p>
+                                    </div>
+                                    <!--./down content-->
+                                </div>
+                                <!--./item-->
+                            @endfor
+                        </div>
+                        <!--./Coursell-->
+                    </div>
+                    <!--./Column-->
+                </div>
+                <!--./Row-->
+            </div>
+            <!--./Container-->
+        </section>
+        <!-- ***** Service Area End ***** -->
+    @else
+        <!-- ***** Service Area Start ***** -->
+        <section class="services">
+            <!--Container-->
+            <div class="container">
+                <!--Row-->
+                <div class="row">
+                    <!--Column-->
+                    <div class="col-lg-12">
+                        <!--Coursell-->
+                        <div class="owl-service-item owl-carousel">
+                            @for ($i = 0; $i < 5; $i++)
+                                <!--item-->
+                                <div class="item">
+                                    <!--down content-->
+                                    <div class="down-content">
+                                        <h4>Lorem ipsum dolor sit amet</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua.</p>
                                     </div>
                                     <!--./down content-->
                                 </div>
@@ -156,30 +243,31 @@
                 <!--./Column-->
             </div>
             <!--./Row-->
-            <!--Row-->
-            <div class="row text-center">
-
-                @for ($i = 0; $i < count($teamData); $i++)
-                    <!-- Column Team -->
-                    <div class="col-lg-4 col-sm-6 mb-5">
-
-                        <!--Card-->
-                        <div class="bg-white rounded shadow-sm py-5 px-4"><img
-                                src="{{ asset('storage/' . $teamData[$i]->path) }}" alt="" width="100"
-                                class="img-fluid rounded-circle mb-5 img-thumbnail shadow-sm">
-                            <h5 class="mb-0">{{ $teamData[$i]->name }}</h5><span
-                                class="small text-uppercase text-muted">{{ $teamData[$i]->position }}</span>
-                            <ul class="social mb-0 list-inline mt-3">
-                                <li class="list-inline-item"><a href="{{ $teamData[$i]->url }}"
-                                        class="social-link"><i class="fa fa-linkedin"></i></a></li>
-                            </ul>
+            <!--Check if team data exist in database-->
+            @if ($teamData != null || $siteData->setupTeam != false)
+                <!--Row-->
+                <div class="row text-center">
+                    @for ($i = 0; $i < count($teamData); $i++)
+                        <!-- Column Team -->
+                        <div class="col-lg-4 col-sm-6 mb-5">
+                            <!--Card-->
+                            <div class="bg-white rounded shadow-sm py-5 px-4"><img
+                                    src="{{ asset('storage/' . $teamData[$i]->path) }}" alt=""
+                                    width="100" class="img-fluid rounded-circle mb-5 img-thumbnail shadow-sm">
+                                <h5 class="mb-0">{{ $teamData[$i]->name }}</h5><span
+                                    class="small text-uppercase text-muted">{{ $teamData[$i]->position }}</span>
+                                <ul class="social mb-0 list-inline mt-3">
+                                    <li class="list-inline-item"><a href="{{ $teamData[$i]->url }}"
+                                            class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                            <!--./Card-->
                         </div>
-                        <!--./Card-->
-                    </div>
-                    <!-- ./Column Team -->
-                @endfor
-            </div>
-            <!--./Row-->
+                        <!-- ./Column Team -->
+                    @endfor
+                </div>
+                <!--./Row-->
+            @endif
         </div>
         <!--./Container-->
     </section>
@@ -283,7 +371,7 @@
                             <li>
                                 <h6>Phone Number</h6>
                                 <!--Check if phone number present in DB-->
-                                @if ($infoData->phoneNum === null)
+                                @if ($infoData == null || $siteData -> setupInfo == false)
                                     <span>Not Available</span>
                                 @else
                                     <span>{{ $infoData->phoneNum }}</span>
@@ -292,7 +380,7 @@
                             <li>
                                 <h6>Email Address</h6>
                                 <!--Check if email present in DB-->
-                                @if ($infoData->email === null)
+                                @if ($infoData == null || $siteData -> setupInfo == false)
                                     <span>Not Available</span>
                                 @else
                                     <span>{{ $infoData->email }}</span>
@@ -301,7 +389,7 @@
                             <li>
                                 <h6>Street Address</h6>
                                 <!--Check if address present in DB-->
-                                @if ($infoData->address === null)
+                                @if ($infoData == null || $siteData -> setupInfo == false)
                                     <span>Not Available</span>
                                 @else
                                     <span>{{ $infoData->address }}</span>
@@ -310,7 +398,7 @@
                             <li>
                                 <h6>Website URL</h6>
                                 <!--Check if website present in DB-->
-                                @if ($infoData->website === null)
+                                @if ($infoData == null || $siteData -> setupInfo == false)
                                     <span>Not Available</span>
                                 @else
                                     <span>{{ $infoData->website }}</span>
@@ -322,10 +410,11 @@
             </div>
         </div>
         <div class="footer">
-            <p>Copyright © 2022 Edu Meeting Co., Ltd. All Rights Reserved.
-                <br>Design: <a href="https://templatemo.com" target="_parent"
-                    title="free css templates">TemplateMo</a>
-            </p>
+            @if ($footerData == null || $siteData -> setupFooter == false)
+                <p>Copyright Mindwave Consultancy 2023</p>
+            @else
+                <p>{{ $footerData->desc }}</p>
+            @endif
         </div>
     </section>
 
@@ -340,6 +429,7 @@
     <script src="assets/js/video.js"></script>
     <script src="assets/js/slick-slider.js"></script>
     <script src="assets/js/custom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/css3-filter-effects@1.0.3/src/index.js"></script>
     <script>
         //JavaScript function that would handle the click event
         function scrollToSection(id) {

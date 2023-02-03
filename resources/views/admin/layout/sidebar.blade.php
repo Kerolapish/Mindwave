@@ -21,7 +21,7 @@
        with font-awesome or any other icon font library -->
                 <li class="nav-header">APPEARANCE</li>
                 <li class="nav-item">
-                    <a href="pages/branding" class="nav-link">
+                    <a href="{{route('branding')}}" class="nav-link">
                         <p>
                             Branding
                         </p>
