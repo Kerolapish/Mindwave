@@ -102,8 +102,6 @@
                                     <h3 class="profile-username text-center">Background</h3>
                                     <p class="text-muted text-center">Change Page Background</p>
                                     <a href="{{ route('background') }}" class="btn btn-success btn-block"><b>Update Background</b></a>
-                                    <a href="{{ route('content') }}" class="btn btn-success btn-block"><b>Update
-                                            Background</b></a>
                                 </div>
                                 <!--./card body-->
                             </div>

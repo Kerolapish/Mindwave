@@ -111,19 +111,24 @@
                                 <div class="card-body">
                                     <div class="text-center mb-5">
                                         <video width="60%" autoplay muted loop id="bg-video">
-                                            <source src="{{ asset('assets/images/black-bg.mp4') }}" type="video/mp4" />
+                                            <source src="{{ asset('storage/' . $bgData->vidPath) }}"
+                                                type="video/mp4" />
                                         </video>
                                     </div>
-                                    <form action="">
+                                    <form action=" {{ route('updateVidBg') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
                                         <label for="exampleInputFile">Video Background</label>
                                         <div class="input-group">
-                                            <input type="file" name="image" id="inputFile0"
-                                                class="custom-file-input @error('image') is-invalid @enderror">
+                                            <input type="file" name="video" id="inputFile0"
+                                                class="custom-file-input @error('video') is-invalid @enderror">
                                             <label class="custom-file-label" for="inputFile0"
-                                                id="inputFile1Label0">Choose
-                                                Video</label>
+                                                id="inputFile1Label0">Choose Video</label>
                                         </div>
                                 </div>
+                                @error('video')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 <!--./Card body-->
                                 <!--Card footer-->
                                 <div class="card-footer">
@@ -148,18 +153,23 @@
                                 <div class="card-body">
                                     <div class="text-center mb-5">
                                         <img width="400" height="200"
-                                            src="{{ asset('assets/images/meetings-bg.jpg') }}" alt="">
+                                            src="{{ asset('storage/' . $bgData->bg1Path) }}" alt="">
+
                                     </div>
-                                    <form action="">
+                                    <form action="{{ route('updateBg1') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
                                         <label for="exampleInputFile">Primary Background</label>
                                         <div class="input-group">
                                             <input type="file" name="image" id="inputFile1"
                                                 class="custom-file-input @error('image') is-invalid @enderror">
                                             <label class="custom-file-label" for="inputFile1"
-                                                id="inputFile1Label">Choose
-                                                Image</label>
+                                                id="inputFile1Label">Choose Image</label>
                                         </div>
                                 </div>
+                                @error('video')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 <!--./Card body-->
                                 <!--Card footer-->
                                 <div class="card-footer">
@@ -189,16 +199,17 @@
                                 <div class="card-body">
                                     <div class="text-center mb-5">
                                         <img width="400" height="200"
-                                            src="{{ asset('assets/images/background-1.jpg') }}" alt="">
+                                            src="{{ asset('storage/' . $bgData->bg2Path) }}" alt="">
                                     </div>
-                                    <form action="">
+                                    <form action="{{ route('updateBg2') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
                                         <label for="exampleInputFile">Primary Background</label>
                                         <div class="input-group">
                                             <input type="file" name="image" id="inputFile2"
                                                 class="custom-file-input @error('image') is-invalid @enderror">
                                             <label class="custom-file-label" for="inputFile2"
-                                                id="inputFile2Label">Choose
-                                                Image</label>
+                                                id="inputFile2Label">Choose Image</label>
                                         </div>
                                 </div>
                                 <!--Card Body-->

@@ -20,6 +20,16 @@
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/lightbox.css">
 
+    <style>
+        section.upcoming-meetings {
+            background-image: url({{ asset('storage/' . $bgData->bg1Path) }});
+        }
+
+        section.our-courses {
+            background-image: url({{ asset('storage/' . $bgData->bg2Path) }});
+        }
+    </style>
+
     <!--check if site name present on DB-->
     @if ($brandData->siteName === null)
         <title>Mindwave</title>
@@ -27,7 +37,6 @@
         <title>{{ $brandData->siteName }}</title>
     @endif
 </head>
-
 <!--body-->
 
 <body>
@@ -38,9 +47,10 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                          <a href="index.html" class="logo">
-                              <img src="{{ asset('storage/' . $brandData->logoPath) }}" alt="mindwave logo" class="logo">
-                          </a>
+                        <a href="index.html" class="logo">
+                            <img src="{{ asset('storage/' . $brandData->logoPath) }}" alt="mindwave logo"
+                                class="logo">
+                        </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
@@ -63,7 +73,7 @@
     <!-- ***** Main Banner Area Start ***** -->
     <section class="section main-banner" id="top" data-section="section1">
         <video autoplay muted loop id="bg-video">
-            <source src="assets/images/black-bg.mp4" type="video/mp4" />
+            <source src="{{ asset('storage/' . $bgData->vidPath) }}" type="video/mp4" />
         </video>
 
         <div class="video-overlay header-text">
@@ -157,10 +167,11 @@
                         <div class="bg-white rounded shadow-sm py-5 px-4"><img
                                 src="{{ asset('storage/' . $teamData[$i]->path) }}" alt="" width="100"
                                 class="img-fluid rounded-circle mb-5 img-thumbnail shadow-sm">
-                            <h5 class="mb-0">{{$teamData[$i] -> name}}</h5><span class="small text-uppercase text-muted">{{$teamData[$i] -> position}}</span>
+                            <h5 class="mb-0">{{ $teamData[$i]->name }}</h5><span
+                                class="small text-uppercase text-muted">{{ $teamData[$i]->position }}</span>
                             <ul class="social mb-0 list-inline mt-3">
-                                <li class="list-inline-item"><a href="{{$teamData[$i] -> url}}" class="social-link"><i
-                                            class="fa fa-linkedin"></i></a></li>
+                                <li class="list-inline-item"><a href="{{ $teamData[$i]->url }}"
+                                        class="social-link"><i class="fa fa-linkedin"></i></a></li>
                             </ul>
                         </div>
                         <!--./Card-->

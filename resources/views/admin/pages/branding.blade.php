@@ -104,8 +104,6 @@
                                         @error('image')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>

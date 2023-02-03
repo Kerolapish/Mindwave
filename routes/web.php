@@ -55,4 +55,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('admin/team' , [actionController::class , 'team']) -> name('team');
     Route::post('admin/team/update/teamDetails/{id}', [actionController::class , 'updateTeam']) -> name('updateTeam');
     Route::get('admin/background' , [actionController::class , 'background']) -> name('background');
+    Route::post('admin/background/update/video', [actionController::class, 'updateVidBg'])->name('updateVidBg');
+    Route::post('admin/brading/update/bg1', [ actionController::class, 'updateBg1' ])->name('updateBg1');
+    Route::post('admin/brading/update/bg2', [ actionController::class, 'updateBg2' ])->name('updateBg2');
 });
