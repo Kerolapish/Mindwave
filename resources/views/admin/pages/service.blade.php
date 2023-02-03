@@ -50,20 +50,20 @@
 
         <!-- Content Wrapper. Contains page content -->
         @if (session('success'))
-                <div id="message-float">
-                    {{ session('success') }}
-                </div>
-            @else
-                @foreach (['text', 'title'] as $errorKey)
-                    @if ($errors->has($errorKey))
-                        <div id="message-float-error">
-                            {{ $errors->first($errorKey) }}
-                        </div>
-                    @endif
-                @endforeach
-            @endif
+            <div id="message-float">
+                {{ session('success') }}
+            </div>
+        @else
+            @foreach (['text', 'title'] as $errorKey)
+                @if ($errors->has($errorKey))
+                    <div id="message-float-error">
+                        {{ $errors->first($errorKey) }}
+                    </div>
+                @endif
+            @endforeach
+        @endif
         <div class="content-wrapper">
-            
+
 
             <!-- Content Header (Page header) -->
             <div class="content-header">
@@ -83,46 +83,109 @@
             </div>
             <!-- /.content-header -->
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <!--for each data counted, new card will be generate-->
-                    @for ($i = 0; $i < count($serviceData); $i++)
-                        <!--new row will be created-->
-                        @if ($i % 3 === 0)
-                            <div class="row">
-                        @endif
-                        <div class="col-md-4">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Card #{{ $i + 1 }}</h3>
-                                </div>
-                                <div class="card-body">
-                                    <form action="{{ route('updateCardService', $serviceData[$i]->id) }}"
-                                        method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="siteName">Card Title</label>
-                                            <input type="text" class="form-control" name="title"
-                                                value="{{ $serviceData[$i]->title }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="siteName">Card Paragraph</label>
-                                            <textarea rows="3" type="text" class="form-control" name="paragraph">{{ $serviceData[$i]->desc }}</textarea>
-                                        </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                    </form>
+            @if ($siteData->setupService == false)
+                <!-- Main content -->
+                <section class="content">
+                    <!-- Container Fluid -->
+                    <div class="container-fluid">
+                        <!-- row -->
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-6">
+                                <div class="callout callout-info">
+                                    <h5><i class="fas fa-info"></i> Note:</h5>
+                                    Please add more service card <b>({{6-$serviceData -> count()}} cards remaining)</b> 
                                 </div>
                             </div>
+                            <!-- ./col -->
+                            <!-- col -->
+                            <div class="col-md-12">
+                                <!-- card -->
+                                <div class="card card-primary card-outline">
+                                    <!-- card header -->
+                                    <div class="card-header">
+                                        <h3 class="card-title">Card #{{$serviceData -> count() + 1}}</h3>
+                                    </div>
+                                    <!-- ./card header -->
+                                    <!-- card body -->
+                                    <div class="card-body">
+                                        <form action="{{ route('addService' , $serviceData -> count()) }}"
+                                            method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <!-- form group -->
+                                            <div class="form-group">
+                                                <label for="siteName">Service Title</label>
+                                                <input type="text" class="form-control" name="title"
+                                                    placeholder="Please enter service title">
+                                            </div>
+                                            <!-- ./form group -->
+                                            <!-- form group -->
+                                            <div class="form-group">
+                                                <label for="siteName">Service Paragraph</label>
+                                                <textarea rows="3" type="text" class="form-control" name="paragraph" placeholder="Please enter service description"></textarea>
+                                            </div>
+                                            <!-- form group -->
+                                    </div>
+                                    <!-- ./card body -->
+                                    <!-- card footer -->
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Add Service</button>
+                                        </form>
+                                    </div>
+                                    <!-- ./card footer -->
+                                </div>
+                                 <!-- ./card -->
+                            </div>
+                            <!-- col -->
                         </div>
-                        @if (($i + 1) % 3 === 0 || $i === count($serviceData) - 1)
+                        <!-- ./row -->
+                    </div>
+                    <!-- ./Container Fluid -->
+                </section>
+                <!-- ./Main content -->
+            @else
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <!--for each data counted, new card will be generate-->
+                        @for ($i = 0; $i < count($serviceData); $i++)
+                            <!--new row will be created-->
+                            @if ($i % 3 === 0)
+                                <div class="row">
+                            @endif
+                            <div class="col-md-4">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Card #{{ $i + 1 }}</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="{{ route('updateCardService', $serviceData[$i]->id) }}"
+                                            method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="siteName">Card Title</label>
+                                                <input type="text" class="form-control" name="title"
+                                                    value="{{ $serviceData[$i]->title }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="siteName">Card Paragraph</label>
+                                                <textarea rows="3" type="text" class="form-control" name="paragraph">{{ $serviceData[$i]->desc }}</textarea>
+                                            </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                        @endif
-                @endfor
+                            @if (($i + 1) % 3 === 0 || $i === count($serviceData) - 1)
+                    </div>
+            @endif
+            @endfor
         </div>
         </section>
+        @endif
+
 
     </div><!-- /.container-fluid -->
 

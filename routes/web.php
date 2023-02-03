@@ -65,5 +65,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('admin/siteStatus/disableSite' , [actionController::class, 'disableSite']) -> name('disableSite');
     Route::get('admin/siteStatus/enable' , [actionController::class, 'enableSite']) -> name('enableSite');
     //Create for setup
-    Route::get('admin/Branding/create' , [setupController::class , 'createBranding']) -> name('createBranding');
+    Route::get('admin/branding/create' , [setupController::class , 'createBranding']) -> name('createBranding');
+    Route::get('admin/service/create' , [setupController::class , 'createService']) -> name('createService');
+    Route::post('admin/service/add/{id}' , [setupController::class, 'addService']) -> name('addService');
 });

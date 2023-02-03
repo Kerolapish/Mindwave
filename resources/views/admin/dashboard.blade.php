@@ -93,127 +93,147 @@
                         <!-- /.row -->
                         <!-- row -->
                         <div class="row">
-                            <!--col-->
-                            <div class="col-lg-4 col-6">
-                                <!--card-->
-                                <div class="card card-warning card-outline">
-                                    <!--card body-->
-                                    <div class="card-body">
-                                        <h3 class="profile-username text-center">Branding</h3>
-                                        <p class="text-muted text-center">Setup logo, favicon, page title</p>
-                                        <a href="{{ route('createBranding') }}" class="btn btn-warning btn-block"><b>Setup
-                                            Branding</b></a>
+                            @if ($siteData->setupBrand == false)
+                                <!--col-->
+                                <div class="col-lg-4 col-6">
+                                    <!--card-->
+                                    <div class="card card-warning card-outline">
+                                        <!--card body-->
+                                        <div class="card-body">
+                                            <h3 class="profile-username text-center">Branding</h3>
+                                            <p class="text-muted text-center">Setup logo, favicon, page title</p>
+                                            <a href="{{ route('createBranding') }}"
+                                                class="btn btn-warning btn-block"><b>Setup
+                                                    Branding</b></a>
+                                        </div>
+                                        <!--./card body-->
                                     </div>
-                                    <!--./card body-->
+                                    <!--./card-->
                                 </div>
-                                <!--./card-->
-                            </div>
-                            <!--./col-->
-                            <!--col-->
-                            <div class="col-lg-4 col-6">
-                                <!--card-->
-                                <div class="card card-warning card-outline">
-                                    <!--card body-->
-                                    <div class="card-body">
-                                        <h3 class="profile-username text-center">Background</h3>
-                                        <p class="text-muted text-center">Setup site background</p>
-                                        <a href="{{ route('branding') }}" class="btn btn-warning btn-block"><b>Setup
-                                            Background</b></a>
+                                <!--./col-->
+                            @endif
+
+                            @if ($siteData->setupBackground == false)
+                                <!--col-->
+                                <div class="col-lg-4 col-6">
+                                    <!--card-->
+                                    <div class="card card-warning card-outline">
+                                        <!--card body-->
+                                        <div class="card-body">
+                                            <h3 class="profile-username text-center">Background</h3>
+                                            <p class="text-muted text-center">Setup site background</p>
+                                            <a href="{{ route('branding') }}"
+                                                class="btn btn-warning btn-block"><b>Setup
+                                                    Background</b></a>
+                                        </div>
+                                        <!--./card body-->
                                     </div>
-                                    <!--./card body-->
+                                    <!--./card-->
                                 </div>
-                                <!--./card-->
-                            </div>
-                            <!--./col-->
-                            <!--col-->
-                            <div class="col-lg-4 col-6">
-                                <!--card-->
-                                <div class="card card-warning card-outline">
-                                    <!--card body-->
-                                    <div class="card-body">
-                                        <h3 class="profile-username text-center">Top Title</h3>
-                                        <p class="text-muted text-center">Setup site top title and description</p>
-                                        <a href="{{ route('branding') }}" class="btn btn-warning btn-block"><b>Setup
-                                            Top Title</b></a>
+                                <!--./col-->
+                            @endif
+
+                            @if ($siteData->setupTitle == false)
+                                <!--col-->
+                                <div class="col-lg-4 col-6">
+                                    <!--card-->
+                                    <div class="card card-warning card-outline">
+                                        <!--card body-->
+                                        <div class="card-body">
+                                            <h3 class="profile-username text-center">Top Title</h3>
+                                            <p class="text-muted text-center">Setup site top title and description</p>
+                                            <a href="{{ route('branding') }}"
+                                                class="btn btn-warning btn-block"><b>Setup
+                                                    Top Title</b></a>
+                                        </div>
+                                        <!--./card body-->
                                     </div>
-                                    <!--./card body-->
+                                    <!--./card-->
                                 </div>
-                                <!--./card-->
-                            </div>
-                            <!--./col-->
+                                <!--./col-->
+                            @endif
+
+                            @if ($siteData->setupInfo == false)
+                                <!--col-->
+                                <div class="col-lg-4 col-6">
+                                    <!--card-->
+                                    <div class="card card-warning card-outline">
+                                        <!--card body-->
+                                        <div class="card-body">
+                                            <h3 class="profile-username text-center">Information</h3>
+                                            <p class="text-muted text-center">Setup company info</p>
+                                            <a href="{{ route('branding') }}"
+                                                class="btn btn-warning btn-block"><b>Setup
+                                                    Information</b></a>
+                                        </div>
+                                        <!--./card body-->
+                                    </div>
+                                    <!--./card-->
+                                </div>
+                                <!--./col-->
+                            @endif
+
+                            @if ($siteData->setupService == false)
+                                <!--col-->
+                                <div class="col-lg-4 col-6">
+                                    <!--card-->
+                                    <div class="card card-warning card-outline">
+                                        <!--card body-->
+                                        <div class="card-body">
+                                            <h3 class="profile-username text-center">Service</h3>
+                                            <p class="text-muted text-center">Setup site background</p>
+                                            <a href="{{ route('createService') }}"
+                                                class="btn btn-warning btn-block"><b>Setup
+                                                    Service Content</b></a>
+                                        </div>
+                                        <!--./card body-->
+                                    </div>
+                                    <!--./card-->
+                                </div>
+                                <!--./col-->
+                            @endif
+
+                            @if ($siteData->setupTeam == false)
+                                <!--col-->
+                                <div class="col-lg-4 col-6">
+                                    <!--card-->
+                                    <div class="card card-warning card-outline">
+                                        <!--card body-->
+                                        <div class="card-body">
+                                            <h3 class="profile-username text-center">Teams</h3>
+                                            <p class="text-muted text-center">Setup content on Teams section</p>
+                                            <a href="{{ route('branding') }}"
+                                                class="btn btn-warning btn-block"><b>Setup
+                                                    Teams Content</b></a>
+                                        </div>
+                                        <!--./card body-->
+                                    </div>
+                                    <!--./card-->
+                                </div>
+                                <!--./col-->
+                            @endif
+
+                            @if ($siteData->setupFooter == false)
+                                <!--col-->
+                                <div class="col-lg-4 col-6">
+                                    <!--card-->
+                                    <div class="card card-warning card-outline">
+                                        <!--card body-->
+                                        <div class="card-body">
+                                            <h3 class="profile-username text-center">Footer</h3>
+                                            <p class="text-muted text-center">Setup footer description</p>
+                                            <a href="{{ route('branding') }}"
+                                                class="btn btn-warning btn-block"><b>Setup
+                                                    Footer</b></a>
+                                        </div>
+                                        <!--./card body-->
+                                    </div>
+                                    <!--./card-->
+                                </div>
+                                <!--./col-->
+                            @endif
                         </div>
                         <!-- /.row -->
-                        <!-- row -->
-                        <div class="row">
-                            <!--col-->
-                            <div class="col-lg-4 col-6">
-                                <!--card-->
-                                <div class="card card-warning card-outline">
-                                    <!--card body-->
-                                    <div class="card-body">
-                                        <h3 class="profile-username text-center">Information</h3>
-                                        <p class="text-muted text-center">Setup company info</p>
-                                        <a href="{{ route('branding') }}" class="btn btn-warning btn-block"><b>Setup
-                                            Information</b></a>
-                                    </div>
-                                    <!--./card body-->
-                                </div>
-                                <!--./card-->
-                            </div>
-                            <!--./col-->
-                            <!--col-->
-                            <div class="col-lg-4 col-6">
-                                <!--card-->
-                                <div class="card card-warning card-outline">
-                                    <!--card body-->
-                                    <div class="card-body">
-                                        <h3 class="profile-username text-center">Service</h3>
-                                        <p class="text-muted text-center">Setup site background</p>
-                                        <a href="{{ route('branding') }}" class="btn btn-warning btn-block"><b>Setup
-                                            Service Content</b></a>
-                                    </div>
-                                    <!--./card body-->
-                                </div>
-                                <!--./card-->
-                            </div>
-                            <!--./col-->
-                            <!--col-->
-                            <div class="col-lg-4 col-6">
-                                <!--card-->
-                                <div class="card card-warning card-outline">
-                                    <!--card body-->
-                                    <div class="card-body">
-                                        <h3 class="profile-username text-center">Teams</h3>
-                                        <p class="text-muted text-center">Setup content on service section</p>
-                                        <a href="{{ route('branding') }}" class="btn btn-warning btn-block"><b>Setup
-                                            Service Content</b></a>
-                                    </div>
-                                    <!--./card body-->
-                                </div>
-                                <!--./card-->
-                            </div>
-                        </div>
-                        <!-- ./row -->
-                        <!-- row -->
-                        <div class="row">
-                            <!--col-->
-                            <div class="col-lg-4 col-6">
-                                <!--card-->
-                                <div class="card card-warning card-outline">
-                                    <!--card body-->
-                                    <div class="card-body">
-                                        <h3 class="profile-username text-center">Footer</h3>
-                                        <p class="text-muted text-center">Setup footer description</p>
-                                        <a href="{{ route('branding') }}" class="btn btn-warning btn-block"><b>Setup
-                                            Footer</b></a>
-                                    </div>
-                                    <!--./card body-->
-                                </div>
-                                <!--./card-->
-                            </div>
-                            <!--./col-->
-                        </div>
-                        <!-- ./row -->
                     </div>
                     <!-- /.container-fluid -->
                 </section>
@@ -279,7 +299,8 @@
                                     <div class="card-body">
                                         <h3 class="profile-username text-center">Background</h3>
                                         <p class="text-muted text-center">Change site background</p>
-                                        <a href="{{ route('background') }}" class="btn btn-success btn-block"><b>Update
+                                        <a href="{{ route('background') }}"
+                                            class="btn btn-success btn-block"><b>Update
                                                 Background</b></a>
                                     </div>
                                     <!--./card body-->
