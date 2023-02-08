@@ -122,7 +122,7 @@
                                         <div class="card-body">
                                             <h3 class="profile-username text-center">Background</h3>
                                             <p class="text-muted text-center">Setup site background</p>
-                                            <a href="{{ route('branding') }}"
+                                            <a href="{{ route('createBackground') }}"
                                                 class="btn btn-warning btn-block"><b>Setup
                                                     Background</b></a>
                                         </div>

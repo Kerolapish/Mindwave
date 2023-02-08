@@ -88,11 +88,16 @@ Route::middleware(['admin'])->group(function () {
 
     //Function route create setup
     Route::get('admin/branding/create' , [setupController::class , 'createBranding']) -> name('createBranding');
+    Route::get('admin/background/create' , [setupController::class , 'createBackground']) -> name('createBackground');
 
     //Function route to create setup in branding
     Route:: post('admin/Branding/create/favicon' , [setupcontroller::class , 'createFavicon']) -> name('createFavicon');
     Route:: post('admin/Branding/create/siteName' , [setupcontroller::class , 'createSiteName']) -> name('createSiteName');
     Route:: post('admin/Branding/create/logo' , [setupcontroller::class , 'createLogo']) -> name('createLogo');
+
+    //Function route to create setup in background
+    Route::post('admin/background/create/background', [setupController::class, 'createBg'])->name('createBg');
+
     Route::get('admin/service/create' , [setupController::class , 'createService']) -> name('createService');
     Route::post('admin/service/add/{id}' , [setupController::class, 'addService']) -> name('addService');
 });

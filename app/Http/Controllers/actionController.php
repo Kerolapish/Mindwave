@@ -101,7 +101,6 @@ class actionController extends Controller
         // Delete the current image from the storage disk
         Storage::disk('public')->delete($image->path);
 
-
         // Get the new image file uploaded by the user
         $newImage = $request->file('image');
 
@@ -146,7 +145,6 @@ class actionController extends Controller
         $logo->logoPath = $newLogoPath;
         $logo->save();
 
-        
         // Redirect or return a success message
         return redirect()->back()->with('status', 'Logo has been updated successfully.');
     }

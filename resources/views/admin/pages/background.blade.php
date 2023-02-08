@@ -54,7 +54,7 @@
                 {{ session('success') }}
             </div>
         @else
-            @foreach (['name', 'position', 'url', 'image'] as $errorKey)
+            @foreach (['video', 'bg1', 'bg2'] as $errorKey)
                 @if ($errors->has($errorKey))
                     <div id="message-float-error">
                         {{ $errors->first($errorKey) }}
@@ -91,148 +91,209 @@
             </div>
             <!-- /.content-header -->
 
-            <!-- Main content -->
-            <section class="content">
-                <!--Container fliud-->
-                <div class="container-fluid">
-
-                    <!--Row-->
-                    <div class="row">
-                        <!--Column-->
-                        <div class="col-md-6">
-                            <!--Card-->
-                            <div class="card card-primary card-outline">
-                                <!--Card Header-->
-                                <div class="card-header">
-                                    <h3 class="card-title">Video Background</h3>
-                                </div>
-                                <!--./Card Header-->
-                                <!--Card body-->
-                                <div class="card-body">
-                                    <div class="text-center mb-5">
-                                        <video width="60%" autoplay muted loop id="bg-video">
-                                            <source src="{{ asset('storage/' . $bgData->vidPath) }}"
-                                                type="video/mp4" />
-                                        </video>
+            @if ($siteData->setupBackground == false)
+                <!-- Main content -->
+                <section class="content">
+                    <!--Container fluid-->
+                    <div class="container-fluid">
+                        <!--Row-->
+                        <div class="row">
+                            <!--Column-->
+                            <div class="col-md-12">
+                                <!--Card-->
+                                <div class="card card-primary card-outline">
+                                    <!--Card Header-->
+                                    <div class="card-header">
+                                        <h3 class="card-title">Video Background</h3>
                                     </div>
-                                    <form action=" {{ route('updateVidBg') }}" method="POST"
+                                    <!--./Card Header-->
+                                    <form action=" {{ route('createBg') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
-                                        <label for="exampleInputFile">Video Background</label>
-                                        <div class="input-group">
-                                            <input type="file" name="video" id="inputFile0"
-                                                class="custom-file-input @error('video') is-invalid @enderror">
-                                            <label class="custom-file-label" for="inputFile0"
-                                                id="inputFile1Label0">Choose Video</label>
+                                        <!--Card body-->
+                                        <div class="card-body">
+                                            {{--  Upload Video Background --}}
+                                            <label for="exampleInputFile">Video Background</label>
+                                            <div class="input-group">
+                                                <input type="file" name="video" id="inputFile0"
+                                                    class="custom-file-input @error('video') is-invalid @enderror">
+                                                <label class="custom-file-label" for="inputFile0"
+                                                    id="inputFile1Label0">Choose Video</label>
+                                            </div>
+                                            {{-- Upload Primary Background --}}
+                                            <label for="exampleInputFile">Primary Background</label>
+                                            <div class="input-group">
+                                                <input type="file" name="bg1" id="inputFile1"
+                                                    class="custom-file-input @error('bg1') is-invalid @enderror">
+                                                <label class="custom-file-label" for="inputFile1"
+                                                    id="inputFile1Label">Choose Image</label>
+                                            </div>
+                                            {{-- Upload Secondary Background --}}
+                                            <label for="exampleInputFile">Secondary Background</label>
+                                            <div class="input-group">
+                                                <input type="file" name="bg2" id="inputFile2"
+                                                    class="custom-file-input @error('bg2') is-invalid @enderror">
+                                                <label class="custom-file-label" for="inputFile2"
+                                                    id="inputFile2Label">Choose Image</label>
+                                            </div>
                                         </div>
-                                </div>
-                                @error('video')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                                <!--./Card body-->
-                                <!--Card footer-->
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                         <!--./Card body-->
+                                        <!--Card footer-->
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Create</button>
+                                        </div>
+                                        <!--./Card footer-->
                                     </form>
                                 </div>
-                                <!--./Card footer-->
+                                <!--Card-->
                             </div>
-                            <!--Card-->
                         </div>
-                        <!--./Column-->
-                        <!--Column-->
-                        <div class="col-md-6">
-                            <!--Card-->
-                            <div class="card card-primary card-outline">
-                                <!--Card Header-->
-                                <div class="card-header">
-                                    <h3 class="card-title">Primary Background</h3>
-                                </div>
-                                <!--./Card Header-->
-                                <!--Card body-->
-                                <div class="card-body">
-                                    <div class="text-center mb-5">
-                                        <img width="400" height="200"
-                                            src="{{ asset('storage/' . $bgData->bg1Path) }}" alt="">
-
-                                    </div>
-                                    <form action="{{ route('updateBg1') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <label for="exampleInputFile">Primary Background</label>
-                                        <div class="input-group">
-                                            <input type="file" name="image" id="inputFile1"
-                                                class="custom-file-input @error('image') is-invalid @enderror">
-                                            <label class="custom-file-label" for="inputFile1"
-                                                id="inputFile1Label">Choose Image</label>
-                                        </div>
-                                </div>
-                                @error('video')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                                <!--./Card body-->
-                                <!--Card footer-->
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                    </form>
-                                </div>
-                                <!--./Card footer-->
-                            </div>
-                            <!--Card-->
-                        </div>
-                        <!--./Column-->
+                        <!--./row-->
                     </div>
-                    <!--./row-->
-
-                    <!--Row-->
-                    <div class="row">
-                        <!--Col-->
-                        <div class="col-md-6">
-                            <!--Card-->
-                            <div class="card card-primary card-outline">
-                                <!--Card Header-->
-                                <div class="card-header">
-                                    <h3 class="card-title">Secondary Background</h3>
-                                </div>
-                                <!--Card Header-->
-                                <!--Card Body-->
-                                <div class="card-body">
-                                    <div class="text-center mb-5">
-                                        <img width="400" height="200"
-                                            src="{{ asset('storage/' . $bgData->bg2Path) }}" alt="">
+                </section>
+            @else
+                <!-- content -->
+                <div class="content">
+                    <!-- content fluid -->
+                    <div class="container-fluid">
+                        <!--Row-->
+                        <div class="row">
+                            {{-- Update Video Background --}}
+                            <!--Column-->
+                            <div class="col-md-6">
+                                <!--Card-->
+                                <div class="card card-primary card-outline">
+                                    <!--Card Header-->
+                                    <div class="card-header">
+                                        <h3 class="card-title">Video Background</h3>
                                     </div>
-                                    <form action="{{ route('updateBg2') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <label for="exampleInputFile">Primary Background</label>
-                                        <div class="input-group">
-                                            <input type="file" name="image" id="inputFile2"
-                                                class="custom-file-input @error('image') is-invalid @enderror">
-                                            <label class="custom-file-label" for="inputFile2"
-                                                id="inputFile2Label">Choose Image</label>
-                                        </div>
+                                    <!--./Card Header-->
+                                    <!--Card body-->
+                                    <div class="card-body">
+                                        <form action=" {{ route('updateVidBg') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <label for="exampleInputFile">Video Background</label>
+                                            <div class="input-group">
+                                                <input type="file" name="video" id="inputFile0"
+                                                    class="custom-file-input @error('video') is-invalid @enderror">
+                                                <label class="custom-file-label" for="inputFile0"
+                                                    id="inputFile1Label0">Choose Video</label>
+                                            </div>
+                                    </div>
+                                    @error('video')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    <!--./Card body-->
+                                    <!--Card footer-->
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        </form>
+                                    </div>
+                                    <!--./Card footer-->
                                 </div>
-                                <!--Card Body-->
-                                <!--Card footer-->
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                    </form>
-                                </div>
-                                <!--Card footer-->
+                                <!--Card-->
                             </div>
-                            <!--Card-->
-                        </div>
-                        <!--Col-->
+                            <!--./Column-->
+
+                            {{-- Update Primary Background --}}
+                            <!--Column-->
+                            <div class="col-md-6">
+                                <!--Card-->
+                                <div class="card card-primary card-outline">
+                                    <!--Card Header-->
+                                    <div class="card-header">
+                                        <h3 class="card-title">Primary Background</h3>
+                                    </div>
+                                    <!--./Card Header-->
+                                    <!--Card body-->
+                                    <div class="card-body">
+                                        <div class="text-center mb-5">
+                                            <img width="400" height="200"
+                                                src="{{ asset('storage/' . $bgData->bg1Path) }}" alt="">
+
+                                        </div>
+                                        <form action="{{ route('updateBg1') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <label for="exampleInputFile">Primary Background</label>
+                                            <div class="input-group">
+                                                <input type="file" name="image" id="inputFile1"
+                                                    class="custom-file-input @error('image') is-invalid @enderror">
+                                                <label class="custom-file-label" for="inputFile1"
+                                                    id="inputFile1Label">Choose Image</label>
+                                            </div>
+                                    </div>
+                                    @error('video')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    <!--./Card body-->
+                                    <!--Card footer-->
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        </form>
+                                    </div>
+                                    <!--./Card footer-->
+                                </div>
+                                <!--Card-->
+                            </div>
+                            <!--./Column-->
+
+                            {{-- Update secondary background --}}
+                            <!--Column-->
+                            <div class="col-md-6">
+                                <!--Card-->
+                                <div class="card card-primary card-outline">
+                                    <!--Card Header-->
+                                    <div class="card-header">
+                                        <h3 class="card-title">Secondary Background</h3>
+                                    </div>
+                                    <!--Card Header-->
+                                    <!--Card Body-->
+                                    <div class="card-body">
+                                        <div class="text-center mb-5">
+                                            <img width="400" height="200"
+                                                src="{{ asset('storage/' . $bgData->bg2Path) }}" alt="">
+                                        </div>
+                                        <form action="{{ route('updateBg2') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <label for="exampleInputFile">Primary Background</label>
+                                            <div class="input-group">
+                                                <input type="file" name="image" id="inputFile2"
+                                                    class="custom-file-input @error('image') is-invalid @enderror">
+                                                <label class="custom-file-label" for="inputFile2"
+                                                    id="inputFile2Label">Choose Image</label>
+                                            </div>
+                                    </div>
+                                    <!--Card Body-->
+                                    <!--Card footer-->
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        </form>
+                                    </div>
+                                    <!--Card footer-->
+                                </div>
+                                <!--Card-->
+                            </div>
+                            <!--./Column-->
+                        </div>  
+                        <!--./Row-->
                     </div>
-                    <!--./Row-->
+                    <!-- ./content fluid -->
                 </div>
-                <!--./Container fluid-->
-            </section>
-            <!--Content End-->
+                <!-- ./content -->
+            @endif
+        </div>
+        <!--./row-->
+    </div>
+    <!--./Container fluid-->
+    </section>
+    <!--Content End-->
 
-        </div><!-- /.container-fluid -->
+    </div><!-- /.container-fluid -->
 
-        <!-- /.content -->
+    <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 

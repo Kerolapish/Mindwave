@@ -115,7 +115,7 @@
                             </div>
                             <!-- ./col -->
                         @else
-                        {{--Update Favicon--}}
+                            {{-- Update Favicon --}}
                             <!-- col -->
                             <div class="col-md-6">
                                 <div class="card card-primary card-outline">
@@ -149,130 +149,129 @@
                             <!-- ./col -->
                         @endif
 
-                        {{-- Upload SiteName --}}'
+                        {{-- Upload SiteName --}}
                         @if ($siteData->setupBrand == false)
-                        <!-- col -->
-                        <div class="col-md-6">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Upload Site Name</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Upload your site name</p>
-                                    <form action=" {{ route('createSiteName') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="siteName">New site name</label>
-                                            <input type="text" class="form-control" name="siteName"
-                                                placeholder="{{ $brandData->siteName }}">
-                                        </div>
-                                </div>
+                            <!-- col -->
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Upload Site Name</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Upload your site name</p>
+                                        <form action=" {{ route('createSiteName') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="siteName">New site name</label>
+                                                <input type="text" class="form-control" name="siteName">
+                                            </div>
+                                    </div>
 
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
 
-                                </form>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        <!-- ./col -->
+                            <!-- ./col -->
                         @else
-                        {{--Update Site Name--}}
-                        <!-- col -->
-                        <div class="col-md-6">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Site Name</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Change site name appears as page title</p>
-                                    <form action=" {{ route('updateSiteName') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="siteName">Current site name</label>
-                                            <input type="text" class="form-control" name="siteName"
-                                                placeholder="{{ $brandData->siteName }}">
-                                        </div>
-                                </div>
+                            {{-- Update Site Name --}}
+                            <!-- col -->
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Site Name</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Change site name appears as page title</p>
+                                        <form action=" {{ route('updateSiteName') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="siteName">Current site name</label>
+                                                <input type="text" class="form-control" name="siteName"
+                                                    placeholder="{{ $brandData->siteName }}">
+                                            </div>
+                                    </div>
 
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
 
-                                </form>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        <!-- ./col -->
+                            <!-- ./col -->
                         @endif
-                        
+
                         {{-- //Upload Logo --}}
                         @if ($siteData->setupBrand == false)
-                        <!-- col -->
-                        <div class="col-md-6">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Upload Logo</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Upload Logo, size must be 32x32 and in .png or .jpg format</p>
-                                    <form action="{{ route('createLogo') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">File Input</label>
-                                            <div class="input-group">
-                                                <input type="file" name="image" id="InputFile1"
-                                                    class="custom-file-input @error('logo') is-invalid @enderror">
-                                                <label class="custom-file-label" for="InputFile1"
-                                                    id="InputFile1Label">Choose Logo</label>
+                            <!-- col -->
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Upload Logo</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Upload Logo, size must be 32x32 and in .png or .jpg format</p>
+                                        <form action="{{ route('createLogo') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">File Input</label>
+                                                <div class="input-group">
+                                                    <input type="file" name="image" id="InputFile1"
+                                                        class="custom-file-input @error('logo') is-invalid @enderror">
+                                                    <label class="custom-file-label" for="InputFile1"
+                                                        id="InputFile1Label">Choose Logo</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        @error('logo')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
+                                            @error('logo')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    </form>
                                 </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
-                                </form>
                             </div>
-                        </div>
-                        <!-- ./col -->
+                            <!-- ./col -->
                         @else
-                        {{--Update Logo--}}
-                        <!-- col -->
-                        <div class="col-md-6">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Update Logo</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Update Logo, size must be 32x32 and in .png or .jpg format</p>
-                                    <form action="{{ route('updateLogo') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">File Input</label>
-                                            <div class="input-group">
-                                                <input type="file" name="image" id="InputFile1"
-                                                    class="custom-file-input @error('logo') is-invalid @enderror">
-                                                <label class="custom-file-label" for="InputFile1"
-                                                    id="InputFile1Label">Choose Logo</label>
+                            {{-- Update Logo --}}
+                            <!-- col -->
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Update Logo</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Update Logo, size must be 32x32 and in .png or .jpg format</p>
+                                        <form action="{{ route('updateLogo') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">File Input</label>
+                                                <div class="input-group">
+                                                    <input type="file" name="image" id="InputFile1"
+                                                        class="custom-file-input @error('logo') is-invalid @enderror">
+                                                    <label class="custom-file-label" for="InputFile1"
+                                                        id="InputFile1Label">Choose Logo</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        @error('logo')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
+                                            @error('logo')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    </form>
                                 </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
-                                </form>
                             </div>
-                        </div>
-                        <!-- ./col -->
+                            <!-- ./col -->
                         @endif
                     </div>
                     <!-- /.row -->

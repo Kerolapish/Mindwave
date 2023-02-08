@@ -121,7 +121,7 @@
     <!-- ***** Main Banner Area Start ***** -->
     <section class="section main-banner" id="top" data-section="section1">
         <video autoplay muted loop id="bg-video">
-            @if ($bgData == null || $siteData->setupBrand == false)
+            @if ($siteData->setupBrand == false)
                 <source src="{{ asset('assets/images/black-bg.mp4') }}" type="video/mp4" />
             @else
                 <source src="{{ asset('storage/' . $bgData->vidPath) }}" type="video/mp4" />
