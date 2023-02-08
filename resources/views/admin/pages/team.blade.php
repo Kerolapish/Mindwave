@@ -91,91 +91,178 @@
             </div>
             <!-- /.content-header -->
 
-            <!-- Main content -->
-            <section class="content">
-                <!--Container fliud-->
-                <div class="container-fluid">
-                    <!--for each data counted, new card will be generate-->
-                    @for ($i = 0; $i < count($teamData); $i++)
-                        <!--new row will be created-->
-                        @if ($i % 3 === 0)
-                            <!--Row-->
-                            <div class="row">
-                        @endif
-                        <!--Column-->
-                        <div class="col-md-4">
-                            <!--Card-->
-                            <div class="card card-primary card-outline">
-                                <!--Card Header-->
-                                <div class="card-header">
-                                    <h3 class="card-title">Team Member #{{ $i + 1 }}</h3>
+            @if ($siteData->setupTeam == false)
+                <!-- Main content -->
+                <section class="content">
+                    <!--Container fliud-->
+                    <div class="container-fluid">
+                        <!--row-->
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-12">
+                                <div class="callout callout-info">
+                                    <h5><i class="fas fa-info"></i> Note:</h5>
+                                    Please add more team card <b>({{ 3 - $teamData->count() }} cards remaining)</b>
                                 </div>
-                                <!--./Card Header-->
-                                <!--Card body-->
-                                <div class="card-body">
-                                    <form action="{{ route('updateTeam', $teamData[$i]->id) }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <!--img row-->
-                                        <div class="text-center">
-                                            <img src="{{ asset('storage/' . $teamData[$i]->path) }}" alt=""
-                                                width="100" class="img-fluid rounded-circle mb-3  shadow-sm">
-                                        </div>
-                                        <!--./img row-->
-                                        <!--form-group-->
-                                        <div class="form-group">
-                                            <label for="name">Team's Name</label>
-                                            <input type="text" class="form-control" name="name"
-                                                value="{{ $teamData[$i]->name }}">
-                                        </div>
-                                        <!--./form-group-->
-                                        <!--form-group-->
-                                        <div class="form-group">
-                                            <label for="position">Team's Position</label>
-                                            <input type="text" class="form-control" name="position"
-                                                value="{{ $teamData[$i]->position }}">
-                                        </div>
-                                        <!--./form-group-->
-                                        <!--form-group-->
-                                        <div class="form-group">
-                                            <label for="position">Team's LinkedIn URL</label>
-                                            <input type="text" class="form-control" name="url"
-                                                value="{{ $teamData[$i]->url }}">
-                                        </div>
-                                        <!--./form-group-->
-                                        <!--form-group-->
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">Team's Image</label>
-                                            <div class="input-group">
-                                                <input type="file" name="image" id="inputFile{{ $i }}"
-                                                    class="custom-file-input @error('image') is-invalid @enderror">
-                                                <label class="custom-file-label" for="inputFile{{ $i }}"
-                                                    id="inputFile{{ $i }}Label">Choose
-                                                    Image</label>
-                                            </div>
-                                        </div>
-                                        <!--./form-group-->
-                                </div>
-                                <!--./Card body-->
-                                <!--Card footer-->
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                    </form>
-                                </div>
-                                <!--./Card footer-->
                             </div>
-                            <!--Card-->
+                            <!-- ./col -->
+                            <!-- col -->
+                            <div class="col-md-12">
+                                <!-- card -->
+                                <div class="card card-primary card-outline">
+                                    <!-- card header -->
+                                    <div class="card-header">
+                                        <h3 class="card-title">Team Card #{{ $teamData->count() + 1 }}</h3>
+                                    </div>
+                                    <!-- ./card header -->
+                                    <!-- card body -->
+                                    <div class="card-body">
+                                        <form action="{{ route('addTeam', $teamData->count()) }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <!-- form group -->
+                                            <div class="form-group">
+                                                <label for="siteName">Team's Name</label>
+                                                <input type="text" class="form-control" name="name"
+                                                    placeholder="Please enter team's name">
+                                            </div>
+                                            <!-- ./form group -->
+                                            <!-- form group -->
+                                            <div class="form-group">
+                                                <label for="siteName">Team's Position</label>
+                                                <input type="text" class="form-control" name="position"
+                                                    placeholder="Please enter team's position">
+                                            </div>
+                                            <!-- ./form group -->
+                                            <!-- form group -->
+                                            <div class="form-group">
+                                                <label for="url">Team's LinkedIn URL</label>
+                                                <input type="text" class="form-control" name="url"
+                                                    placeholder="Please enter team's LinkedIn URL">
+                                            </div>
+                                            <!-- ./form group -->
+                                            <!-- form group -->
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Team's Image</label>
+                                                <div class="input-group">
+                                                    <input type="file" name="image"
+                                                        id="inputFile{{ $teamData->count() + 1 }}"
+                                                        class="custom-file-input @error('image') is-invalid @enderror">
+                                                    <label class="custom-file-label"
+                                                        for="inputFile{{ $teamData->count() + 1 }}"
+                                                        id="inputFile{{ $teamData->count() + 1 }}Label">Choose
+                                                        Image</label>
+                                                </div>
+                                            </div>
+                                            <!-- ./form group -->
+                                    </div>
+                                    <!-- ./card body -->
+                                    <!-- card footer -->
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Add Team</button>
+                                        </form>
+                                    </div>
+                                    <!-- ./card footer -->
+                                </div>
+                                <!-- ./card -->
+                            </div>
+                            <!-- col -->
                         </div>
-                        <!--./Column-->
-                        @if (($i + 1) % 3 === 0 || $i === count($teamData) - 1)
-                </div>
-                <!--./row-->
-                @endif
-                @endfor
+                        <!--./row-->
+                    </div>
+                    <!--./Container fliud-->
+                </section>
+                <!-- ./Main content -->
+            @else
+                <!-- Main content -->
+                <section class="content">
+                    <!--Container fliud-->
+                    <div class="container-fluid">
+                        <!--for each data counted, new card will be generate-->
+                        @for ($i = 0; $i < count($teamData); $i++)
+                            <!--new row will be created-->
+                            @if ($i % 3 === 0)
+                                <!--Row-->
+                                <div class="row">
+                            @endif
+                            <!--Column-->
+                            <div class="col-md-4">
+                                <!--Card-->
+                                <div class="card card-primary card-outline">
+                                    <!--Card Header-->
+                                    <div class="card-header">
+                                        <h3 class="card-title">Team Member #{{ $i + 1 }}</h3>
+                                    </div>
+                                    <!--./Card Header-->
+                                    <!--Card body-->
+                                    <div class="card-body">
+                                        <form action="{{ route('updateTeam', $teamData[$i]->id) }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <!--img row-->
+                                            <div class="text-center">
+                                                <img src="{{ asset('storage/' . $teamData[$i]->path) }}"
+                                                    alt="" width="100"
+                                                    class="img-fluid rounded-circle mb-3  shadow-sm">
+                                            </div>
+                                            <!--./img row-->
+                                            <!--form-group-->
+                                            <div class="form-group">
+                                                <label for="name">Team's Name</label>
+                                                <input type="text" class="form-control" name="name"
+                                                    value="{{ $teamData[$i]->name }}">
+                                            </div>
+                                            <!--./form-group-->
+                                            <!--form-group-->
+                                            <div class="form-group">
+                                                <label for="position">Team's Position</label>
+                                                <input type="text" class="form-control" name="position"
+                                                    value="{{ $teamData[$i]->position }}">
+                                            </div>
+                                            <!--./form-group-->
+                                            <!--form-group-->
+                                            <div class="form-group">
+                                                <label for="position">Team's LinkedIn URL</label>
+                                                <input type="text" class="form-control" name="url"
+                                                    value="{{ $teamData[$i]->url }}">
+                                            </div>
+                                            <!--./form-group-->
+                                            <!--form-group-->
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Team's Image</label>
+                                                <div class="input-group">
+                                                    <input type="file" name="image"
+                                                        id="inputFile{{ $i }}"
+                                                        class="custom-file-input @error('image') is-invalid @enderror">
+                                                    <label class="custom-file-label"
+                                                        for="inputFile{{ $i }}"
+                                                        id="inputFile{{ $i }}Label">Choose
+                                                        Image</label>
+                                                </div>
+                                            </div>
+                                            <!--./form-group-->
+                                    </div>
+                                    <!--./Card body-->
+                                    <!--Card footer-->
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        </form>
+                                    </div>
+                                    <!--./Card footer-->
+                                </div>
+                                <!--Card-->
+                            </div>
+                            <!--./Column-->
+                            @if (($i + 1) % 3 === 0 || $i === count($teamData) - 1)
+                    </div>
+                    <!--./row-->
+            @endif
+            @endfor
         </div>
         <!--./Container fluid-->
         </section>
         <!--Content End-->
+        @endif
 
     </div><!-- /.container-fluid -->
 

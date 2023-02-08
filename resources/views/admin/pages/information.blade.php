@@ -80,112 +80,181 @@
             </div>
             <!-- /.content-header -->
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <!-- Small boxes (Stat box) -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Phone Number</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Change company's phone number</p>
-                                    <form action=" {{ route('updatePhoneNumber') }}" method="POST"
-                                        enctype="multipart/form-data">
+            @if ($siteData->setupInfo == false)
+                <!-- content -->
+                <section class="content">
+                    <!-- container fluid -->
+                    <div class="container-fluid">
+                        <!-- row -->
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-md-12">
+                                <!-- card -->
+                                <div class="card card-primary card-outline">
+                                    <!-- card header -->
+                                    <div class="card-header">
+                                        <h3 class="card-title">Information</h3>
+                                    </div>
+                                    <!-- ./card header -->
+                                    <form action="{{ route('addInfo')}}" method="POST">
                                         @csrf
-                                        <div class="form-group">
-                                            <label for="siteName">Current phone number</label>
-                                            <input type="text" class="form-control" name="phone"
-                                                value="{{ $infoData->phoneNum }}">
+                                        <!-- card body -->
+                                        <div class="card-body">
+                                            <p>Add information content to the site</p>
+                                            <!-- form group -->
+                                            <div class="form-group">
+                                                <label for="siteName">Current phone number</label>
+                                                <input type="text" class="form-control" name="phone"
+                                                    placeholder="Enter company's phone number">
+                                            </div>
+                                            <!-- ./form group -->
+                                            <!-- form group -->
+                                            <div class="form-group">
+                                                <label for="siteName">Current email address</label>
+                                                <input type="email" class="form-control" name="email"
+                                                    placeholder="Enter company's email address">
+                                            </div>
+                                            <!-- ./form group -->
+                                            <!-- form group -->
+                                            <div class="form-group">
+                                                <label for="siteName">Current website URL</label>
+                                                <input type="text" class="form-control" name="url"
+                                                    placeholder="Enter company's website URL">
+                                            </div>
+                                            <!-- ./form group -->
+                                            <!-- form group -->
+                                            <div class="form-group">
+                                                <label for="siteName">Current street address</label>
+                                                <textarea rows="3" type="text" class="form-control" name="address"
+                                                    placeholder="Enter company's street address"></textarea>
+                                            </div>
+                                            <!-- ./form group -->
                                         </div>
-                                </div>
-
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-md-6">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Email Address</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Change company's email address</p>
-                                    <form action=" {{ route('updateEmail') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="siteName">Current email address</label>
-                                            <input type="email" class="form-control" name="email"
-                                                value="{{ $infoData->email }}">
+                                        <!-- card body -->
+                                        <!-- card footer -->
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary">Add Info</button>
                                         </div>
+                                        <!-- card footer -->
+                                    </form>
                                 </div>
-
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
-                                </form>
+                                <!-- ./card -->
                             </div>
+                            <!-- col -->
                         </div>
-
+                        <!-- ./row -->
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Website URL</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Change company's website URL</p>
-                                    <form action=" {{ route('updateWebsite') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="siteName">Current website URL</label>
-                                            <input type="text" class="form-control" name="url"
-                                                value="{{ $infoData->website }}">
-                                        </div>
-                                </div>
+                    <!-- ./container fluid -->
+                </section>
+                <!-- /.content -->
+            @else
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <!-- Small boxes (Stat box) -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Phone Number</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Change company's phone number</p>
+                                        <form action=" {{ route('updatePhoneNumber') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="siteName">Current phone number</label>
+                                                <input type="text" class="form-control" name="phone"
+                                                    value="{{ $infoData->phoneNum }}">
+                                            </div>
+                                    </div>
 
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    </form>
                                 </div>
-                                </form>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Email Address</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Change company's email address</p>
+                                        <form action=" {{ route('updateEmail') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="siteName">Current email address</label>
+                                                <input type="email" class="form-control" name="email"
+                                                    value="{{ $infoData->email }}">
+                                            </div>
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Website URL</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Change company's website URL</p>
+                                        <form action=" {{ route('updateWebsite') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="siteName">Current website URL</label>
+                                                <input type="text" class="form-control" name="url"
+                                                    value="{{ $infoData->website }}">
+                                            </div>
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Street Address</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Change company's street address</p>
+                                        <form action=" {{ route('updateAddress') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="siteName">Current street address</label>
+                                                <textarea rows="3" type="text" class="form-control" name="address">{{ $infoData->address }}</textarea>
+                                            </div>
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                        <!-- ./col -->
-                        <div class="col-md-6">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Street Address</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Change company's street address</p>
-                                    <form action=" {{ route('updateAddress') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="siteName">Current street address</label>
-                                            <textarea rows="3" type="text" class="form-control" name="address">{{ $infoData->address }}</textarea>
-                                        </div>
-                                </div>
-
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
+                        <!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            @endif
         </div>
         <!-- /.content-wrapper -->
 

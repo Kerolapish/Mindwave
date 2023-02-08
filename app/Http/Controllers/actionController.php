@@ -56,7 +56,7 @@ class actionController extends Controller
     public function dashboard()
     {
         $siteData = siteProperty::find(1);
-        return view('/admin/dashboard' , compact('siteData'));
+        return view('/admin/dashboard', compact('siteData'));
     }
 
     //function to direct user to branding page
@@ -119,17 +119,18 @@ class actionController extends Controller
     }
 
     //Function to update Logo in branding page
-    public function updateLogo(Request $request){
+    public function updateLogo(Request $request)
+    {
 
         $validatedData = $request->validate([
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
-            
+
         // Retrieve the existing photo from the database
         $logo = brand::find(1);
 
-         // Delete the current logo from the storage disk
-        Storage::disk('public')->delete($logo -> logoPath);
+        // Delete the current logo from the storage disk
+        Storage::disk('public')->delete($logo->logoPath);
 
 
         // Get the new image file uploaded by the user
@@ -274,7 +275,7 @@ class actionController extends Controller
 
         //validate data
         $validatedData = $request->validate([
-            'url' => "required",
+            'url' => "required | url",
         ]);
 
         //select row and save the data requested 
@@ -376,51 +377,53 @@ class actionController extends Controller
     public function background()
     {
         $bgData = background::find(1);
-        return view ('admin/pages/background' , compact('bgData'));
+        return view('admin/pages/background', compact('bgData'));
     }
 
     //Function to save video background
-    public function updateVidBg(Request $request){
+    public function updateVidBg(Request $request)
+    {
 
-    $validatedData = $request->validate([
-        'video' => 'required|mimes:mp4,mkv,avi|max:100000',
-    ]);
-    
-    // Retrieve the existing video from the database
-    $video = background::find(1);
+        $validatedData = $request->validate([
+            'video' => 'required|mimes:mp4,mkv,avi|max:100000',
+        ]);
 
-    // Delete the current video from the storage disk
-    Storage::disk('public')->delete($video->vidPath);
+        // Retrieve the existing video from the database
+        $video = background::find(1);
 
-    // Get the new video file uploaded by the user
-    $newVideo = $request->file('video');
+        // Delete the current video from the storage disk
+        Storage::disk('public')->delete($video->vidPath);
 
-    // Get the original file name
-    $originalFileName = $newVideo->getClientOriginalName();
+        // Get the new video file uploaded by the user
+        $newVideo = $request->file('video');
 
-    // Store the new video on the storage disk with the original file name
-    $newVideoPath = $newVideo->storeAs('videos', $originalFileName, 'public');
+        // Get the original file name
+        $originalFileName = $newVideo->getClientOriginalName();
 
-    // Update the video path in the database
-    $video->vidPath = $newVideoPath;
-    $video->save();
+        // Store the new video on the storage disk with the original file name
+        $newVideoPath = $newVideo->storeAs('videos', $originalFileName, 'public');
 
-    // Redirect or return a success message
-    return redirect()->back()->with('success', 'Video has been updated successfully.');
+        // Update the video path in the database
+        $video->vidPath = $newVideoPath;
+        $video->save();
+
+        // Redirect or return a success message
+        return redirect()->back()->with('success', 'Video has been updated successfully.');
     }
 
     //Function to update Primary  Background (Background)
-    public function updateBg1(Request $request){
+    public function updateBg1(Request $request)
+    {
 
         $validatedData = $request->validate([
             'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
-            
+
         // Retrieve the existing background from the database
         $image = background::find(1);
 
         // Delete the current background from the storage disk
-        Storage::disk('public')->delete($image -> bg1Path);
+        Storage::disk('public')->delete($image->bg1Path);
 
 
         // Get the new background file uploaded by the user
@@ -436,23 +439,24 @@ class actionController extends Controller
         $image->bg1Path = $newImagePath;
         $image->save();
 
-        
+
         // Redirect or return a success message
         return redirect()->back()->with('success', 'Image has been updated successfully.');
     }
 
     //Function to update Secondary Background (Background)
-    public function updateBg2(Request $request){
+    public function updateBg2(Request $request)
+    {
 
         $validatedData = $request->validate([
             'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
-            
+
         // Retrieve the existing background from the database
         $image = background::find(1);
 
         // Delete the current background from the storage disk
-        Storage::disk('public')->delete($image -> bg2Path);
+        Storage::disk('public')->delete($image->bg2Path);
 
 
         // Get the new background file uploaded by the user
@@ -468,7 +472,7 @@ class actionController extends Controller
         $image->bg2Path = $newImagePath;
         $image->save();
 
-        
+
         // Redirect or return a success message
         return redirect()->back()->with('success', 'Image has been updated successfully.');
     }

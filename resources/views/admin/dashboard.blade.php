@@ -162,7 +162,7 @@
                                         <div class="card-body">
                                             <h3 class="profile-username text-center">Information</h3>
                                             <p class="text-muted text-center">Setup company info</p>
-                                            <a href="{{ route('branding') }}"
+                                            <a href="{{ route('createInfo') }}"
                                                 class="btn btn-warning btn-block"><b>Setup
                                                     Information</b></a>
                                         </div>
@@ -202,7 +202,7 @@
                                         <div class="card-body">
                                             <h3 class="profile-username text-center">Teams</h3>
                                             <p class="text-muted text-center">Setup content on Teams section</p>
-                                            <a href="{{ route('branding') }}"
+                                            <a href="{{ route('createTeam') }}"
                                                 class="btn btn-warning btn-block"><b>Setup
                                                     Teams Content</b></a>
                                         </div>
@@ -222,7 +222,7 @@
                                         <div class="card-body">
                                             <h3 class="profile-username text-center">Footer</h3>
                                             <p class="text-muted text-center">Setup footer description</p>
-                                            <a href="{{ route('branding') }}"
+                                            <a href="{{ route('createFooter') }}"
                                                 class="btn btn-warning btn-block"><b>Setup
                                                     Footer</b></a>
                                         </div>

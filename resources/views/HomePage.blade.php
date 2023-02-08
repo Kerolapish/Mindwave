@@ -156,7 +156,8 @@
     <!-- ***** Main Banner Area End ***** -->
 
     <!--Check if service data exist in database-->
-    @if ($serviceData == null || $siteData->setupService == false)
+    
+    @if ($siteData -> setupService == true)
         <!-- ***** Service Area Start ***** -->
         <section class="services">
             <!--Container-->

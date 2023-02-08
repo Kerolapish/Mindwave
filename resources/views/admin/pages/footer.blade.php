@@ -80,43 +80,88 @@
             </div>
             <!-- /.content-header -->
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <!-- Small boxes (Stat box) -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Footer Content</h3>
+            @if ($siteData->setupFooter == false)
+                <!-- Main content -->
+                <section class="content">
+                    <!-- container-fluid -->
+                    <div class="container-fluid">
+                        <!--row-->
+                        <div class="row">
+                            <!--col-->
+                            <div class="col-md-12">
+                                <!--card-->
+                                <div class="card card-primary card-outline">
+                                    <!--card header-->
+                                    <div class="card-header">
+                                        <h3 class="card-title">Setup Footer Content</h3>
+                                    </div>
+                                    <!--card header-->
+                                    <!--card body-->
+                                    <div class="card-body">
+                                        <form action=" {{ route('addFooter') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <!--form group-->
+                                            <div class="form-group">
+                                                <label for="siteName">Footer Description</label>
+                                                <textarea type="text" class="form-control" name="content" placeholder="Please enter footer description"></textarea>
+                                            </div>
+                                            <!--./form group-->
+                                    </div>
+                                    <!--./card body-->
+                                    <!--card footer-->
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Add Footer</button>
+                                    </div>
+                                    </form>
+                                    <!--./card footer-->
                                 </div>
-                                <div class="card-body">
-                                    <p>Change footer description</p>
-                                    <form action=" {{ route('updateFooter') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="siteName">Current footer description</label>
-                                            <textarea type="text" class="form-control" name="content">{{$footerData -> desc}}</textarea>
-                                        </div>
-                                </div>
+                                <!--./card-->
+                            </div>
+                            <!--./row-->
+                        </div>
+                        <!--./row-->
+                    </div>
+                    <!-- /.container-fluid -->
+                </section> 
+                <!-- ./Main content -->
+            @else
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.container-fluid -->
+                    <div class="container-fluid">
+                        <!-- Small boxes (Stat box) -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Footer Content</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Change footer description</p>
+                                        <form action=" {{ route('updateFooter') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="siteName">Current footer description</label>
+                                                <textarea type="text" class="form-control" name="content">{{ $footerData -> desc}}</textarea>
+                                            </div>
+                                    </div>
 
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    </form>
                                 </div>
-                                </form>
                             </div>
                         </div>
+                        <!-- /.row -->
                     </div>
-                    <!-- /.row -->
-                    <!-- Main row -->
-                    <div class="row">
+                    <!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            @endif
 
-                    </div>
-                    <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
 
@@ -189,4 +234,3 @@
 </body>
 
 </html>
- 
