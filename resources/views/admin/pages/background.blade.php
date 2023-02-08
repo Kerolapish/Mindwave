@@ -137,7 +137,7 @@
                                                     id="inputFile2Label">Choose Image</label>
                                             </div>
                                         </div>
-                                         <!--./Card body-->
+                                        <!--./Card body-->
                                         <!--Card footer-->
                                         <div class="card-footer">
                                             <button type="submit" class="btn btn-primary">Create</button>
@@ -277,7 +277,7 @@
                                 <!--Card-->
                             </div>
                             <!--./Column-->
-                        </div>  
+                        </div>
                         <!--./Row-->
                     </div>
                     <!-- ./content fluid -->

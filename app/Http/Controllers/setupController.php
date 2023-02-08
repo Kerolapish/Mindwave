@@ -31,57 +31,6 @@ class setupController extends Controller
         return view('admin/pages/background', compact('bgData', 'siteData'));
     }
 
-    //function to create new favicon
-    public function createFavicon(Request $request)
-    {
-
-        $validatedData = $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
-
-        // Get the new image file uploaded by the user
-        $newImage = $request->file('image');
-
-        // Get the original file name
-        $originalFileName = $newImage->getClientOriginalName();
-
-        // Store the new image on the storage disk with the original file name
-        $newImagePath = $newImage->storeAs('images', $originalFileName, 'public');
-
-        // Create a new instance of the brand model
-        $image = brand::find(1);
-
-        // Set the path property to the new image path
-        $image->path = $newImagePath;
-
-        // Save the new image instance to the database
-        $image->save();
-
-        // Redirect or return a success message
-        return redirect()->back()->with('success', 'Image has been uploaded successfully.');
-    }
-
-    //function to update siteName (Branding)
-    public function createSiteName(Request $request)
-    {
-
-        //validation function
-        $validatedData = $request->validate([
-            'siteName' => 'required',
-        ]);
-
-        //select row and save the data requested
-        $row = brand::find(1);
-        $row->siteName = $validatedData['siteName'];
-        $row->save();
-
-        $brandData = brand::find(1);
-        return redirect()->back()->with([
-            'success' =>  'Site name has successfully changed.',
-            'brandData'
-        ]);
-    }
-
     public function createBg(Request $request)
     {
 
@@ -117,6 +66,40 @@ class setupController extends Controller
         return redirect()->route('createBg');
     }
 
+    public function addBrand(Request $request){
+
+        $validatedData = $request->validate([
+            'path' => 'required|image',
+            'siteName' => 'required',
+            'logoPath' => 'required|image',
+            
+        ]);
+
+        //create new row inside DB
+        $brand = new brand;
+
+        $path = $validatedData['path'];
+        $siteName = $validatedData['siteName'];
+        $logoPath = $validatedData['logoPath'];
+
+        $path = $request->file('path')->store('images', 'public');
+        $logoPath = $request->file('logoPath')->store('images', 'public');
+
+        $brand->path = $path;
+        $brand->siteName = $siteName;
+        $brand->logoPath = $logoPath;
+        $brand->save();
+
+        //get data from db
+        $siteData = siteProperty::find(1);
+        $brandData = brand::all();
+
+        return redirect()->back()->with([
+            'brandData', 
+            'siteData',
+            'success' =>  'Service card has been added'
+        ]);
+    }
 
     //function to go to service form page
     public function createService()
@@ -126,35 +109,6 @@ class setupController extends Controller
         return view('admin/pages/service', compact('siteData', 'serviceData'));
     }
 
-    //function to create new logo
-    public function createLogo(Request $request)
-    {
-
-        $validatedData = $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
-
-        // Get the new image file uploaded by the user
-        $newLogo = $request->file('image');
-
-        // Get the original file name
-        $originalFileName = $newLogo->getClientOriginalName();
-
-        // Store the new image on the storage disk with the original file name
-        $newLogoPath = $newLogo->storeAs('images', $originalFileName, 'public');
-
-        // Create a new instance of the brand model
-        $image = brand::find(1);
-
-        // Set the path property to the new image path
-        $image->logoPath = $newLogoPath;
-
-        // Save the new image instance to the database
-        $image->save();
-
-        // Redirect or return a success message
-        return redirect()->back()->with('success', 'Image has been uploaded successfully.');
-    }
 
     //function to add new row to service
     public function addService(Request $request, $id)
