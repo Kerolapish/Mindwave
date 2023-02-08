@@ -82,60 +82,104 @@
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
                         {{-- Update Favicon --}}
+                        @if ($siteData->setupBrand == false)
+                            <!-- col -->
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Upload Favicon</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Update Picture, size must be 32x32 and in .png or .ico format</p>
+                                        <form action="{{ route('createFavicon') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">File Input</label>
+                                                <div class="input-group">
+                                                    <input type="file" name="image" id="InputFile0"
+                                                        class="custom-file-input @error('image') is-invalid @enderror">
+                                                    <label class="custom-file-label" for="InputFile0"
+                                                        id="InputFile0Label">Upload Image</label>
+                                                </div>
+                                            </div>
+                                            @error('image')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                        @else
+                        {{--Update Favicon--}}
+                            <!-- col -->
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Update Favicon</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Update Picture, size must be 32x32 and in .png or .ico format</p>
+                                        <form action="{{ route('updateImage') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">File Input</label>
+                                                <div class="input-group">
+                                                    <input type="file" name="image" id="InputFile0"
+                                                        class="custom-file-input @error('image') is-invalid @enderror">
+                                                    <label class="custom-file-label" for="InputFile0"
+                                                        id="InputFile0Label">Choose Image</label>
+                                                </div>
+                                            </div>
+                                            @error('image')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                        @endif
+
+                        {{-- Upload SiteName --}}'
+                        @if ($siteData->setupBrand == false)
+                        <!-- col -->
                         <div class="col-md-6">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
-                                    <h3 class="card-title">Update Favicon</h3>
+                                    <h3 class="card-title">Upload Site Name</h3>
                                 </div>
-                                @if($siteData -> setupBrand == false)
                                 <div class="card-body">
-                                    <p>Upload picture, size must be 32x32 and in .png or .ico format</p>
-                                    <form action="{{ route('updateImage') }}" method="POST"
+                                    <p>Upload your site name</p>
+                                    <form action=" {{ route('createSiteName') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="exampleInputFile">File Input</label>
-                                            <div class="input-group">
-                                                <input type="file" name="image" id="InputFile0"
-                                                    class="custom-file-input @error('image') is-invalid @enderror">
-                                                <label class="custom-file-label" for="InputFile0"
-                                                    id="InputFile0Label">Choose Image</label>
-                                            </div>
+                                            <label for="siteName">New site name</label>
+                                            <input type="text" class="form-control" name="siteName"
+                                                placeholder="{{ $brandData->siteName }}">
                                         </div>
-                                        @error('image')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
                                 </div>
-                                @else
-                                <div class="card-body">
-                                    <p>Update Picture, size must be 32x32 and in .png or .ico format</p>
-                                    <form action="{{ route('updateImage') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">File Input</label>
-                                            <div class="input-group">
-                                                <input type="file" name="image" id="InputFile0"
-                                                    class="custom-file-input @error('image') is-invalid @enderror">
-                                                <label class="custom-file-label" for="InputFile0"
-                                                    id="InputFile0Label">Choose Image</label>
-                                            </div>
-                                        </div>
-                                        @error('image')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                </div>
-                                @endif
-                                
+
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
+
                                 </form>
                             </div>
                         </div>
                         <!-- ./col -->
-
-                        {{-- Update SiteName --}}
+                        @else
+                        {{--Update Site Name--}}
+                        <!-- col -->
                         <div class="col-md-6">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
@@ -160,8 +204,45 @@
                                 </form>
                             </div>
                         </div>
-
-                        {{-- //Update Logo --}}
+                        <!-- ./col -->
+                        @endif
+                        
+                        {{-- //Upload Logo --}}
+                        @if ($siteData->setupBrand == false)
+                        <!-- col -->
+                        <div class="col-md-6">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">Upload Logo</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p>Upload Logo, size must be 32x32 and in .png or .jpg format</p>
+                                    <form action="{{ route('createLogo') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="exampleInputFile">File Input</label>
+                                            <div class="input-group">
+                                                <input type="file" name="image" id="InputFile1"
+                                                    class="custom-file-input @error('logo') is-invalid @enderror">
+                                                <label class="custom-file-label" for="InputFile1"
+                                                    id="InputFile1Label">Choose Logo</label>
+                                            </div>
+                                        </div>
+                                        @error('logo')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        @else
+                        {{--Update Logo--}}
+                        <!-- col -->
                         <div class="col-md-6">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
@@ -192,6 +273,7 @@
                             </div>
                         </div>
                         <!-- ./col -->
+                        @endif
                     </div>
                     <!-- /.row -->
                     <!-- Main row -->

@@ -21,6 +21,13 @@
        with font-awesome or any other icon font library -->
                 <li class="nav-header">APPEARANCE</li>
                 <li class="nav-item">
+                    <a href="{{route('dashboard')}}" class="nav-link">
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('branding')}}" class="nav-link">
                         <p>
                             Branding
@@ -28,14 +35,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/background" class="nav-link">
+                    <a href="{{route('background')}}" class="nav-link">
                         <p>
                             Background
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/topTitle" class="nav-link">
+                    <a href="{{route('content')}}" class="nav-link">
                         <p>
                             Top title
                         </p>
@@ -43,28 +50,28 @@
                 </li>
                 <li class="nav-header">PAGE CONTENT</li>
                 <li class="nav-item">
-                    <a href="pages/calendar.html" class="nav-link">
+                    <a href="{{route('information')}}" class="nav-link">
                         <p>
                             Information
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/gallery.html" class="nav-link">
+                    <a href="{{route('service')}}" class="nav-link">
                         <p>
                             Service
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/kanban.html" class="nav-link">
+                    <a href="{{route('footer')}}" class="nav-link">
                         <p>
-                            Information zero
+                            Footer
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/kanban.html" class="nav-link">
+                    <a href="{{route('team')}}" class="nav-link">
                         <p>
                             Teams
                         </p>

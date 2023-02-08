@@ -14,6 +14,25 @@ class setupController extends Controller
         $siteData = siteProperty::find(1);
         return view('admin/pages/branding', compact('siteData'));
     }
+    //function to create new favicon
+    public function createFavicon(){
+        $validatedData = $request->validate([
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+        ]);
+
+        // Get the new image file uploaded by the user
+        $newImage = $request->file('image');
+
+        // Get the original file name
+        $originalFileName = $newImage->getClientOriginalName();
+
+        // Update the image path in the database
+        $image->path = $newImagePath;
+        $image->save();
+
+        // Redirect or return a success message
+        return redirect()->back()->with('success', 'Image has been updated successfully.');
+    }
 
     //function to go to service form page
     public function createService()

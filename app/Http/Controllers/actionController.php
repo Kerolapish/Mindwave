@@ -115,7 +115,6 @@ class actionController extends Controller
         $image->path = $newImagePath;
         $image->save();
 
-
         // Redirect or return a success message
         return redirect()->back()->with('success', 'Image has been updated successfully.');
     }
