@@ -80,6 +80,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('admin/team/update/teamDetails/{id}', [actionController::class , 'updateTeam']) -> name('updateTeam');
     
     //Function route at site status page (admin/siteStatus)
+    
     Route::post('admin/siteStatus/disableSite' , [actionController::class, 'disableSite']) -> name('disableSite');
     Route::get('admin/siteStatus/enable' , [actionController::class, 'enableSite']) -> name('enableSite');
     

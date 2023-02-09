@@ -356,17 +356,22 @@ class setupController extends Controller
         $columns = ['setupBrand', 'setupBackground', 'setupTitle', 'setupInfo', 'setupService', 'setupTeam', 'setupFooter'];
         $setup = siteProperty::find(1);
 
+        $checkAll = true;
+
         //check if all the column has been set
         foreach ($columns as $column) {
-            if ($setup->$column == true) {
-
-                //if its return true, the site property column, hasetup will change into true
-                $site = siteProperty::find(1);
-                $site->hasSetup = true;
-                $site->downStatus = false;
-                $site->save();
+            if ($setup->$column == false) { 
+                $checkAll = false;
+                break;
             }
-            return false;
+        }
+
+        if($checkAll){
+            //if its return true, the site property column, hasetup will change into true
+            $site = siteProperty::find(1);
+            $site->hasSetup = true;
+            $site->downStatus = false;
+            $site->save();  
         }
     }
 }
