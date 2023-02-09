@@ -24,63 +24,56 @@ class setupController extends Controller
         return view('admin/pages/branding', compact('siteData', 'brandData'));
     }
 
+    //function to add new row to brand table
+    public function addBrand(Request $request)
+    {
+
+        $validatedData = $request->validate([
+            'path' => 'required|image',
+            'siteName' => 'required',
+            'logoPath' => 'required|image',
+
+        ]);
+
+        //create new row inside DB
+        $brand = new brand;
+        $path = $validatedData['path'];
+        $siteName = $validatedData['siteName'];
+        $logoPath = $validatedData['logoPath'];
+
+        $path = $request->file('path')->store('images', 'public');
+        $logoPath = $request->file('logoPath')->store('images', 'public');
+
+        $brand->path = $path;
+        $brand->siteName = $siteName;
+        $brand->logoPath = $logoPath;
+        $brand->save();
+
+        //get data from db
+        $siteData = siteProperty::find(1);
+        $brandData = brand::all();
+
+        //complete brand setup 
+        $siteProperty = siteProperty::find(1);
+        $siteProperty->setupBrand = true;
+        $siteProperty->save();
+
+        //invoke function to check all the column value
+        $this->checkSetup();
+
+        return redirect()->back()->with([
+            'brandData',
+            'siteData',
+            'success' =>  'Service card has been added'
+        ]);
+    }
+
     //function to direct user to background page
     public function createBackground()
     {
         $siteData = siteProperty::find(1);
         $bgData = background::find(1);
         return view('admin/pages/background', compact('bgData', 'siteData'));
-    }
-
-    //function to create new favicon
-    public function createFavicon(Request $request)
-    {
-
-        $validatedData = $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
-
-        // Get the new image file uploaded by the user
-        $newImage = $request->file('image');
-
-        // Get the original file name
-        $originalFileName = $newImage->getClientOriginalName();
-
-        // Store the new image on the storage disk with the original file name
-        $newImagePath = $newImage->storeAs('images', $originalFileName, 'public');
-
-        // Create a new instance of the brand model
-        $image = brand::find(1);
-
-        // Set the path property to the new image path
-        $image->path = $newImagePath;
-
-        // Save the new image instance to the database
-        $image->save();
-
-        // Redirect or return a success message
-        return redirect()->back()->with('success', 'Image has been uploaded successfully.');
-    }
-
-    //function to update siteName (Branding)
-    public function createSiteName(Request $request)
-    {
-
-        //validation function
-        $validatedData = $request->validate([
-            'siteName' => 'required',
-        ]);
-
-        //select row and save the data requested
-        $row = brand::find(1);
-        $row->siteName = $validatedData['siteName'];
-        $row->save();
-
-        $brandData = brand::find(1);
-        return redirect()->back()->with([
-            'success' =>  'Site name has successfully changed.',
-            'brandData'
-        ]);
     }
 
     //function to add new row into background table
@@ -142,18 +135,18 @@ class setupController extends Controller
 
     //function to add new row to title table
     public function addContent(Request $request)
-    {   
-        $validatedData = $request -> validate([
+    {
+        $validatedData = $request->validate([
             'title' => 'required',
             'text' => 'required'
         ]);
 
         //create new row and save data from request
         $content = new content();
-        $content -> topTitle = $validatedData['title'];
-        $content -> paragraph = $validatedData['text'];
-        $content -> save();
-        
+        $content->topTitle = $validatedData['title'];
+        $content->paragraph = $validatedData['text'];
+        $content->save();
+
         //invoke function to check all the column value
         $this->checkSetup();
 
@@ -172,40 +165,6 @@ class setupController extends Controller
             'success' =>  'Content has been added'
         ]);
     }
-    public function addBrand(Request $request){
-
-        $validatedData = $request->validate([
-            'path' => 'required|image',
-            'siteName' => 'required',
-            'logoPath' => 'required|image',
-            
-        ]);
-
-        //create new row inside DB
-        $brand = new brand;
-
-        $path = $validatedData['path'];
-        $siteName = $validatedData['siteName'];
-        $logoPath = $validatedData['logoPath'];
-
-        $path = $request->file('path')->store('images', 'public');
-        $logoPath = $request->file('logoPath')->store('images', 'public');
-
-        $brand->path = $path;
-        $brand->siteName = $siteName;
-        $brand->logoPath = $logoPath;
-        $brand->save();
-
-        //get data from db
-        $siteData = siteProperty::find(1);
-        $brandData = brand::all();
-
-        return redirect()->back()->with([
-            'brandData', 
-            'siteData',
-            'success' =>  'Service card has been added'
-        ]);
-    }
 
     //function to go to service form page
     public function createService()
@@ -214,7 +173,6 @@ class setupController extends Controller
         $serviceData = service::all();
         return view('admin/pages/service', compact('siteData', 'serviceData'));
     }
-
 
     //function to add new row to service
     public function addService(Request $request, $id)

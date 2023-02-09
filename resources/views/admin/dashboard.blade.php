@@ -278,12 +278,12 @@
                             <!-- col -->
                             <div class="col-lg-4 col-6">
                                 <!--card-->
-                                <div class="card card-success card-outline">
+                                <div class="card card-primary card-outline">
                                     <!--card body-->
                                     <div class="card-body">
                                         <h3 class="profile-username text-center">Branding</h3>
                                         <p class="text-muted text-center">Change logo, site name</p>
-                                        <a href="{{ route('branding') }}" class="btn btn-success btn-block"><b>Update
+                                        <a href="{{ route('branding') }}" class="btn btn-primary btn-block"><b>Update
                                                 Brand</b></a>
                                     </div>
                                     <!--./card body-->
@@ -294,13 +294,13 @@
                             <!-- col -->
                             <div class="col-lg-4 col-6">
                                 <!--card-->
-                                <div class="card card-success card-outline">
+                                <div class="card card-primary card-outline">
                                     <!--card body-->
                                     <div class="card-body">
                                         <h3 class="profile-username text-center">Background</h3>
                                         <p class="text-muted text-center">Change site background</p>
                                         <a href="{{ route('background') }}"
-                                            class="btn btn-success btn-block"><b>Update
+                                            class="btn btn-primary btn-block"><b>Update
                                                 Background</b></a>
                                     </div>
                                     <!--./card body-->
@@ -310,12 +310,12 @@
                             <!--col -->
                             <div class="col-lg-4 col-6">
                                 <!--card-->
-                                <div class="card card-success card-outline">
+                                <div class="card card-primary card-outline">
                                     <!--card body-->
                                     <div class="card-body">
                                         <h3 class="profile-username text-center">Top Title</h3>
                                         <p class="text-muted text-center">Change site top title and description</p>
-                                        <a href="{{ route('content') }}" class="btn btn-success btn-block"><b>Update
+                                        <a href="{{ route('content') }}" class="btn btn-primary btn-block"><b>Update
                                                 Top Title</b></a>
                                     </div>
                                     <!--./card body-->

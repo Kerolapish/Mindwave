@@ -102,10 +102,13 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('admin/service/create' , [setupController::class , 'createService']) -> name('createService');
     Route::post('admin/service/add/{id}' , [setupController::class, 'addService']) -> name('addService');
+
     Route::get('admin/team/create' , [setupController::class , 'createTeam']) -> name('createTeam');
     Route::post('admin/team/add/{id}' , [setupController::class , 'addTeam']) -> name('addTeam');
+
     Route::get('admin/footer/create' , [setupController::class , 'createFooter']) -> name('createFooter');
     Route::post('admin/footer/add' , [setupController::class , 'addFooter']) -> name('addFooter');
+    
     Route::get('admin/information/create' , [setupController::class , 'createInfo']) -> name('createInfo');
     Route::post('admin/information/add' , [setupController::class , 'addInfo']) -> name('addInfo');
 });
