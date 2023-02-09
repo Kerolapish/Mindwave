@@ -158,7 +158,7 @@ class actionController extends Controller
     {
         $bgData = background::find(1);
         $siteData = siteProperty::find(1);
-        return view('admin/pages/background', compact('bgData'));
+        return view('admin/pages/background', compact('bgData' , 'siteData'));
     }
 
     //Function to save video background

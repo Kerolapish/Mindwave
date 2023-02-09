@@ -50,21 +50,16 @@
 
         <!-- Content Wrapper. Contains page content -->
         @if (session('success'))
-            <div id="message-float">
-                {{ session('success') }}
-            </div>
+            <div id="toast-container" class="toast-top-right"><div class="toast toast-success" aria-live="polite" style="opacity: 0.694155;"><div class="toast-message">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div></div></div>
         @else
             @foreach (['background2' ,'background1' ,'video' ] as $errorKey)
                 @if ($errors->has($errorKey))
-                    <div id="message-float-error">
-                        {{ $errors->first($errorKey) }}
-                    </div>
+                <div id="toast-container" class="toast-top-right"><div class="toast toast-error" aria-live="assertive" style=""><div class="toast-message">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div></div></div>
                 @endif
             @endforeach
         @endif
+
         <div class="content-wrapper">
-
-
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <!--Container Fluid-->
@@ -187,9 +182,6 @@
                                                     id="inputFile0Label">Choose Video</label>
                                             </div>
                                     </div>
-                                    @error('video')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
                                     <!--./Card body-->
                                     <!--Card footer-->
                                     <div class="card-footer">
@@ -230,9 +222,6 @@
                                                     id="inputFile1Label">Choose Image</label>
                                             </div>
                                     </div>
-                                    @error('video')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
                                     <!--./Card body-->
                                     <!--Card footer-->
                                     <div class="card-footer">
