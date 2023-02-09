@@ -54,7 +54,7 @@
                 {{ session('success') }}
             </div>
         @else
-            @foreach (['video', 'bg1', 'bg2'] as $errorKey)
+            @foreach (['background2' ,'background1' ,'video' ] as $errorKey)
                 @if ($errors->has($errorKey))
                     <div id="message-float-error">
                         {{ $errors->first($errorKey) }}
@@ -101,38 +101,39 @@
                             <!--Column-->
                             <div class="col-md-12">
                                 <!--Card-->
-                                <div class="card card-primary card-outline">
+                                <div class="card card-warning card-outline">
                                     <!--Card Header-->
                                     <div class="card-header">
-                                        <h3 class="card-title">Video Background</h3>
+                                        <h3 class="card-title">Background</h3>
                                     </div>
                                     <!--./Card Header-->
-                                    <form action=" {{ route('createBg') }}" method="POST"
+                                    <form action=" {{ route('addBg') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <!--Card body-->
                                         <div class="card-body">
+                                            <p>Add video, primary and secondary background to the page </p>
                                             {{--  Upload Video Background --}}
-                                            <label for="exampleInputFile">Video Background</label>
-                                            <div class="input-group">
+                                            <label for="exampleInputFile">Video Background (Dark background preferred)</label>
+                                            <div class="input-group mb-3">
                                                 <input type="file" name="video" id="inputFile0"
-                                                    class="custom-file-input @error('video') is-invalid @enderror">
+                                                    class="custom-file-input">
                                                 <label class="custom-file-label" for="inputFile0"
-                                                    id="inputFile1Label0">Choose Video</label>
+                                                    id="inputFile0Label">Choose Video</label>
                                             </div>
                                             {{-- Upload Primary Background --}}
-                                            <label for="exampleInputFile">Primary Background</label>
-                                            <div class="input-group">
-                                                <input type="file" name="bg1" id="inputFile1"
-                                                    class="custom-file-input @error('bg1') is-invalid @enderror">
+                                            <label for="exampleInputFile">Primary Background (Dark background preferred)</label>
+                                            <div class="input-group mb-3">
+                                                <input type="file" name="background1" id="inputFile1"
+                                                    class="custom-file-input">
                                                 <label class="custom-file-label" for="inputFile1"
                                                     id="inputFile1Label">Choose Image</label>
                                             </div>
                                             {{-- Upload Secondary Background --}}
-                                            <label for="exampleInputFile">Secondary Background</label>
-                                            <div class="input-group">
-                                                <input type="file" name="bg2" id="inputFile2"
-                                                    class="custom-file-input @error('bg2') is-invalid @enderror">
+                                            <label for="exampleInputFile">Secondary Background (Light background preferred)</label>
+                                            <div class="input-group mb-3">
+                                                <input type="file" name="background2" id="inputFile2"
+                                                    class="custom-file-input">
                                                 <label class="custom-file-label" for="inputFile2"
                                                     id="inputFile2Label">Choose Image</label>
                                             </div>
@@ -140,7 +141,7 @@
                                         <!--./Card body-->
                                         <!--Card footer-->
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary">Create</button>
+                                            <button type="submit" class="btn btn-warning">Create</button>
                                         </div>
                                         <!--./Card footer-->
                                     </form>
@@ -165,11 +166,16 @@
                                 <div class="card card-primary card-outline">
                                     <!--Card Header-->
                                     <div class="card-header">
-                                        <h3 class="card-title">Video Background</h3>
+                                        <h3 class="card-title">Background</h3>
                                     </div>
                                     <!--./Card Header-->
                                     <!--Card body-->
                                     <div class="card-body">
+                                        <div class="text-center mb-5">
+                                            <video width="60%" autoplay muted loop id="bg-video">
+                                                <source src="{{ asset('assets/images/black-bg.mp4') }}" type="video/mp4" />
+                                            </video>
+                                        </div>
                                         <form action=" {{ route('updateVidBg') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
@@ -178,7 +184,7 @@
                                                 <input type="file" name="video" id="inputFile0"
                                                     class="custom-file-input @error('video') is-invalid @enderror">
                                                 <label class="custom-file-label" for="inputFile0"
-                                                    id="inputFile1Label0">Choose Video</label>
+                                                    id="inputFile0Label">Choose Video</label>
                                             </div>
                                     </div>
                                     @error('video')

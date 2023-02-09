@@ -91,7 +91,7 @@
                         <!-- row -->
                         <div class="row">
                             <!-- col -->
-                            <div class="col-6">
+                            <div class="col-md-12">
                                 <div class="callout callout-info">
                                     <h5><i class="fas fa-info"></i> Note:</h5>
                                     Please add more service card <b>({{6-$serviceData -> count()}} cards remaining)</b> 
@@ -101,7 +101,7 @@
                             <!-- col -->
                             <div class="col-md-12">
                                 <!-- card -->
-                                <div class="card card-primary card-outline">
+                                <div class="card card-warning card-outline">
                                     <!-- card header -->
                                     <div class="card-header">
                                         <h3 class="card-title">Card #{{$serviceData -> count() + 1}}</h3>
@@ -109,6 +109,7 @@
                                     <!-- ./card header -->
                                     <!-- card body -->
                                     <div class="card-body">
+                                        <p>Add service offered and its description</p>
                                         <form action="{{ route('addService' , $serviceData -> count()) }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
@@ -129,7 +130,7 @@
                                     <!-- ./card body -->
                                     <!-- card footer -->
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Add Service</button>
+                                        <button type="submit" class="btn btn-warning">Add Service</button>
                                         </form>
                                     </div>
                                     <!-- ./card footer -->

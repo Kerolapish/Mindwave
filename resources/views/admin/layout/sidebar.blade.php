@@ -36,6 +36,17 @@
                         @endif
                     </li>
                     <li class="nav-item">
+                        @if ($siteData->setupTitle == true)
+                            <a href="#" class="nav-link">
+                                <p>Content</p><i class="right fa-solid fa-check"></i>
+                            </a>
+                        @else
+                            <a href="#" class="nav-link">
+                                <p>Content</p><i class="right fa-solid fa-exclamation"></i>
+                            </a>
+                        @endif
+                    </li>
+                    <li class="nav-item">
                         @if ($siteData->setupInfo == true)
                             <a href="#" class="nav-link">
                                 <p>Information</p><i class="right fa-solid fa-check"></i>

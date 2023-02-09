@@ -90,7 +90,7 @@
                             <!-- col -->
                             <div class="col-md-12">
                                 <!-- card -->
-                                <div class="card card-primary card-outline">
+                                <div class="card card-warning card-outline">
                                     <!-- card header -->
                                     <div class="card-header">
                                         <h3 class="card-title">Information</h3>
@@ -133,7 +133,7 @@
                                         <!-- card body -->
                                         <!-- card footer -->
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary">Add Info</button>
+                                            <button type="submit" class="btn btn-warning">Add Info</button>
                                         </div>
                                         <!-- card footer -->
                                     </form>

@@ -109,7 +109,7 @@
                             <!-- col -->
                             <div class="col-md-12">
                                 <!-- card -->
-                                <div class="card card-primary card-outline">
+                                <div class="card card-warning card-outline">
                                     <!-- card header -->
                                     <div class="card-header">
                                         <h3 class="card-title">Team Card #{{ $teamData->count() + 1 }}</h3>
@@ -117,6 +117,7 @@
                                     <!-- ./card header -->
                                     <!-- card body -->
                                     <div class="card-body">
+                                        <p>Add team member name, position, image and LinkedIn URL</p>
                                         <form action="{{ route('addTeam', $teamData->count()) }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
@@ -159,7 +160,7 @@
                                     <!-- ./card body -->
                                     <!-- card footer -->
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Add Team</button>
+                                        <button type="submit" class="btn btn-warning">Add Team</button>
                                         </form>
                                     </div>
                                     <!-- ./card footer -->

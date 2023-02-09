@@ -140,11 +140,11 @@
                                     <div class="card card-warning card-outline">
                                         <!--card body-->
                                         <div class="card-body">
-                                            <h3 class="profile-username text-center">Top Title</h3>
-                                            <p class="text-muted text-center">Setup site top title and description</p>
-                                            <a href="{{ route('branding') }}"
+                                            <h3 class="profile-username text-center">Top Content</h3>
+                                            <p class="text-muted text-center">Setup site top title and its content</p>
+                                            <a href="{{ route('createContent') }}"
                                                 class="btn btn-warning btn-block"><b>Setup
-                                                    Top Title</b></a>
+                                                    Content</b></a>
                                         </div>
                                         <!--./card body-->
                                     </div>

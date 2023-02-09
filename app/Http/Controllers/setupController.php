@@ -7,6 +7,7 @@ use App\Models\information;
 use App\Models\service;
 use App\Models\brand;
 use App\Models\background;
+use App\Models\content;
 use App\Models\siteProperty;
 use App\Models\team;
 use Illuminate\Http\Request;
@@ -31,41 +32,146 @@ class setupController extends Controller
         return view('admin/pages/background', compact('bgData', 'siteData'));
     }
 
-    public function createBg(Request $request)
+    //function to create new favicon
+    public function createFavicon(Request $request)
+    {
+
+        $validatedData = $request->validate([
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+        ]);
+
+        // Get the new image file uploaded by the user
+        $newImage = $request->file('image');
+
+        // Get the original file name
+        $originalFileName = $newImage->getClientOriginalName();
+
+        // Store the new image on the storage disk with the original file name
+        $newImagePath = $newImage->storeAs('images', $originalFileName, 'public');
+
+        // Create a new instance of the brand model
+        $image = brand::find(1);
+
+        // Set the path property to the new image path
+        $image->path = $newImagePath;
+
+        // Save the new image instance to the database
+        $image->save();
+
+        // Redirect or return a success message
+        return redirect()->back()->with('success', 'Image has been uploaded successfully.');
+    }
+
+    //function to update siteName (Branding)
+    public function createSiteName(Request $request)
+    {
+
+        //validation function
+        $validatedData = $request->validate([
+            'siteName' => 'required',
+        ]);
+
+        //select row and save the data requested
+        $row = brand::find(1);
+        $row->siteName = $validatedData['siteName'];
+        $row->save();
+
+        $brandData = brand::find(1);
+        return redirect()->back()->with([
+            'success' =>  'Site name has successfully changed.',
+            'brandData'
+        ]);
+    }
+
+    //function to add new row into background table
+    public function addBg(Request $request)
     {
 
         $validatedData = $request->validate([
             'video' => 'required|file',
-            'bg1' => 'required|image',
-            'bg2' => 'required|image',
+            'background1' => 'required|image',
+            'background2' => 'required|image',
         ]);
 
-        //create new row inside DB
-        $background = new background;
-
         $video = $validatedData['video'];
-        $bg1 = $validatedData['bg1'];
-        $bg2 = $validatedData['bg2'];
+        $bg1 = $validatedData['background1'];
+        $bg2 = $validatedData['background2'];
 
         $newVid = $video->getClientOriginalName();
         $newbg1 = $bg1->getClientOriginalName();
         $newbg2 = $bg2->getClientOriginalName();
 
         // Store the video and background images
-        $vidPath = $video->storeAs('videos', $newVid, 'public');
+        $vidPath = $video->storeAs('images', $newVid, 'public');
         $bg1Path = $bg1->storeAs('images', $newbg1, 'public');
         $bg2Path = $bg2->storeAs('images', $newbg2, 'public');
 
         // Save the information to the database
-
+        $background = new background;
         $background->vidPath = $vidPath;
         $background->bg1Path = $bg1Path;
         $background->bg2Path = $bg2Path;
         $background->save();
 
-        return redirect()->route('createBg');
+        //get data from db
+        $siteData = siteProperty::find(1);
+        $bgData = background::all();
+
+        //complete background setup 
+        $site = siteProperty::find(1);
+        $site->setupBackground = true;
+        $site->save();
+
+        //invoke function to check all the column value
+        $this->checkSetup();
+
+        return redirect()->back()->with([
+            'success' =>  'Site name has successfully changed.',
+            'siteData',
+            'bgData'
+        ]);
     }
 
+    //function to go to content form page
+    public function createContent()
+    {
+        $siteData = siteProperty::find(1);
+        $contentData = content::find(1);
+        return view('admin/pages/content', compact('siteData', 'contentData'));
+    }
+
+    //function to add new row to title table
+    public function addContent(Request $request)
+    {   
+        $validatedData = $request -> validate([
+            'title' => 'required',
+            'text' => 'required'
+        ]);
+
+        //create new row and save data from request
+        $content = new content();
+        $content -> topTitle = $validatedData['title'];
+        $content -> paragraph = $validatedData['text'];
+        $content -> save();
+        
+        //invoke function to check all the column value
+        $this->checkSetup();
+
+        //get data from db
+        $siteData = siteProperty::find(1);
+        $contentData = content::all();
+
+        //set the setup properties to true
+        $site = siteProperty::find(1);
+        $site->setupTitle = true;
+        $site->save();
+
+        return redirect()->back()->with([
+            'contentData',
+            'siteData',
+            'success' =>  'Content has been added'
+        ]);
+    }
     public function addBrand(Request $request){
 
         $validatedData = $request->validate([

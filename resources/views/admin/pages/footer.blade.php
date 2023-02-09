@@ -90,7 +90,7 @@
                             <!--col-->
                             <div class="col-md-12">
                                 <!--card-->
-                                <div class="card card-primary card-outline">
+                                <div class="card card-warning card-outline">
                                     <!--card header-->
                                     <div class="card-header">
                                         <h3 class="card-title">Setup Footer Content</h3>
@@ -98,6 +98,7 @@
                                     <!--card header-->
                                     <!--card body-->
                                     <div class="card-body">
+                                        <p>Add footer description to the site</p>
                                         <form action=" {{ route('addFooter') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
@@ -111,7 +112,7 @@
                                     <!--./card body-->
                                     <!--card footer-->
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Add Footer</button>
+                                        <button type="submit" class="btn btn-warning">Add Footer</button>
                                     </div>
                                     </form>
                                     <!--./card footer-->

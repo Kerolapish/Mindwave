@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-edu-meeting.css">
     <link rel="stylesheet" href="assets/css/owl.css">
+    <script src="https://kit.fontawesome.com/48b4d892a8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/lightbox.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
 
@@ -103,8 +104,8 @@
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                            <li><a href="meetings.html">SERVICES</a></li>
-                            <li class="scroll-to-section"><a href="#courses">TEAM</a></li>
+                            <li><a href="#top">SERVICES</a></li>
+                            <li class="scroll-to-section"><a href="#meetings">TEAM</a></li>
                             <li class="scroll-to-section"><a href="#contact">CONTACT</a></li>
                         </ul>
                         <a class='menu-trigger'>
@@ -259,7 +260,7 @@
                                     class="small text-uppercase text-muted">{{ $teamData[$i]->position }}</span>
                                 <ul class="social mb-0 list-inline mt-3">
                                     <li class="list-inline-item"><a href="{{ $teamData[$i]->url }}"
-                                            class="social-link"><i class="fa fa-linkedin"></i></a></li>
+                                            class="social-link"><i class="fa-brands fa-linkedin"></i></a></li>
                                 </ul>
                             </div>
                             <!--./Card-->
@@ -402,7 +403,7 @@
                                 @if ($infoData == null || $siteData -> setupInfo == false)
                                     <span>Not Available</span>
                                 @else
-                                    <span>{{ $infoData->website }}</span>
+                                    <a href="{{ $infoData->website }}" class="btn btn-block btn-outline-light btn-xs">Our Website</a>
                                 @endif
                             </li>
                         </ul>

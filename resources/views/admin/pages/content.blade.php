@@ -80,67 +80,112 @@
             </div>
             <!-- /.content-header -->
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <!-- Small boxes (Stat box) -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Top Title</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Change page top title</p>
-                                    <form action=" {{ route('updateTopTitle') }}" method="POST"
-                                        enctype="multipart/form-data">
+            @if ($siteData->setupTitle == false)
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <!-- Small boxes (Stat box) -->
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-md-12">
+                                <!-- card -->
+                                <div class="card card-warning card-outline">
+                                    <form action="{{ route('addContent')}}" method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        <div class="form-group">
-                                            <label for="siteName">Current top title</label>
-                                            <input type="text" class="form-control" name="title"
-                                                value="{{ $contentData->topTitle }}">
+                                        <!-- card header -->
+                                        <div class="card-header">
+                                            <h3 class="card-title">Top Content</h3>
                                         </div>
-                                </div>
+                                        <!-- ./card header -->
+                                        <!-- card body -->
+                                        <div class="card-body">
+                                            <p>Add top content title and its description</p>
+                                            <div class="form-group">
+                                                <label for="siteName">Current top title</label>
+                                                <input type="text" class="form-control" name="title"
+                                                    placeholder="Enter top title">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="siteName">Current top paragraph</label>
+                                                <textarea rows="3" type="text" class="form-control" name="text" placeholder="Enter top paragraph"></textarea>
+                                            </div>
 
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                        <!-- ./card body -->
+                                        <!-- card footer -->
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-warning">Add Content</button>
+                                        </div>
+                                        <!-- ./card footer -->
+                                    </form>
                                 </div>
-                                </form>
+                                <!-- ./card -->
+                            </div>
+                            <!-- ./col -->
+                        </div>
+                        <!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            @else
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <!-- Small boxes (Stat box) -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Top Title</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Change page top title</p>
+                                        <form action=" {{ route('updateTopTitle') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="siteName">Current top title</label>
+                                                <input type="text" class="form-control" name="title"
+                                                    value="{{ $contentData->topTitle }}">
+                                            </div>
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Top Paragraph</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Change top paragraph</p>
+                                        <form action=" {{ route('updateParagraph') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="siteName">Current top paragraph</label>
+                                                <textarea rows="3" type="text" class="form-control" name="text">{{ $contentData->paragraph }}</textarea>
+                                            </div>
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                        <!-- ./col -->
-                        <div class="col-md-6">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h3 class="card-title">Top Paragraph</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Change top paragraph</p>
-                                    <form action=" {{ route('updateParagraph') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="siteName">Current top paragraph</label>
-                                            <textarea rows="3" type="text" class="form-control" name="text">{{ $contentData->paragraph }}</textarea>
-                                        </div>
-                                </div>
-
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
-                                </form>
-                            </div>
-                        </div>
+                        <!-- /.row -->
                     </div>
-                    <!-- /.row -->
-                    <!-- Main row -->
-                    <div class="row">
+                    <!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            @endif
 
-                    </div>
-                    <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
 
