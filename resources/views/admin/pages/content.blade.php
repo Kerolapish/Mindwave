@@ -31,8 +31,10 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     <!--icon-->
     <link rel="icon" href="/assets/images/mindwave-ico.png">
-    <!--floating message-->
-    <link rel="stylesheet" href=" {{ asset('assets/css/floatMessage.css') }}">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -49,15 +51,28 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @if (session('success'))
-                <div id="message-float">
-                    {{ session('success') }}
-                </div>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        toastr.options.timeOut = 1500; // 1.5s
+                        toastr.success("{{ session('success') }}");
+                        $('#linkButton').click(function() {
+                            toastr.success('Click Button');
+                        });
+                    });
+                </script>
             @else
                 @foreach (['text', 'title'] as $errorKey)
                     @if ($errors->has($errorKey))
-                        <div id="message-float-error">
-                            {{ $errors->first($errorKey) }}
-                        </div>
+                    <script type="text/javascript">
+                        let error = {!! json_encode($errors->messages()) !!};
+                        $(document).ready(function() {
+                            toastr.options.timeOut = 1500; // 1.5s
+                            toastr.error(error[`{{ $errorKey }}`]);
+                            $('#linkButton').click(function() {
+                                toastr.success('Click Button');
+                            });
+                        });
+                    </script>
                     @endif
                 @endforeach
             @endif
@@ -90,7 +105,8 @@
                             <div class="col-md-12">
                                 <!-- card -->
                                 <div class="card card-warning card-outline">
-                                    <form action="{{ route('addContent')}}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('addContent') }}" method="POST"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <!-- card header -->
                                         <div class="card-header">
@@ -231,30 +247,6 @@
     <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
-    <script>
-        let divError = document.getElementById("message-float-error");
-        let divSuccess = document.getElementById("message-float");
-
-        if (divError) {
-            divError.addEventListener("click", function() {
-                divSuccess.style.display = "none";
-            });
-
-            setTimeout(() => {
-                divError.classList.add('hide');
-            }, 2000);
-        }
-
-        if (divSuccess) {
-            divSuccess.addEventListener("click", function() {
-                divSuccess.style.display = "none";
-            });
-
-            setTimeout(() => {
-                divSuccess.classList.add('hide');
-            }, 2000);
-        }
-    </script>
 </body>
 
 </html>

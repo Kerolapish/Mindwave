@@ -10,8 +10,11 @@ use App\Models\background;
 use App\Models\content;
 use App\Models\siteProperty;
 use App\Models\team;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class setupController extends Controller
@@ -315,8 +318,7 @@ class setupController extends Controller
     {
         $validateData = $request->validate([
             'phone' => 'required',
-            'email' => 'required | email',
-            'url' => "required | url",
+            'email' => "required | email",
             'address' => 'required'
         ]);
 
@@ -324,7 +326,6 @@ class setupController extends Controller
         $info = new information();
         $info->phoneNum = $validateData['phone'];
         $info->email = $validateData['email'];
-        $info->website = $validateData['url'];
         $info->address = $validateData['address'];
 
         $info->save();
@@ -348,30 +349,90 @@ class setupController extends Controller
         ]);
     }
 
+
+    //function to direct user to profile form
+    public function profile()
+    {
+
+        $siteData = siteProperty::find(1);
+        return view('admin/pages/profile', compact('siteData'));
+    }
+
+    //function to update profile data
+    public function setProfile(Request $request, $id)
+    {
+
+        //validate data from request 
+        $validateData = $request->validate([
+            'username' => 'required | min:7 | alpha_dash',
+            'password' => [
+                'required',
+                'string',
+                'min:10',             // must be at least 10 characters in length
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+                'regex:/[@$!%*#?&]/', // must contain a special character
+            ],
+            'Cpassword' => 'required | same:password'
+        ]);
+
+        $user = user::find($id);
+        $user -> name = $validateData['username'];
+        $user -> password = Hash::make($validateData['password']);
+        $user -> hasUpdate = true;
+        $user -> save();
+        
+        //invoke function to check all user have update thier detail
+        $this -> checkUpdateDetail();
+        $this -> checkSetup();
+        
+        //get data from db
+        $siteData = siteProperty::find(1);
+
+        return redirect()->back()->with([
+            'siteData',
+            'success' =>  'login details has been added. Please use new details to login'
+        ]);
+    }
+
+    //check if all user has update their profile detail
+    public function checkUpdateDetail(){
+        
+        $allHaveUpdate = User::where('hasUpdate', true)->count();
+        $totalUsers = User::count();
+        
+        if ($allHaveUpdate == $totalUsers) {
+            $site = siteProperty::find(1);
+            $site->hasCompleteReg = true;
+            $site -> save();
+        }
+    }
+
     //check if all setup has been complete
     public function checkSetup()
     {
 
         //array with the columns name
-        $columns = ['setupBrand', 'setupBackground', 'setupTitle', 'setupInfo', 'setupService', 'setupTeam', 'setupFooter'];
+        $columns = ['setupBrand', 'setupBackground', 'setupTitle', 'setupInfo', 'setupService', 'setupTeam', 'setupFooter', 'hasCompleteReg'];
         $setup = siteProperty::find(1);
 
         $checkAll = true;
 
         //check if all the column has been set
         foreach ($columns as $column) {
-            if ($setup->$column == false) { 
+            if ($setup->$column == false) {
                 $checkAll = false;
                 break;
             }
         }
 
-        if($checkAll){
+        if ($checkAll) {
             //if its return true, the site property column, hasetup will change into true
             $site = siteProperty::find(1);
             $site->hasSetup = true;
             $site->downStatus = false;
-            $site->save();  
+            $site->save();
         }
     }
 }

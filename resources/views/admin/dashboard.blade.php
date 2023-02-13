@@ -79,6 +79,18 @@
                     <div class="container-fluid">
                         <!-- row -->
                         <div class="row">
+                            @if (Auth::user()->hasUpdate == true && $siteData->hasCompleteReg == false)
+                                <!--col-->
+                                <div class="col-12">
+                                    <!--callout-->
+                                    <div class="callout callout-danger">
+                                        <h5><i class="fas fa-warning"></i> Note:</h5>
+                                        Site currently vulnerable. Please remind another account holder to update their account details
+                                    </div>
+                                    <!--./callout-->
+                                </div>
+                                <!--./col-->
+                            @endif
                             <!--col-->
                             <div class="col-12">
                                 <!--callout-->
@@ -93,6 +105,25 @@
                         <!-- /.row -->
                         <!-- row -->
                         <div class="row">
+                            @if (auth::user()->hasUpdate == false)
+                                <!--col-->
+                                <div class="col-lg-4 col-6">
+                                    <!--card-->
+                                    <div class="card card-danger card-outline">
+                                        <!--card body-->
+                                        <div class="card-body">
+                                            <h3 class="profile-username text-center">Profile</h3>
+                                            <p class="text-muted text-center">Change your default username and password
+                                            </p>
+                                            <a href="{{ route('profile') }}" class="btn btn-danger btn-block"><b>Change
+                                                    Profile</b></a>
+                                        </div>
+                                        <!--./card body-->
+                                    </div>
+                                    <!--./card-->
+                                </div>
+                                <!--./col-->
+                            @endif
                             @if ($siteData->setupBrand == false)
                                 <!--col-->
                                 <div class="col-lg-4 col-6">
@@ -140,7 +171,7 @@
                                     <div class="card card-warning card-outline">
                                         <!--card body-->
                                         <div class="card-body">
-                                            <h3 class="profile-username text-center">Top Content</h3>
+                                            <h3 class="profile-username text-center">Content</h3>
                                             <p class="text-muted text-center">Setup site top title and its content</p>
                                             <a href="{{ route('createContent') }}"
                                                 class="btn btn-warning btn-block"><b>Setup
@@ -313,10 +344,10 @@
                                 <div class="card card-primary card-outline">
                                     <!--card body-->
                                     <div class="card-body">
-                                        <h3 class="profile-username text-center">Top Title</h3>
+                                        <h3 class="profile-username text-center">Content</h3>
                                         <p class="text-muted text-center">Change site top title and description</p>
                                         <a href="{{ route('content') }}" class="btn btn-primary btn-block"><b>Update
-                                                Top Title</b></a>
+                                                Content</b></a>
                                     </div>
                                     <!--./card body-->
                                 </div>
@@ -446,6 +477,22 @@
                                         <p class="text-muted text-center">Change site status</p>
                                         <a href="{{ route('siteStatus') }}" class="btn btn-danger btn-block"><b>View
                                                 More</b></a>
+                                    </div>
+                                    <!--card body-->
+                                </div>
+                                <!--./card-->
+                            </div>
+                            <!--./col-->
+                            <!--col-->
+                            <div class="col-md-4">
+                                <!--card-->
+                                <div class="card card-danger card-outline">
+                                    <!--card body-->
+                                    <div class="card-body">
+                                        <h3 class="profile-username text-center">Profile</h3>
+                                        <p class="text-muted text-center">Update profile details</p>
+                                        <a href="{{ route('siteStatus') }}" class="btn btn-danger btn-block"><b>Update
+                                            Profile</b></a>
                                     </div>
                                     <!--card body-->
                                 </div>

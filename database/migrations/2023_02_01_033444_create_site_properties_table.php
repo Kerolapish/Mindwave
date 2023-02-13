@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('setupService')->default(false);
             $table->boolean('setupTeam')->default(false);
             $table->boolean('setupFooter')->default(false);
+            $table->boolean('hasCompleteReg')->default(false);
             $table->timestamps();
         });
     }

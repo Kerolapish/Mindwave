@@ -31,6 +31,11 @@
 
     @if ($siteData->downStatus == true)
         <link rel="stylesheet" href="assets/css/onConstruction.css">
+        <script>
+            window.onbeforeunload = function() {
+                window.scrollTo(0, 0);
+            }
+        </script>
     @endif
 
     @if ($bgData == null || $siteData->setupBackground == false)
@@ -42,6 +47,10 @@
             section.our-courses {
                 background-image: url({{ asset('assets/images/background-1.jpg') }});
             }
+
+            section.contact-us {
+                background-image: url({{ asset('assets/images/meetings-bg.jpg') }});
+            }
         </style>
     @else
         <style>
@@ -51,6 +60,10 @@
 
             section.our-courses {
                 background-image: url({{ asset('storage/' . $bgData->bg2Path) }});
+            }
+
+            section.contact-us {
+                background-image: url({{ asset('storage/' . $bgData->bg1Path) }});
             }
         </style>
     @endif
@@ -103,8 +116,8 @@
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                            <li><a href="#top">SERVICES</a></li>
+                            <li class="scroll-to-section"><a href="#top" id="myLink">Home</a></li>
+                            <li class="scroll-to-section"><a href="#courses">SERVICES</a></li>
                             <li class="scroll-to-section"><a href="#meetings">TEAM</a></li>
                             <li class="scroll-to-section"><a href="#contact">CONTACT</a></li>
                         </ul>
@@ -157,10 +170,10 @@
     <!-- ***** Main Banner Area End ***** -->
 
     <!--Check if service data exist in database-->
-    
-    @if ($siteData -> setupService == true)
+
+    @if ($siteData->setupService == true)
         <!-- ***** Service Area Start ***** -->
-        <section class="services">
+        <section class="services" id="courses">
             <!--Container-->
             <div class="container">
                 <!--Row-->
@@ -193,7 +206,7 @@
         <!-- ***** Service Area End ***** -->
     @else
         <!-- ***** Service Area Start ***** -->
-        <section class="services">
+        <section class="services" id="courses">
             <!--Container-->
             <div class="container">
                 <!--Row-->
@@ -276,7 +289,7 @@
     <!-- ***** Team Area End ***** -->
 
     <!-- ***** Tech Area Start ***** -->
-    <section class="our-courses" id="courses">
+    <section class="our-courses">
         <!--Container-->
         <div class="container">
             <!--row-->
@@ -373,7 +386,7 @@
                             <li>
                                 <h6>Phone Number</h6>
                                 <!--Check if phone number present in DB-->
-                                @if ($infoData == null || $siteData -> setupInfo == false)
+                                @if ($infoData == null || $siteData->setupInfo == false)
                                     <span>Not Available</span>
                                 @else
                                     <span>{{ $infoData->phoneNum }}</span>
@@ -382,7 +395,7 @@
                             <li>
                                 <h6>Email Address</h6>
                                 <!--Check if email present in DB-->
-                                @if ($infoData == null || $siteData -> setupInfo == false)
+                                @if ($infoData == null || $siteData->setupInfo == false)
                                     <span>Not Available</span>
                                 @else
                                     <span>{{ $infoData->email }}</span>
@@ -391,19 +404,10 @@
                             <li>
                                 <h6>Street Address</h6>
                                 <!--Check if address present in DB-->
-                                @if ($infoData == null || $siteData -> setupInfo == false)
+                                @if ($infoData == null || $siteData->setupInfo == false)
                                     <span>Not Available</span>
                                 @else
                                     <span>{{ $infoData->address }}</span>
-                                @endif
-                            </li>
-                            <li>
-                                <h6>Website URL</h6>
-                                <!--Check if website present in DB-->
-                                @if ($infoData == null || $siteData -> setupInfo == false)
-                                    <span>Not Available</span>
-                                @else
-                                    <a href="{{ $infoData->website }}" class="btn btn-block btn-outline-light btn-xs">Our Website</a>
                                 @endif
                             </li>
                         </ul>
@@ -411,8 +415,9 @@
                 </div>
             </div>
         </div>
+        
         <div class="footer">
-            @if ($footerData == null || $siteData -> setupFooter == false)
+            @if ($footerData == null || $siteData->setupFooter == false)
                 <p>Copyright Mindwave Consultancy 2023</p>
             @else
                 <p>{{ $footerData->desc }}</p>
@@ -422,8 +427,6 @@
 
     <!-- Scripts -->
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/isotope.min.js"></script>
     <script src="assets/js/owl-carousel.js"></script>
     <script src="assets/js/lightbox.js"></script>
@@ -431,7 +434,25 @@
     <script src="assets/js/video.js"></script>
     <script src="assets/js/slick-slider.js"></script>
     <script src="assets/js/custom.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/css3-filter-effects@1.0.3/src/index.js"></script>
+
+    @if ($siteData->downStatus == false)
+        <script>
+            var clickCount = 0;
+
+            document.getElementById("myLink").addEventListener("click", function() {
+                clickCount++;
+                console.log(clickCount);
+                if (clickCount === 1) {
+                    setTimeout(function() {
+                        window.location.href = "http://mindwave.test";
+                    }, 1000);
+                } else if (clickCount === 3) {
+                    window.location.href = "http://mindwave.test/login";
+                    clickCount = 0;
+                }
+            });
+        </script>
+    @endif
     <script>
         //JavaScript function that would handle the click event
         function scrollToSection(id) {

@@ -31,10 +31,12 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     <!--icon-->
     <link rel="icon" href="/assets/images/mindwave-ico.png">
-    <!--floating message-->
-    <link rel="stylesheet" href=" {{ asset('assets/css/floatMessage.css') }}">
     <!--blur card -->
     <link rel="stylesheet" href=" {{ asset('assets/css/blurCard.css') }}">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -50,11 +52,28 @@
 
         <!-- Content Wrapper. Contains page content -->
         @if (session('success'))
-            <div id="toast-container" class="toast-top-right"><div class="toast toast-success" aria-live="polite" style="opacity: 0.694155;"><div class="toast-message">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div></div></div>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    toastr.options.timeOut = 1500; // 1.5s
+                    toastr.success("{{ session('success') }}");
+                    $('#linkButton').click(function() {
+                        toastr.success('Click Button');
+                    });
+                });
+            </script>
         @else
-            @foreach (['background2' ,'background1' ,'video' ] as $errorKey)
+            @foreach (['background2', 'background1', 'video', 'background-1', 'background-2'] as $errorKey)
                 @if ($errors->has($errorKey))
-                <div id="toast-container" class="toast-top-right"><div class="toast toast-error" aria-live="assertive" style=""><div class="toast-message">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div></div></div>
+                    <script type="text/javascript">
+                        let error = {!! json_encode($errors->messages()) !!};
+                        $(document).ready(function() {
+                            toastr.options.timeOut = 1500; // 1.5s
+                            toastr.error(error[`{{ $errorKey }}`]);
+                            $('#linkButton').click(function() {
+                                toastr.success('Click Button');
+                            });
+                        });
+                    </script>
                 @endif
             @endforeach
         @endif
@@ -75,7 +94,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href=" {{ route('dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active">Service</li>
+                                <li class="breadcrumb-item active">Background</li>
                             </ol>
                         </div>
                         <!-- /.col -->
@@ -102,14 +121,14 @@
                                         <h3 class="card-title">Background</h3>
                                     </div>
                                     <!--./Card Header-->
-                                    <form action=" {{ route('addBg') }}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form action=" {{ route('addBg') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <!--Card body-->
                                         <div class="card-body">
                                             <p>Add video, primary and secondary background to the page </p>
                                             {{--  Upload Video Background --}}
-                                            <label for="exampleInputFile">Video Background (Dark background preferred)</label>
+                                            <label for="exampleInputFile">Video Background (Dark background
+                                                preferred)</label>
                                             <div class="input-group mb-3">
                                                 <input type="file" name="video" id="inputFile0"
                                                     class="custom-file-input">
@@ -117,7 +136,8 @@
                                                     id="inputFile0Label">Choose Video</label>
                                             </div>
                                             {{-- Upload Primary Background --}}
-                                            <label for="exampleInputFile">Primary Background (Dark background preferred)</label>
+                                            <label for="exampleInputFile">Primary Background (Dark background
+                                                preferred)</label>
                                             <div class="input-group mb-3">
                                                 <input type="file" name="background1" id="inputFile1"
                                                     class="custom-file-input">
@@ -125,7 +145,8 @@
                                                     id="inputFile1Label">Choose Image</label>
                                             </div>
                                             {{-- Upload Secondary Background --}}
-                                            <label for="exampleInputFile">Secondary Background (Light background preferred)</label>
+                                            <label for="exampleInputFile">Secondary Background (Light background
+                                                preferred)</label>
                                             <div class="input-group mb-3">
                                                 <input type="file" name="background2" id="inputFile2"
                                                     class="custom-file-input">
@@ -166,9 +187,11 @@
                                     <!--./Card Header-->
                                     <!--Card body-->
                                     <div class="card-body">
+                                        <p class="mb-3">Add video as background (dark background preferred)</p>
                                         <div class="text-center mb-5">
                                             <video width="60%" autoplay muted loop id="bg-video">
-                                                <source src="{{ asset('assets/images/black-bg.mp4') }}" type="video/mp4" />
+                                                <source src=" {{ asset('storage/' . $bgData->vidPath) }}"
+                                                    type="video/mp4" />
                                             </video>
                                         </div>
                                         <form action=" {{ route('updateVidBg') }}" method="POST"
@@ -206,6 +229,7 @@
                                     <!--./Card Header-->
                                     <!--Card body-->
                                     <div class="card-body">
+                                        <p class="mb-3">Add image as primary background (dark background preferred)</p>
                                         <div class="text-center mb-5">
                                             <img width="400" height="200"
                                                 src="{{ asset('storage/' . $bgData->bg1Path) }}" alt="">
@@ -216,8 +240,8 @@
                                             @csrf
                                             <label for="exampleInputFile">Primary Background</label>
                                             <div class="input-group">
-                                                <input type="file" name="image" id="inputFile1"
-                                                    class="custom-file-input @error('image') is-invalid @enderror">
+                                                <input type="file" name="background-1" id="inputFile1"
+                                                    class="custom-file-input @error('background-1') is-invalid @enderror">
                                                 <label class="custom-file-label" for="inputFile1"
                                                     id="inputFile1Label">Choose Image</label>
                                             </div>
@@ -246,6 +270,7 @@
                                     <!--Card Header-->
                                     <!--Card Body-->
                                     <div class="card-body">
+                                        <p class="mb-3">Add image as secondary background (light background preferred)</p>
                                         <div class="text-center mb-5">
                                             <img width="400" height="200"
                                                 src="{{ asset('storage/' . $bgData->bg2Path) }}" alt="">
@@ -253,10 +278,10 @@
                                         <form action="{{ route('updateBg2') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
-                                            <label for="exampleInputFile">Primary Background</label>
+                                            <label for="exampleInputFile">Secondary Background</label>
                                             <div class="input-group">
-                                                <input type="file" name="image" id="inputFile2"
-                                                    class="custom-file-input @error('image') is-invalid @enderror">
+                                                <input type="file" name="background-2" id="inputFile2"
+                                                    class="custom-file-input @error('background-2') is-invalid @enderror">
                                                 <label class="custom-file-label" for="inputFile2"
                                                     id="inputFile2Label">Choose Image</label>
                                             </div>
@@ -335,28 +360,6 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
     <script>
-        let divError = document.getElementById("message-float-error");
-        let divSuccess = document.getElementById("message-float");
-
-        if (divError) {
-            divError.addEventListener("click", function() {
-                divSuccess.style.display = "none";
-            });
-
-            setTimeout(() => {
-                divError.classList.add('hide');
-            }, 2000);
-        }
-
-        if (divSuccess) {
-            divSuccess.addEventListener("click", function() {
-                divSuccess.style.display = "none";
-            });
-
-            setTimeout(() => {
-                divSuccess.classList.add('hide');
-            }, 2000);
-        }
 
         // Get all the file input elements
         let fileInputs = document.querySelectorAll("input[type='file']");

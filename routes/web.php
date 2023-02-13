@@ -39,7 +39,7 @@ Route::get('/unauthorize' , [actionController::class, 'unathorizeError']) -> nam
 //protect route - only authorize user able to access 
 Route::middleware(['admin'])->group(function () {
 
-    //Function route at dashboard
+    //Route for dashboard
     Route::get('admin/dashboard' , [actionController::class , 'dashboard']) -> name('dashboard');
     Route::get('admin/branding' , [actionController::class , 'branding']) -> name('branding');
     Route::get('admin/background' , [actionController::class , 'background']) -> name('background');
@@ -49,52 +49,52 @@ Route::middleware(['admin'])->group(function () {
     Route::get('admin/footer',[actionController::class , 'footer']) -> name('footer');
     Route::get('admin/team' , [actionController::class , 'team']) -> name('team');
     Route::get('admin/siteStatus' , [actionController::class , 'siteStatus']) -> name('siteStatus');
+    Route::get('admin/profile' , [actionController::class] , 'updateProfile') -> name('updateProfile');
 
-    //Function route at branding page (admin/branding)
+    //Route for branding page (admin/branding)
     Route::post('admin/brading/update/siteName' , [actionController::class , 'updateSiteName']) -> name('updateSiteName');
     Route::post('admin/brading/update/image', [ actionController::class, 'updateImage' ])->name('updateImage');
     Route::post('admin/brading/update/logo', [ actionController::class, 'updateLogo' ])->name('updateLogo');
     
-    //Function route at background page (admin/background)
+    //Route for background page (admin/background)
     Route::post('admin/background/update/video', [actionController::class, 'updateVidBg'])->name('updateVidBg');
     Route::post('admin/brading/update/bg1', [ actionController::class, 'updateBg1' ])->name('updateBg1');
     Route::post('admin/brading/update/bg2', [ actionController::class, 'updateBg2' ])->name('updateBg2');
 
-    //Function route at content page (admin/content)
+    //Route for content page (admin/content)
     Route::post('admin/content/update/topTitle' , [actionController::class , 'updateTopTitle']) -> name('updateTopTitle');
     Route::post('admin/content/update/paragraph' , [actionController::class , 'updateParagraph']) -> name('updateParagraph');
     
-    //Function route at information page (admin/information)
+    //Route for information page (admin/information)
     Route::post('admin/information/update/phoneNum' , [actionController::class , 'updatePhoneNumber']) -> name('updatePhoneNumber');
     Route::post('admin/infomation/update/updateEmail' , [actionController::class , 'updateEmail']) -> name('updateEmail');
     Route::post('admin/information/update/address' , [actionController::class , 'updateAddress']) -> name('updateAddress'); 
-    Route::post('admin/information/update/website' , [actionController::class , 'updateWebsite']) -> name('updateWebsite');
     
-    //Function route at service page (admin/service)
+    //Route for service page (admin/service)
     Route::post('admin/service/update/cardDetails/{id}' , [actionController::class , 'updateCardService']) -> name('updateCardService');
 
-    //Function route at footer page (admin/footer)
+    //Route for footer page (admin/footer)
     Route::post('admin/footer/update/description', [actionController::class , 'updateFooter'])-> name('updateFooter');
 
-    //Function route at team page (admin/team)
+    //Route for team page (admin/team)
     Route::post('admin/team/update/teamDetails/{id}', [actionController::class , 'updateTeam']) -> name('updateTeam');
     
-    //Function route at site status page (admin/siteStatus)
-    
+    //Route for site status page (admin/siteStatus)
     Route::post('admin/siteStatus/disableSite' , [actionController::class, 'disableSite']) -> name('disableSite');
     Route::get('admin/siteStatus/enable' , [actionController::class, 'enableSite']) -> name('enableSite');
     
+    //Route for profile
+    Route::post('admin/profile/updateUsername/{id}' , [actionController::class , 'updateUsername']) -> name('updateUsername');
+    Route::post('admin/profile/updatePassword/{id}' , [actionController::class , 'updatePassword']) -> name('updatePassword');
+
     //////////////////////////////////////////////
     //SETUP//
-
-    //Function route create setup
     
-    
-    //Function route to create setup in branding
+    //Route for create setup in branding
     Route::post('admin/branding/add' , [setupcontroller::class , 'addBrand']) -> name('addBrand');
     Route::get('admin/branding/create' , [setupController::class , 'createBranding']) -> name('createBranding');
 
-    //Function route to create setup in background
+    //Route for create setup in background
     Route::get('admin/background/create' , [setupController::class , 'createBackground']) -> name('createBackground');
     Route::post('admin/background/add', [setupController::class, 'addBg'])->name('addBg');  
     
@@ -112,4 +112,7 @@ Route::middleware(['admin'])->group(function () {
     
     Route::get('admin/information/create' , [setupController::class , 'createInfo']) -> name('createInfo');
     Route::post('admin/information/add' , [setupController::class , 'addInfo']) -> name('addInfo');
+
+    Route::get('admin/profile' , [setupController::class , 'profile']) -> name('profile');
+    Route::post('admin/profile/set-profile/{id}' , [setupController::class , 'setProfile']) -> name('setProfile');
 });

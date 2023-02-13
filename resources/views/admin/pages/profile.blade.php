@@ -39,7 +39,6 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
         <!-- Navbar -->
         @include('admin/layout/topnav')
         <!-- /.navbar -->
@@ -61,7 +60,7 @@
                     });
                 </script>
             @else
-                @foreach (['content'] as $errorKey)
+                @foreach (['username', 'password', 'Cpassword'] as $errorKey)
                     @if ($errors->has($errorKey))
                         <script type="text/javascript">
                             let error = {!! json_encode($errors->messages()) !!};
@@ -82,12 +81,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Footer</h1>
+                            <h1 class="m-0">Profile</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href=" {{ route('dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active">Footer</li>
+                                <li class="breadcrumb-item active">Profile</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -95,7 +94,7 @@
             </div>
             <!-- /.content-header -->
 
-            @if ($siteData->setupFooter == false)
+            @if (Auth::user()->hasUpdate == false)
                 <!-- Main content -->
                 <section class="content">
                     <!-- container-fluid -->
@@ -108,26 +107,42 @@
                                 <div class="card card-warning card-outline">
                                     <!--card header-->
                                     <div class="card-header">
-                                        <h3 class="card-title">Setup Footer Content</h3>
+                                        <h3 class="card-title">Profile Settings</h3>
                                     </div>
                                     <!--card header-->
                                     <!--card body-->
                                     <div class="card-body">
-                                        <p>Add footer description to the site</p>
-                                        <form action=" {{ route('addFooter') }}" method="POST"
+                                        <p>Change default profile settings. Please use new login details after complete
+                                            this process</p>
+                                        <form action=" {{ route('setProfile', Auth::user()->id) }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <!--form group-->
                                             <div class="form-group">
-                                                <label for="siteName">Footer Description</label>
-                                                <textarea type="text" class="form-control" name="content" placeholder="Please enter footer description"></textarea>
+                                                <label for="siteName">Username</label>
+                                                <input type="text" class="form-control" name="username"
+                                                    placeholder="Enter new username">
+                                            </div>
+                                            <!--./form group-->
+                                            <!--form group-->
+                                            <div class="form-group">
+                                                <label for="siteName">New Password</label>
+                                                <input type="password" class="form-control" name="password"
+                                                    placeholder="Enter new password">
+                                            </div>
+                                            <!--./form group-->
+                                            <!--form group-->
+                                            <div class="form-group">
+                                                <label for="siteName">Confirm New Password</label>
+                                                <input type="password" class="form-control" name="Cpassword"
+                                                    placeholder="Please confirm your password">
                                             </div>
                                             <!--./form group-->
                                     </div>
                                     <!--./card body-->
                                     <!--card footer-->
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-warning">Add Footer</button>
+                                        <button type="submit" class="btn btn-warning">Change profile</button>
                                     </div>
                                     </form>
                                     <!--./card footer-->
@@ -148,25 +163,71 @@
                     <div class="container-fluid">
                         <!-- Small boxes (Stat box) -->
                         <div class="row">
-                            <div class="col-md-12">
+                            @if (Auth::user()->hasUpdate == true && $siteData->hasCompleteReg == false)
+                                <!--col-->
+                                <div class="col-12">
+                                    <!--callout-->
+                                    <div class="callout callout-danger">
+                                        <h5><i class="fas fa-warning"></i> Note:</h5>
+                                        Site currently vulnerable. Please remind another account holder to update their account details
+                                    </div>
+                                    <!--./callout-->
+                                </div>
+                                <!--./col-->
+                            @endif
+                            <div class="col-md-6">
                                 <div class="card card-success card-outline">
                                     <div class="card-header">
-                                        <h3 class="card-title">Footer Content</h3>
+                                        <h3 class="card-title">Username</h3>
                                     </div>
-                                    <div class="card-body">
-                                        <p>Change footer description</p>
-                                        <form action=" {{ route('updateFooter') }}" method="POST"
-                                            enctype="multipart/form-data">
-                                            @csrf
+                                    <form action=" {{ route('updateUsername' , Auth::user() -> id) }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="card-body">
+                                            <p>Change Username (Please use new username after change your username)</p>
+                                            <!--form group-->
                                             <div class="form-group">
-                                                <label for="siteName">Current footer description</label>
-                                                <textarea type="text" class="form-control" name="content">{{ $footerData->desc }}</textarea>
+                                                <label for="siteName">Username</label>
+                                                <input type="text" class="form-control" name="username"
+                                                    placeholder="{{ Auth::user() -> name}}">
                                             </div>
-                                    </div>
+                                            <!--./form group-->
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-success">Update username</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
 
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-success">Update</button>
+                            <div class="col-md-6">
+                                <div class="card card-success card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Change Password</h3>
                                     </div>
+                                    <form action=" {{ route('updatePassword' , Auth::user() -> id) }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="card-body">
+                                            <p>Change password (Please use new password after change your password)</p>
+                                            <!--form group-->
+                                            <div class="form-group">
+                                                <label for="siteName">New Password</label>
+                                                <input type="password" class="form-control" name="password"
+                                                    placeholder="Enter new password">
+                                            </div>
+                                            <!--./form group-->
+                                            <!--form group-->
+                                            <div class="form-group">
+                                                <label for="siteName">Confirm New Password</label>
+                                                <input type="password" class="form-control" name="Cpassword"
+                                                    placeholder="Please confirm your password">
+                                            </div>
+                                            <!--./form group-->
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-success">Update Password</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

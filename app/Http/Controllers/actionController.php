@@ -10,6 +10,7 @@ use App\Models\information;
 use App\Models\service;
 use App\Models\Team;
 use App\Models\siteProperty;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -64,7 +65,7 @@ class actionController extends Controller
     {
         $brandData = brand::find(1);
         $siteData = siteProperty::find(1);
-        return view('admin/pages/branding', compact('brandData' , 'siteData'));
+        return view('admin/pages/branding', compact('brandData', 'siteData'));
     }
 
     //function to update siteName (Branding)
@@ -158,7 +159,7 @@ class actionController extends Controller
     {
         $bgData = background::find(1);
         $siteData = siteProperty::find(1);
-        return view('admin/pages/background', compact('bgData' , 'siteData'));
+        return view('admin/pages/background', compact('bgData', 'siteData'));
     }
 
     //Function to save video background
@@ -197,7 +198,7 @@ class actionController extends Controller
     {
 
         $validatedData = $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+            'background-1' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         // Retrieve the existing background from the database
@@ -208,7 +209,7 @@ class actionController extends Controller
 
 
         // Get the new background file uploaded by the user
-        $newImage = $request->file('image');
+        $newImage = $request->file('background-1');
 
         // Get the original file name
         $originalFileName = $newImage->getClientOriginalName();
@@ -230,7 +231,7 @@ class actionController extends Controller
     {
 
         $validatedData = $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+            'background-2' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         // Retrieve the existing background from the database
@@ -241,7 +242,7 @@ class actionController extends Controller
 
 
         // Get the new background file uploaded by the user
-        $newImage = $request->file('image');
+        $newImage = $request->file('background-2');
 
         // Get the original file name
         $originalFileName = $newImage->getClientOriginalName();
@@ -263,7 +264,7 @@ class actionController extends Controller
     {
         $contentData = content::find(1);
         $siteData = siteProperty::Find(1);
-        return view('admin/pages/content', compact('contentData' , 'siteData'));
+        return view('admin/pages/content', compact('contentData', 'siteData'));
     }
 
     //function to update top title (content)
@@ -312,7 +313,8 @@ class actionController extends Controller
     public function information()
     {
         $infoData = information::find(1);
-        return view('admin/pages/information', compact('infoData'));
+        $siteData = siteProperty::find(1);
+        return view('admin/pages/information', compact('infoData', 'siteData'));
     }
 
     //function to update phone number (information)
@@ -329,10 +331,12 @@ class actionController extends Controller
         $row->phoneNum = $validatedData['phone'];
         $row->save();
 
+        $siteData = siteProperty::find(1);
         $infoData = information::find(1);
         return redirect()->back()->with([
             'success' =>  'Company phone number has successfully changed.',
-            'infoData'
+            'infoData',
+            'siteData'
         ]);
     }
 
@@ -350,10 +354,12 @@ class actionController extends Controller
         $row->address = $validatedData['address'];
         $row->save();
 
+        $siteData = siteProperty::find(1);
         $infoData = information::find(1);
         return redirect()->back()->with([
             'success' =>  'Company street address has successfully changed.',
-            'infoData'
+            'infoData',
+            'siteData'
         ]);
     }
 
@@ -371,31 +377,12 @@ class actionController extends Controller
         $row->email = $validatedData['email'];
         $row->save();
 
+        $siteData = siteProperty::find(1);
         $infoData = information::find(1);
         return redirect()->back()->with([
             'success' =>  'Company email address has successfully changed.',
-            'infoData'
-        ]);
-    }
-
-    //function to update website URL (information)
-    public function updateWebsite(Request $request)
-    {
-
-        //validate data
-        $validatedData = $request->validate([
-            'url' => "required | url",
-        ]);
-
-        //select row and save the data requested 
-        $row = information::find(1);
-        $row->website = $validatedData['url'];
-        $row->save();
-
-        $infoData = information::find(1);
-        return redirect()->back()->with([
-            'success' =>  'Company website URL has successfully changed.',
-            'infoData'
+            'infoData',
+            'siteData'
         ]);
     }
 
@@ -403,7 +390,8 @@ class actionController extends Controller
     public function service()
     {
         $serviceData = service::all();
-        return view('admin/pages/service', compact('serviceData'));
+        $siteData = siteProperty::find(1);
+        return view('admin/pages/service', compact('serviceData', 'siteData'));
     }
 
     //function to update service card by ID (service)
@@ -423,9 +411,11 @@ class actionController extends Controller
         $row->save();
 
         $serviceData = service::all();
+        $siteData = siteProperty::find(1);
         return redirect()->back()->with([
             'success' =>  'Service card has successfully changed.',
-            'serviceData' => $serviceData
+            'serviceData',
+            'siteData'
         ]);
     }
 
@@ -433,7 +423,8 @@ class actionController extends Controller
     public function team()
     {
         $teamData = team::all();
-        return view('admin/pages/team', compact('teamData'));
+        $siteData = siteProperty::find(1);
+        return view('admin/pages/team', compact('teamData' , 'siteData'));
     }
 
     //fuction to update team card by ID (Team)
@@ -475,10 +466,138 @@ class actionController extends Controller
 
         $row->save();
 
+        $siteData = siteProperty::find(1);
         $teamData = team::all();
         return redirect()->back()->with([
             'success' =>  'Team card has successfully changed.',
-            'serviceData' => $teamData
+            'serviceData' => $teamData,
+            'siteData'
+        ]);
+    }
+
+    //function to direct user to site status page
+    public function siteStatus()
+    {
+        $siteData = siteProperty::find(1);
+        return view('admin/pages/siteStatus', compact('siteData'));
+    }
+
+    // this function will check for the current
+    // user pass before able to continue the action
+    // to disable the site access
+    public function disableSite(Request $request)
+    {
+        if (Hash::check($request->password, Auth::user()->password)) {
+
+            $row = siteProperty::find(1);
+            $row->downStatus = true;
+            $row->save();
+            return "success";
+        } else {
+            return "error";
+        }
+    }
+
+    //function to enable site access
+    public function enableSite()
+    {
+
+        //select row and save preset value to db
+        $row = siteProperty::find(1);
+        $row->downStatus = false;
+        $row->save();
+
+        $siteData = siteProperty::find(1);
+        return redirect()->back()->with([
+            'success' =>  'Page has been enabled successfully.',
+            'siteData' => $siteData
+        ]);
+    }
+
+    //function to direct user to footer page
+    public function footer()
+    {
+        $footerData = footer::find(1);
+        $siteData = siteProperty::find(1);
+        return view('admin/pages/footer', compact('footerData' , 'siteData'));
+    }
+
+    //function to update footer content (footer)
+    public function updateFooter(Request $request)
+    {
+
+        //validate data
+        $validatedData = $request->validate([
+            'content' => 'required'
+        ]);
+
+        //select row and save the data requested
+        $row = footer::find(1);
+        $row->desc = $validatedData['content'];
+        $row->save();
+
+        $siteData = siteProperty::find(1);
+        $footerData = footer::find(1);
+        return redirect()->back()->with([
+            'success' =>  'Footer description has successfully changed.',
+            'footerData' => $footerData,
+            'siteData'
+        ]);
+    }
+
+    //function to go to profile page
+    public function updateProfile()
+    {
+        $siteData = siteProperty::find(1);
+        return view('admin/pages/profile', compact('siteData'));
+    }
+
+    //function to update username 
+    public function updateUsername (Request $request , $id)
+    {
+
+        $validatedData = $request -> validate([
+            'username' => 'required | min:7 | alpha_dash'
+        ]);
+
+        $user = User::find($id);
+        $user -> name = $validatedData['username'];
+        $user -> save();
+
+        $siteData = siteProperty::find(1);
+
+        return redirect()->back()->with([
+            'success' =>  'Username has successfully changed.',
+            'siteData'
+        ]);
+    }
+
+    //function to update password 
+    public function updatePassword (Request $request , $id)
+    {
+
+        $validatedData = $request -> validate([
+            'password' => [
+                'required',
+                'string',
+                'min:10',             // must be at least 10 characters in length
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+                'regex:/[@$!%*#?&]/', // must contain a special character
+            ],
+            'Cpassword' => 'required | same:password'
+        ]);
+
+        $user = User::find($id);
+        $user -> password = Hash::make($validatedData['password']);
+        $user -> save();
+
+        $siteData = siteProperty::find(1);
+
+        return redirect()->back()->with([
+            'success' =>  'Username has successfully changed.',
+            'siteData'
         ]);
     }
 }

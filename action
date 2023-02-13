@@ -1,0 +1,376 @@
+[1mdiff --git a/app/Http/Controllers/actionController.php b/app/Http/Controllers/actionController.php[m
+[1mindex a2cb82c..50b0d2a 100644[m
+[1m--- a/app/Http/Controllers/actionController.php[m
+[1m+++ b/app/Http/Controllers/actionController.php[m
+[36m@@ -56,7 +56,7 @@[m [mpublic function unathorizeError()[m
+     public function dashboard()[m
+     {[m
+         $siteData = siteProperty::find(1);[m
+[31m-        return view('/admin/dashboard' , compact('siteData'));[m
+[32m+[m[32m        return view('/admin/dashboard', compact('siteData'));[m
+     }[m
+ [m
+     //function to direct user to branding page[m
+[36m@@ -121,17 +121,18 @@[m [mpublic function updateImage(Request $request)[m
+     }[m
+ [m
+     //Function to update Logo in branding page[m
+[31m-    public function updateLogo(Request $request){[m
+[32m+[m[32m    public function updateLogo(Request $request)[m
+[32m+[m[32m    {[m
+ [m
+         $validatedData = $request->validate([[m
+             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',[m
+         ]);[m
+[31m-            [m
+[32m+[m
+         // Retrieve the existing photo from the database[m
+         $logo = brand::find(1);[m
+ [m
+[31m-         // Delete the current logo from the storage disk[m
+[31m-        Storage::disk('public')->delete($logo -> logoPath);[m
+[32m+[m[32m        // Delete the current logo from the storage disk[m
+[32m+[m[32m        Storage::disk('public')->delete($logo->logoPath);[m
+ [m
+ [m
+         // Get the new image file uploaded by the user[m
+[36m@@ -147,7 +148,7 @@[m [mpublic function updateLogo(Request $request){[m
+         $logo->logoPath = $newLogoPath;[m
+         $logo->save();[m
+ [m
+[31m-        [m
+[32m+[m
+         // Redirect or return a success message[m
+         return redirect()->back()->with('status', 'Logo has been updated successfully.');[m
+     }[m
+[36m@@ -277,7 +278,7 @@[m [mpublic function updateWebsite(Request $request)[m
+ [m
+         //validate data[m
+         $validatedData = $request->validate([[m
+[31m-            'url' => "required",[m
+[32m+[m[32m            'url' => "required | url",[m
+         ]);[m
+ [m
+         //select row and save the data requested [m
+[36m@@ -379,51 +380,53 @@[m [mpublic function updateTeam(Request $request, $id)[m
+     public function background()[m
+     {[m
+         $bgData = background::find(1);[m
+[31m-        return view ('admin/pages/background' , compact('bgData'));[m
+[32m+[m[32m        return view('admin/pages/background', compact('bgData'));[m
+     }[m
+ [m
+     //Function to save video background[m
+[31m-    public function updateVidBg(Request $request){[m
+[32m+[m[32m    public function updateVidBg(Request $request)[m
+[32m+[m[32m    {[m
+ [m
+[31m-    $validatedData = $request->validate([[m
+[31m-        'video' => 'required|mimes:mp4,mkv,avi|max:100000',[m
+[31m-    ]);[m
+[31m-    [m
+[31m-    // Retrieve the existing video from the database[m
+[31m-    $video = background::find(1);[m
+[32m+[m[32m        $validatedData = $request->validate([[m
+[32m+[m[32m            'video' => 'required|mimes:mp4,mkv,avi|max:100000',[m
+[32m+[m[32m        ]);[m
+ [m
+[31m-    // Delete the current video from the storage disk[m
+[31m-    Storage::disk('public')->delete($video->vidPath);[m
+[32m+[m[32m        // Retrieve the existing video from the database[m
+[32m+[m[32m        $video = background::find(1);[m
+ [m
+[31m-    // Get the new video file uploaded by the user[m
+[31m-    $newVideo = $request->file('video');[m
+[32m+[m[32m        // Delete the current video from the storage disk[m
+[32m+[m[32m        Storage::disk('public')->delete($video->vidPath);[m
+ [m
+[31m-    // Get the original file name[m
+[31m-    $originalFileName = $newVideo->getClientOriginalName();[m
+[32m+[m[32m        // Get the new video file uploaded by the user[m
+[32m+[m[32m        $newVideo = $request->file('video');[m
+[32m+[m
+[32m+[m[32m        // Get the original file name[m
+[32m+[m[32m        $originalFileName = $newVideo->getClientOriginalName();[m
+ [m
+[31m-    // Store the new video on the storage disk with the original file name[m
+[31m-    $newVideoPath = $newVideo->storeAs('videos', $originalFileName, 'public');[m
+[32m+[m[32m        // Store the new video on the storage disk with the original file name[m
+[32m+[m[32m        $newVideoPath = $newVideo->storeAs('videos', $originalFileName, 'public');[m
+ [m
+[31m-    // Update the video path in the database[m
+[31m-    $video->vidPath = $newVideoPath;[m
+[31m-    $video->save();[m
+[32m+[m[32m        // Update the video path in the database[m
+[32m+[m[32m        $video->vidPath = $newVideoPath;[m
+[32m+[m[32m        $video->save();[m
+ [m
+[31m-    // Redirect or return a success message[m
+[31m-    return redirect()->back()->with('success', 'Video has been updated successfully.');[m
+[32m+[m[32m        // Redirect or return a success message[m
+[32m+[m[32m        return redirect()->back()->with('success', 'Video has been updated successfully.');[m
+     }[m
+ [m
+     //Function to update Primary  Background (Background)[m
+[31m-    public function updateBg1(Request $request){[m
+[32m+[m[32m    public function updateBg1(Request $request)[m
+[32m+[m[32m    {[m
+ [m
+         $validatedData = $request->validate([[m
+             'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',[m
+         ]);[m
+[31m-            [m
+[32m+[m
+         // Retrieve the existing background from the database[m
+         $image = background::find(1);[m
+ [m
+         // Delete the current background from the storage disk[m
+[31m-        Storage::disk('public')->delete($image -> bg1Path);[m
+[32m+[m[32m        Storage::disk('public')->delete($image->bg1Path);[m
+ [m
+ [m
+         // Get the new background file uploaded by the user[m
+[36m@@ -439,23 +442,24 @@[m [mpublic function updateBg1(Request $request){[m
+         $image->bg1Path = $newImagePath;[m
+         $image->save();[m
+ [m
+[31m-        [m
+[32m+[m
+         // Redirect or return a success message[m
+         return redirect()->back()->with('success', 'Image has been updated successfully.');[m
+     }[m
+ [m
+     //Function to update Secondary Background (Background)[m
+[31m-    public function updateBg2(Request $request){[m
+[32m+[m[32m    public function updateBg2(Request $request)[m
+[32m+[m[32m    {[m
+ [m
+         $validatedData = $request->validate([[m
+             'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',[m
+         ]);[m
+[31m-            [m
+[32m+[m
+         // Retrieve the existing background from the database[m
+         $image = background::find(1);[m
+ [m
+         // Delete the current background from the storage disk[m
+[31m-        Storage::disk('public')->delete($image -> bg2Path);[m
+[32m+[m[32m        Storage::disk('public')->delete($image->bg2Path);[m
+ [m
+ [m
+         // Get the new background file uploaded by the user[m
+[36m@@ -471,7 +475,7 @@[m [mpublic function updateBg2(Request $request){[m
+         $image->bg2Path = $newImagePath;[m
+         $image->save();[m
+ [m
+[31m-        [m
+[32m+[m
+         // Redirect or return a success message[m
+         return redirect()->back()->with('success', 'Image has been updated successfully.');[m
+     }[m
+[1mdiff --git a/app/Http/Controllers/setupController.php b/app/Http/Controllers/setupController.php[m
+[1mindex d2a8812..32d241c 100644[m
+[1m--- a/app/Http/Controllers/setupController.php[m
+[1m+++ b/app/Http/Controllers/setupController.php[m
+[36m@@ -2,9 +2,14 @@[m
+ [m
+ namespace App\Http\Controllers;[m
+ [m
+[32m+[m[32muse App\Models\footer;[m
+[32m+[m[32muse App\Models\information;[m
+ use App\Models\service;[m
+ use App\Models\siteProperty;[m
+[32m+[m[32muse App\Models\team;[m
+ use Illuminate\Http\Request;[m
+[32m+[m[32muse Illuminate\Support\Facades\Storage;[m
+[32m+[m
+ [m
+ class setupController extends Controller[m
+ {[m
+[36m@@ -23,8 +28,8 @@[m [mpublic function createService()[m
+         return view('admin/pages/service', compact('siteData', 'serviceData'));[m
+     }[m
+ [m
+[31m-    //function to add new row to service[m
+[31m-    public function addService(Request $request, $id)[m
+[32m+[m[32m    //function to add new row to service table[m
+[32m+[m[32m    public function addService(Request $request)[m
+     {[m
+ [m
+         //validate data from request[m
+[36m@@ -35,19 +40,22 @@[m [mpublic function addService(Request $request, $id)[m
+ [m
+         //create new row and save data from request[m
+         $service = new service;[m
+[31m-        $service -> title = $validateData['title'];[m
+[31m-        $service -> desc = $validateData['paragraph'];[m
+[31m-        $service -> save();[m
+[32m+[m[32m        $service->title = $validateData['title'];[m
+[32m+[m[32m        $service->desc = $validateData['paragraph'];[m
+[32m+[m[32m        $service->save();[m
+[32m+[m
+[32m+[m[32m        //invoke function to check all the column value[m
+[32m+[m[32m        $this->checkSetup();[m
+ [m
+         //get data from db[m
+         $siteData = siteProperty::find(1);[m
+         $serviceData = service::all();[m
+ [m
+         //check if service row have 6 row[m
+[31m-        if($serviceData -> count() == 6){[m
+[32m+[m[32m        if ($serviceData->count() == 6) {[m
+             $site = siteProperty::find(1);[m
+[31m-            $site -> setupService = true;[m
+[31m-            $site -> save();[m
+[32m+[m[32m            $site->setupService = true;[m
+[32m+[m[32m            $site->save();[m
+         }[m
+ [m
+         return redirect()->back()->with([[m
+[36m@@ -56,4 +64,163 @@[m [mpublic function addService(Request $request, $id)[m
+             'success' =>  'Service card has been added'[m
+         ]);[m
+     }[m
+[32m+[m
+[32m+[m[32m    //function to got to team form page[m
+[32m+[m[32m    public function createTeam()[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $siteData = siteProperty::find(1);[m
+[32m+[m[32m        $teamData = team::all();[m
+[32m+[m[32m        return view('admin/pages/team', compact('siteData', 'teamData'));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //function to add new row to team table[m
+[32m+[m[32m    public function addTeam(Request $request)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        //validate data from request[m
+[32m+[m[32m        $validatedData = $request->validate([[m
+[32m+[m[32m            'name' => 'required',[m
+[32m+[m[32m            'position' => 'required',[m
+[32m+[m[32m            'url' => 'required | url',[m
+[32m+[m[32m            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048'[m
+[32m+[m[32m        ]);[m
+[32m+[m
+[32m+[m[32m        //create row and save the data requested[m
+[32m+[m[32m        $team = new team();[m
+[32m+[m[32m        $team->name = $validatedData['name'];[m
+[32m+[m[32m        $team->position = $validatedData['position'];[m
+[32m+[m[32m        $team->url = $validatedData['url'];[m
+[32m+[m
+[32m+[m[32m        $newImage = $request->file('image');[m
+[32m+[m[32m        $originalFileName = $newImage->getClientOriginalName();[m
+[32m+[m[32m        $newImagePath = $newImage->storeAs('images', $originalFileName, 'public');[m
+[32m+[m[32m        $team->path = $newImagePath;[m
+[32m+[m
+[32m+[m[32m        $team->save();[m
+[32m+[m
+[32m+[m[32m        //get data from db[m
+[32m+[m[32m        $teamData = team::all();[m
+[32m+[m[32m        $siteData = siteProperty::find(1);[m
+[32m+[m
+[32m+[m[32m        //check if service row have 6 row[m
+[32m+[m[32m        if ($teamData->count() == 3) {[m
+[32m+[m[32m            $site = siteProperty::find(1);[m
+[32m+[m[32m            $site->setupTeam = true;[m
+[32m+[m[32m            $site->save();[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        //invoke function to check all the column value[m
+[32m+[m[32m        $this->checkSetup();[m
+[32m+[m
+[32m+[m[32m        return redirect()->back()->with([[m
+[32m+[m[32m            'teamData' => $teamData,[m
+[32m+[m[32m            'siteData',[m
+[32m+[m[32m            'success' =>  'team card has been added'[m
+[32m+[m[32m        ]);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //function to go to footer form page[m
+[32m+[m[32m    public function createFooter()[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $siteData = siteProperty::find(1);[m
+[32m+[m[32m        $footerData = footer::find(1);[m
+[32m+[m[32m        return view('admin/pages/footer', compact('siteData', 'footerData'));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //function to add new row to footer table[m
+[32m+[m[32m    public function addFooter(Request $request)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        //validate data fro[m
+[32m+[m[32m        $validateData = $request->validate(['content' => 'required']);[m
+[32m+[m
+[32m+[m[32m        //create row and save the data requested[m
+[32m+[m[32m        $footer = new footer();[m
+[32m+[m[32m        $footer->desc = $validateData['content'];[m
+[32m+[m[32m        $footer->save();[m
+[32m+[m
+[32m+[m[32m        //set the setup properties to true[m
+[32m+[m[32m        $site = siteProperty::find(1);[m
+[32m+[m[32m        $site->setupFooter = true;[m
+[32m+[m[32m        $site->save();[m
+[32m+[m
+[32m+[m[32m        //invoke function to check all the column value[m
+[32m+[m[32m        $this->checkSetup();[m
+[32m+[m
+[32m+[m[32m        //get data from db[m
+[32m+[m[32m        $footerData = footer::find(1);[m
+[32m+[m[32m        $siteData = siteProperty::find(1);[m
+[32m+[m
+[32m+[m[32m        return redirect()->back()->with([[m
+[32m+[m[32m            'footerData',[m
+[32m+[m[32m            'siteData',[m
+[32m+[m[32m            'success' =>  'footer has been added'[m
+[32m+[m[32m        ]);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //function to go to information form page[m
+[32m+[m[32m    public function createInfo()[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $siteData = siteProperty::find(1);[m
+[32m+[m[32m        $infoData = information::find(1);[m
+[32m+[m[32m        return view('admin/pages/information', compact('siteData', 'infoData'));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //function to add new row to information table[m
+[32m+[m[32m    public function addInfo(Request $request)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $validateData = $request->validate([[m
+[32m+[m[32m            'phone' => 'required',[m
+[32m+[m[32m            'email' => 'required | email',[m
+[32m+[m[32m            'url' => "required | url",[m
+[32m+[m[32m            'address' => 'required'[m
+[32m+[m[32m        ]);[m
+[32m+[m
+[32m+[m[32m        //create row and save data requested[m
+[32m+[m[32m        $info = new information();[m
+[32m+[m[32m        $info->phoneNum = $validateData['phone'];[m
+[32m+[m[32m        $info->email = $validateData['email'];[m
+[32m+[m[32m        $info->website = $validateData['url'];[m
+[32m+[m[32m        $info->address = $validateData['address'];[m
+[32m+[m
+[32m+[m[32m        $info->save();[m
+[32m+[m
+[32m+[m[32m        //set the setup properties to true[m
+[32m+[m[32m        $site = siteProperty::find(1);[m
+[32m+[m[32m        $site->setupInfo = true;[m
+[32m+[m[32m        $site->save();[m
+[32m+[m
+[32m+[m[32m        //invoke function to check all the column value[m
+[32m+[m[32m        $this->checkSetup();[m
+[32m+[m
+[32m+[m[32m        //get data from db[m
+[32m+[m[32m        $infoData = team::find(1);[m
+[32m+[m[32m        $siteData = siteProperty::find(1);[m
+[32m+[m
+[32m+[m[32m        return redirect()->back()->with([[m
+[32m+[m[32m            'infoData',[m
+[32m+[m[32m            'siteData',[m
+[32m+[m[32m            'success' =>  'Company info has been added'[m
+[32m+[m[32m        ]);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //check if all setup has been complete[m
+[32m+[m[32m    public function checkSetup()[m
+[32m+[m[32m    {[m
+[32m+[m
+[32m+[m[32m        //
