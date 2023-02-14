@@ -61,7 +61,7 @@
                     });
                 </script>
             @else
-                @foreach (['content'] as $errorKey)
+                @foreach ([  'facebookUrl', 'linkedinURL' , 'content'] as $errorKey)
                     @if ($errors->has($errorKey))
                         <script type="text/javascript">
                             let error = {!! json_encode($errors->messages()) !!};
@@ -102,7 +102,6 @@
                     <div class="container-fluid">
                         <!--row-->
                         <div class="row">
-                            <!--col-->
                             <div class="col-md-12">
                                 <!--card-->
                                 <div class="card card-warning card-outline">
@@ -117,6 +116,18 @@
                                         <form action=" {{ route('addFooter') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
+                                             <!--form group-->
+                                            <div class="form-group">
+                                                <label for="facebookUrl"><i class="fab fa-facebook"></i> &nbsp;Facebook page URL</label>
+                                                <input type="text" class="form-control" name="facebookUrl" placeholder="Please enter organization Facebook page URL">
+                                            </div>
+                                            <!--./form group-->
+                                             <!--form group-->
+                                            <div class="form-group">
+                                                <label for="linkedinURL"><i class="fab fa-linkedin"></i> &nbsp;LinkedIn page URL</label>
+                                                <input type="text" class="form-control" name="linkedinURL"  placeholder="Please enter organization LinkedIn page URL">
+                                            </div>
+                                            <!--./form group-->
                                             <!--form group-->
                                             <div class="form-group">
                                                 <label for="siteName">Footer Description</label>
@@ -148,6 +159,70 @@
                     <div class="container-fluid">
                         <!-- Small boxes (Stat box) -->
                         <div class="row">
+                            <!-- col --> 
+                            <div class="col-md-6">
+                                <!--card-->
+                                <div class="card card-success card-outline">
+                                    <!-- card header-->
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="fab fa-facebook"></i>
+                                                Facebook Link
+                                            </h3>
+                                        </div>
+                                    <!--card header-->
+                                    
+                                    <form action="{{ route('updateFacebook')}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <!--card body-->
+                                        <div class="card-body">
+                                            <p>Update facebook page URL</p>
+                                            <div class="form-group">
+                                                <label for="facebookUrl">Facebook page URL</label>
+                                                <input type="text" class="form-control" name="facebookUrl" value="{{$footerData->facebookUrl}}">
+                                            </div>
+                                        </div>
+                                        <!-- ./card body -->
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-success" >Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!--./Card-->
+                            </div>
+                            <!--./col -->
+                            <!-- col --> 
+                            <div class="col-md-6">
+                                <!--card-->
+                                <div class="card card-success card-outline">
+                                    <!-- card header-->
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="fab fa-linkedin"></i>
+                                                LinkedIn Link
+                                            </h3>
+                                        </div>
+                                    <!--card header-->
+                                    
+                                    <form action="{{ route('updateLinkedIn')}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <!--card body-->
+                                        <div class="card-body">
+                                            <p>Update LinkedIn page URL</p>
+                                            <div class="form-group">
+                                                <label for="linkedinURL">LinkedIn page URL</label>
+                                                <input type="text" class="form-control" name="linkedinURL" value="{{ $footerData->LinkedInUrl }}">
+                                            </div>
+                                        </div>
+                                        <!-- ./card body -->
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-success">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!--./Card-->
+                            </div>
+                            <!--./col -->
                             <div class="col-md-12">
                                 <div class="card card-success card-outline">
                                     <div class="card-header">

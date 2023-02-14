@@ -491,7 +491,7 @@
                                     <div class="card-body">
                                         <h3 class="profile-username text-center">Profile</h3>
                                         <p class="text-muted text-center">Update profile details</p>
-                                        <a href="{{ route('siteStatus') }}" class="btn btn-danger btn-block"><b>Update
+                                        <a href="{{ route('profile') }}" class="btn btn-danger btn-block"><b>Update
                                             Profile</b></a>
                                     </div>
                                     <!--card body-->

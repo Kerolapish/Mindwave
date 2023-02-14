@@ -545,6 +545,46 @@ class actionController extends Controller
         ]);
     }
 
+    //function to update facebook link (footer)
+    public function updateFacebook(Request $request)
+    {
+        //validateData 
+        $validatedData = $request -> validate(['facebookUrl' => 'required | url']);
+
+        //select row and save the data requested
+        $row = footer::find(1);
+        $row->facebookUrl = $validatedData['facebookUrl'];
+        $row->save();
+
+        $siteData = siteProperty::find(1);
+        $footerData = footer::find(1);
+        return redirect()->back()->with([
+            'success' =>  'Footer description has successfully changed.',
+            'footerData' => $footerData,
+            'siteData'
+        ]);
+    }
+
+    //function to update LinkedIn link (footer)
+    public function updateLinkedIn(Request $request)
+    {
+        //validateData 
+        $validatedData = $request -> validate(['linkedinURL' => 'required | url']);
+
+        //select row and save the data requested
+        $row = footer::find(1);
+        $row->LinkedInUrl = $validatedData['linkedinURL'];
+        $row->save();
+
+        $siteData = siteProperty::find(1);
+        $footerData = footer::find(1);
+        return redirect()->back()->with([
+            'success' =>  'Footer description has successfully changed.',
+            'footerData' => $footerData,
+            'siteData'
+        ]);
+    }
+
     //function to go to profile page
     public function updateProfile()
     {

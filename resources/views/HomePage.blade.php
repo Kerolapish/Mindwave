@@ -415,15 +415,67 @@
                 </div>
             </div>
         </div>
-        
-        <div class="footer">
-            @if ($footerData == null || $siteData->setupFooter == false)
-                <p>Copyright Mindwave Consultancy 2023</p>
-            @else
-                <p>{{ $footerData->desc }}</p>
-            @endif
-        </div>
     </section>
+    <footer class="footer-07">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <h2 class="footer-heading"><a href="#" class="logo">
+                            @if ($brandData == null || $siteData->setupBrand == false)
+                                <img src="{{ asset('assets/images/mindwave-logo.png') }}" alt="mindwave logo">
+                            @else
+                                <img src="{{ asset('storage/' . $brandData->logoPath) }}" alt="mindwave logo">
+                            @endif
+                        </a></h2>
+                    <p class="menu">
+                        <a href="#top" class="scroll-to-section">Home</a>
+                        <a href="#courses" class="scroll-to-section">Service</a>
+                        <a href="#meetings" class="scroll-to-section">Team</a>
+                        <a href="#contact" class="scroll-to-section">Contact</a>
+                    </p>
+                    <ul>
+                        <li>
+                            @if($footerData == null)
+                            <a href="#" class="icon-circle">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            @else
+                            <a href="{{$footerData -> facebookUrl}}" class="icon-circle">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            @endif
+                        </li>
+                        <li>
+                            @if($footerData == null)
+                            <a href="#" class="icon-circle">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            @else
+                            <a href="{{$footerData -> LinkedInUrl}}" class="icon-circle">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            @endif
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-12 text-center">
+                    <p class="copyright">
+                        Copyright &copy;
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script> 
+                        @if($footerData == null)
+                        All rights reserved | Mindwave Consulancy Sdn. Bhd.
+                        @else
+                        {{$footerData -> desc}}
+                        @endif
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Scripts -->
     <!-- Bootstrap core JavaScript -->

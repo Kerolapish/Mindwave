@@ -75,6 +75,8 @@ Route::middleware(['admin'])->group(function () {
 
     //Route for footer page (admin/footer)
     Route::post('admin/footer/update/description', [actionController::class , 'updateFooter'])-> name('updateFooter');
+    Route::post('admin/footer/update/facebook', [actionController::class , 'updateFacebook'])-> name('updateFacebook');
+    Route::post('admin/footer/update/linkedIn', [actionController::class , 'updateLinkedIn'])-> name('updateLinkedIn');
 
     //Route for team page (admin/team)
     Route::post('admin/team/update/teamDetails/{id}', [actionController::class , 'updateTeam']) -> name('updateTeam');

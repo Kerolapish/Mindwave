@@ -25,7 +25,7 @@
                             </a>
                         @else
                             <a href="#" class="nav-link">
-                                <p>Branding</p><i class="right fa-solid fa-warning"></i>
+                                <p>Profile</p><i class="right fa-solid fa-warning"></i>
                             </a>
                         @endif
                     </li>
@@ -113,52 +113,46 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
-                    <li class="nav-item">
-                        <a href="route('updateProfile')" class="nav-link">
-                            <i class="nav-icon fa-solid fa-copyright"></i>
-                            <p>Profile</p>
-                        </a>
-                    </li>
                     <li class="nav-header">APPEARANCE</li>
                     <li class="nav-item">
-                        <a href="/branding" class="nav-link">
+                        <a href="{{ route('branding')}}" class="nav-link {{ Request::is('admin/branding') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-copyright"></i>
                             <p>Branding</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/background" class="nav-link">
+                        <a href="{{ route('background')}}" class="nav-link {{ Request::is('admin/background') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-image"></i>
                             <p>Background</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/topTitle" class="nav-link">
+                        <a href="{{ route('content')}}" class="nav-link {{ Request::is('admin/content') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-paragraph"></i>
                             <p>Content</p>
                         </a>
                     </li>
                     <li class="nav-header">PAGE CONTENT</li>
                     <li class="nav-item">
-                        <a href="pages/calendar.html" class="nav-link">
+                        <a href="{{ route('information')}}" class="nav-link {{ Request::is('admin/information') ? 'active' : '' }}">
                             <i class="nav-icon fa-regular fa-rectangle-list"></i>
                             <p> Information</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/gallery.html" class="nav-link">
+                        <a href="{{ route('service')}}" class="nav-link {{ Request::is('admin/service') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-book"></i>
                             <p>Service</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/kanban.html" class="nav-link">
+                        <a href="{{ route('footer')}}" class="nav-link {{ Request::is('admin/footer') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-highlighter"></i>
                             <p>Footer</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/kanban.html" class="nav-link">
+                        <a href="{{ route('team')}}" class="nav-link {{ Request::is('admin/team') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-people-group"></i>
                             <p>Teams</p>
                         </a>

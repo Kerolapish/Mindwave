@@ -279,11 +279,17 @@ class setupController extends Controller
     public function addFooter(Request $request)
     {
         //validate data fro
-        $validateData = $request->validate(['content' => 'required']);
+        $validateData = $request->validate([
+            'content' => 'required',
+            'facebookUrl' => 'required | url',
+            'linkedinURL' => 'required | url'
+        ]);
 
         //create row and save the data requested
         $footer = new footer();
         $footer->desc = $validateData['content'];
+        $footer->facebookUrl = $validateData['facebookUrl'];
+        $footer->LinkedInUrl = $validateData['linkedinURL'];
         $footer->save();
 
         //set the setup properties to true

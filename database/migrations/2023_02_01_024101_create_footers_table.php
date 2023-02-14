@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('footers', function (Blueprint $table) {
             $table->id();
             $table->string('desc');
+            $table->string('facebookUrl');
+            $table->string('LinkedInUrl');
             $table->timestamps();
         });
     }
