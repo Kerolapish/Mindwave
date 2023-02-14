@@ -340,7 +340,9 @@
                 <div class="col-lg-9 align-self-center">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form id="contact" action="" method="post">
+                            <form id="contact" action="{{ route('sendMessage') }}" method="post"
+                                enctype="multipart/form-data">
+                                @csrf
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <h2>Let's get in touch</h2>
@@ -348,30 +350,29 @@
                                     <div class="col-lg-4">
                                         <fieldset>
                                             <input name="name" type="text" id="name"
-                                                placeholder="YOURNAME...*" required="">
+                                                placeholder="YOURNAME...*">
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-4">
                                         <fieldset>
                                             <input name="email" type="text" id="email"
-                                                pattern="[^ @]*@[^ @]*" placeholder="YOUR EMAIL..." required="">
+                                                placeholder="YOUR EMAIL...">
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-4">
                                         <fieldset>
                                             <input name="subject" type="text" id="subject"
-                                                placeholder="SUBJECT...*" required="">
+                                                placeholder="SUBJECT...*">
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12">
                                         <fieldset>
-                                            <textarea name="message" type="text" class="form-control" id="message" placeholder="YOUR MESSAGE..."
-                                                required=""></textarea>
+                                            <textarea name="message" type="text" class="form-control" id="message" placeholder="YOUR MESSAGE..."></textarea>
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12">
                                         <fieldset>
-                                            <button type="submit" id="form-submit" class="button">SEND MESSAGE
+                                            <button type="submit" class="button">SEND MESSAGE
                                                 NOW</button>
                                         </fieldset>
                                     </div>
@@ -435,25 +436,25 @@
                     </p>
                     <ul>
                         <li>
-                            @if($footerData == null)
-                            <a href="#" class="icon-circle">
-                                <i class="fab fa-facebook"></i>
-                            </a>
+                            @if ($footerData == null)
+                                <a href="#" class="icon-circle">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
                             @else
-                            <a href="{{$footerData -> facebookUrl}}" class="icon-circle">
-                                <i class="fab fa-facebook"></i>
-                            </a>
+                                <a href="{{ $footerData->facebookUrl }}" class="icon-circle">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
                             @endif
                         </li>
                         <li>
-                            @if($footerData == null)
-                            <a href="#" class="icon-circle">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
+                            @if ($footerData == null)
+                                <a href="#" class="icon-circle">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
                             @else
-                            <a href="{{$footerData -> LinkedInUrl}}" class="icon-circle">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
+                                <a href="{{ $footerData->LinkedInUrl }}" class="icon-circle">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
                             @endif
                         </li>
                     </ul>
@@ -465,11 +466,11 @@
                         Copyright &copy;
                         <script>
                             document.write(new Date().getFullYear());
-                        </script> 
-                        @if($footerData == null)
-                        All rights reserved | Mindwave Consulancy Sdn. Bhd.
+                        </script>
+                        @if ($footerData == null)
+                            All rights reserved | Mindwave Consulancy Sdn. Bhd.
                         @else
-                        {{$footerData -> desc}}
+                            {{ $footerData->desc }}
                         @endif
                     </p>
                 </div>

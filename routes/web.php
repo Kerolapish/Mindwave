@@ -21,12 +21,6 @@ Route::get('/', [actionController::class, 'index']) -> name('index');
 //Route to direct user to application login page
 Route::get('/login' , [actionController::class, 'loginPage']) -> name('loginPage');
 
-//Route to direct user to application register page
-Route::get('/register' , [actionController::class, 'registerPage']) -> name('registerPage');
-
-//Authentication route - Registration
-Route::post('registration', [authController::class, 'registration'])->name('register.auth'); 
-
 //Authentication route - Login
 Route::post('login', [authController::class, 'login'])->name('login.auth'); 
 

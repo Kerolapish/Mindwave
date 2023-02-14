@@ -41,12 +41,6 @@ class actionController extends Controller
         return view('/admin/loginPage');
     }
 
-    // function to direct user to register page
-    public function registerPage()
-    {
-        return view('/admin/registerPage');
-    }
-
     //function to direct user to unauthorize page
     public function unathorizeError()
     {
