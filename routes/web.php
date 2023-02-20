@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\actionController;
 use App\Http\Controllers\authController;
+use App\Http\Controllers\emailController;
 use App\Http\Controllers\setupController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,10 +30,13 @@ Route::post('logout', [authController::class, 'logout'])-> name('logout');
 
 //Unauthorize 401 Page
 Route::get('/unauthorize' , [actionController::class, 'unathorizeError']) -> name('unauthorize');
+    
+//send email 
+Route::post('send-email' , [emailController::class , 'sendemail'])-> name('sendemail');
 
 //protect route - only authorize user able to access 
 Route::middleware(['admin'])->group(function () {
-
+    
     //Route for dashboard
     Route::get('admin/dashboard' , [actionController::class , 'dashboard']) -> name('dashboard');
     Route::get('admin/branding' , [actionController::class , 'branding']) -> name('branding');

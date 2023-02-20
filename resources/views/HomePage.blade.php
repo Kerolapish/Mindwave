@@ -28,6 +28,10 @@
     <script src="https://kit.fontawesome.com/48b4d892a8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/lightbox.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
     @if ($siteData->downStatus == true)
         <link rel="stylesheet" href="assets/css/onConstruction.css">
@@ -64,6 +68,27 @@
 
             section.contact-us {
                 background-image: url({{ asset('storage/' . $bgData->bg1Path) }});
+            }
+
+            .error-msg {
+                background-color: #e57373;
+                color: #ffffff;
+                padding: 10px;
+                text-align: center;
+                position: relative;
+                bottom: 0;
+                width: 100%;
+                z-index: 1;
+                animation: fadein 0.5s;
+                border-radius: 0 0 20px 20px;
+            }
+
+            section.contact-us #contact input.is-invalid {
+                border: #ff7c7c 1px solid;
+            }
+
+            section.contact-us #contact textarea.is-invalid {
+                border: #ff7c7c 1px solid;
             }
         </style>
     @endif
@@ -336,11 +361,11 @@
 
     <section class="contact-us" id="contact">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-lg-9 align-self-center">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form id="contact" action="{{ route('sendMessage') }}" method="post"
+                            <form id="contact" action="{{ route('sendemail') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
@@ -350,36 +375,67 @@
                                     <div class="col-lg-4">
                                         <fieldset>
                                             <input name="name" type="text" id="name"
-                                                placeholder="YOURNAME...*">
+                                                placeholder="Enter your name"
+                                                class="@error('name') is-invalid @enderror">
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-4">
                                         <fieldset>
                                             <input name="email" type="text" id="email"
-                                                placeholder="YOUR EMAIL...">
+                                                placeholder="Enter your email"
+                                                class="@error('email') is-invalid @enderror">
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-4">
                                         <fieldset>
                                             <input name="subject" type="text" id="subject"
-                                                placeholder="SUBJECT...*">
+                                                placeholder="Enter subject"
+                                                class="@error('subject') is-invalid @enderror">
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12">
                                         <fieldset>
-                                            <textarea name="message" type="text" class="form-control" id="message" placeholder="YOUR MESSAGE..."></textarea>
+                                            <textarea name="message" class="@error('message') is-invalid @enderror" type="text" class="form-control"
+                                                id="message" placeholder="Enter message"></textarea>
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12">
                                         <fieldset>
-                                            <button type="submit" class="button">SEND MESSAGE
-                                                NOW</button>
+                                            <button type="submit" class="button">SEND MESSAGE</button>
                                         </fieldset>
                                     </div>
                                 </div>
+                                @if ($errors->any())
+                                    <div class="error-msg" id="error-msg">
+                                        @if ($errors->has('name'))
+                                            <span>{{ $errors->first('name') }}</span>
+                                        @elseif ($errors->has('email'))
+                                            <span>{{ $errors->first('email') }}</span>
+                                        @elseif ($errors->has('subject'))
+                                            <span>{{ $errors->first('subject') }}</span>
+                                        @elseif ($errors->has('message'))
+                                            <span>{{ $errors->first('message') }}</span>
+                                        @elseif(session()->has('errors'))
+                                            <span>{{ $errors->first() }}</span>
+                                        @endif
+                                    </div>
+                                @elseif(session('success'))
+                                    <script type="text/javascript">
+                                        $(document).ready(function() {
+                                            toastr.options.timeOut = 1500; // 1.5s
+                                            toastr.success("{{ session('success') }}");
+                                            $('#linkButton').click(function() {
+                                                toastr.success('Click Button');
+                                            });
+                                        });
+                                    </script>
+                                @endif
                             </form>
+
                         </div>
+
                     </div>
+
                 </div>
                 <div class="col-lg-3">
                     <div class="right-info">
@@ -417,6 +473,7 @@
             </div>
         </div>
     </section>
+
     <footer class="footer-07">
         <div class="container">
             <div class="row justify-content-center">

@@ -56,7 +56,6 @@
                                 @elseif(session()->has('errors'))
                                     <span>{{ $errors->first() }}</span>
                                 @endif
-
                             </div>
                         @endif
                     </div>

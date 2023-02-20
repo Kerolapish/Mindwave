@@ -19,7 +19,7 @@ class startSeed extends Seeder
             [
                 'name' => 'Primary-Admin',
                 'email' => 'admin1st@mindwave.com',
-                'password' => bcrypt('password123'),
+                'password' => bcrypt('password123'),    
             ],
             [
                 'name' => 'Secondary-Admin',

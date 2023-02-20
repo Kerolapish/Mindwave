@@ -1334,6 +1334,10 @@ section.contact-us {
 section.contact-us #contact {
   background-color: #fff;
   border-radius: 20px;
+  
+}
+
+section.contact-us #contact .row {
   padding: 40px;
 }
 
