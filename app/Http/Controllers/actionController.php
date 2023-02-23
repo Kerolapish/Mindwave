@@ -138,7 +138,7 @@ class actionController extends Controller
         $originalFileName = $newLogo->getClientOriginalName();
 
         // Store the new image on the storage disk with the original file name
-        $newLogoPath = $newLogo->storeAs('image', $originalFileName, 'public');
+        $newLogoPath = $newLogo->storeAs('images', $originalFileName, 'public');
 
         // Update the image path in the database
         $logo->logoPath = $newLogoPath;

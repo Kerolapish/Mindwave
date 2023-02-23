@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/login.css">
+    <!--icon-->
+    <link rel="icon" href="/assets/images/mindwave-ico.png">
 </head>
 
 <body>
@@ -18,7 +20,7 @@
             <div class="card login-card">
                 <div class="row no-gutters">
                     <div class="col-md-5">
-                        <img src="assets/images/bocchi-the-rock-nijika-ijichi.gif" alt="login"
+                        <img src="{{ asset('assets/images/login-ilustration.png')}}" alt="login"
                             class="login-card-img">
                     </div>
                     <div class="col-md-7">

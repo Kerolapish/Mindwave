@@ -36,7 +36,7 @@ Route::post('send-email' , [emailController::class , 'sendemail'])-> name('sende
 
 //protect route - only authorize user able to access 
 Route::middleware(['admin'])->group(function () {
-    
+
     //Route for dashboard
     Route::get('admin/dashboard' , [actionController::class , 'dashboard']) -> name('dashboard');
     Route::get('admin/branding' , [actionController::class , 'branding']) -> name('branding');
@@ -83,36 +83,35 @@ Route::middleware(['admin'])->group(function () {
     Route::post('admin/siteStatus/disableSite' , [actionController::class, 'disableSite']) -> name('disableSite');
     Route::get('admin/siteStatus/enable' , [actionController::class, 'enableSite']) -> name('enableSite');
     
-    //Route for profile
+    //Route for profile (admin/profile)
     Route::post('admin/profile/updateUsername/{id}' , [actionController::class , 'updateUsername']) -> name('updateUsername');
     Route::post('admin/profile/updatePassword/{id}' , [actionController::class , 'updatePassword']) -> name('updatePassword');
 
-    //////////////////////////////////////////////
     //SETUP//
     
     //Route for create setup in branding
-    Route::post('admin/branding/add' , [setupcontroller::class , 'addBrand']) -> name('addBrand');
-    Route::get('admin/branding/create' , [setupController::class , 'createBranding']) -> name('createBranding');
+    Route::post('admin/branding/add' , [setupcontroller::class , 'addBrand']) -> name('addBrand') ->middleware('lock');
+    Route::get('admin/branding/create' , [setupController::class , 'createBranding']) -> name('createBranding') ->middleware('lock');
 
     //Route for create setup in background
-    Route::get('admin/background/create' , [setupController::class , 'createBackground']) -> name('createBackground');
-    Route::post('admin/background/add', [setupController::class, 'addBg'])->name('addBg');  
+    Route::get('admin/background/create' , [setupController::class , 'createBackground']) -> name('createBackground') ->middleware('lock');
+    Route::post('admin/background/add', [setupController::class, 'addBg'])->name('addBg') ->middleware('lock');  
     
-    Route::get('admin/content/create' , [setupController::class , 'createContent']) -> name('createContent');
-    Route::post('admin/content/add' , [setupController::class , 'addContent']) -> name('addContent');
+    Route::get('admin/content/create' , [setupController::class , 'createContent']) -> name('createContent') ->middleware('lock');
+    Route::post('admin/content/add' , [setupController::class , 'addContent']) -> name('addContent') ->middleware('lock');
 
-    Route::get('admin/service/create' , [setupController::class , 'createService']) -> name('createService');
-    Route::post('admin/service/add/{id}' , [setupController::class, 'addService']) -> name('addService');
+    Route::get('admin/service/create' , [setupController::class , 'createService']) -> name('createService') ->middleware('lock');
+    Route::post('admin/service/add/{id}' , [setupController::class, 'addService']) -> name('addService') ->middleware('lock');
 
-    Route::get('admin/team/create' , [setupController::class , 'createTeam']) -> name('createTeam');
-    Route::post('admin/team/add/{id}' , [setupController::class , 'addTeam']) -> name('addTeam');
+    Route::get('admin/team/create' , [setupController::class , 'createTeam']) -> name('createTeam')->middleware('lock');
+    Route::post('admin/team/add/{id}' , [setupController::class , 'addTeam']) -> name('addTeam')->middleware('lock');
 
-    Route::get('admin/footer/create' , [setupController::class , 'createFooter']) -> name('createFooter');
-    Route::post('admin/footer/add' , [setupController::class , 'addFooter']) -> name('addFooter');
+    Route::get('admin/footer/create' , [setupController::class , 'createFooter']) -> name('createFooter')->middleware('lock');
+    Route::post('admin/footer/add' , [setupController::class , 'addFooter']) -> name('addFooter')->middleware('lock');
     
-    Route::get('admin/information/create' , [setupController::class , 'createInfo']) -> name('createInfo');
-    Route::post('admin/information/add' , [setupController::class , 'addInfo']) -> name('addInfo');
+    Route::get('admin/information/create' , [setupController::class , 'createInfo']) -> name('createInfo')->middleware('lock');
+    Route::post('admin/information/add' , [setupController::class , 'addInfo']) -> name('addInfo')->middleware('lock');
 
-    Route::get('admin/profile' , [setupController::class , 'profile']) -> name('profile');
-    Route::post('admin/profile/set-profile/{id}' , [setupController::class , 'setProfile']) -> name('setProfile');
+    Route::get('admin/profile' , [setupController::class , 'profile']) -> name('profile')->middleware('lock');
+    Route::post('admin/profile/set-profile/{id}' , [setupController::class , 'setProfile']) -> name('setProfile')->middleware('lock');
 });
